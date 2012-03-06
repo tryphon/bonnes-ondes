@@ -5,7 +5,7 @@ module ContentHelper
     return "" unless content
 
     content_tag(:div, :class => "ui360") do
-      content_tag :a, "#{content.name} (durée #{content.duration} min.)", :title => "Ecouter #{content.name}", :href => content.content_url(:format => :mp3)
+      content_tag :a, "#{content.name} <span class='duration'>(durée #{content.duration} min.)</span>", :title => "Ecouter #{content.name}", :href => content.content_url(:format => :mp3)
     end
   end
 
