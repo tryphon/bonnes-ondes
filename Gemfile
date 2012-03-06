@@ -10,6 +10,7 @@ gem 'acts-as-list'
 group :development do
   gem "sqlite3-ruby"
   gem 'rmagick'
+  gem 'capistrano'
 end
 
 group :test do
