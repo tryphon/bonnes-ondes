@@ -48,8 +48,8 @@
 <ul>
   <% for page in @show.pages %>
   <li>
-    <%= link_to page.title, [:admin, @show, page] %> | <%= link_to "up", move_up_admin_show_page_path(@show, page) unless page.first? %>
-    <br/>modifié <%= format_date(page.updated_at) %>
+    <%= link_to page.title, [:admin, @show, page] %>
+    <br/>modifiée <%= format_date(page.updated_at) %>
   </li>
   <% end %>
 </ul>

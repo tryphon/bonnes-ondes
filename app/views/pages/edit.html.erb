@@ -1,24 +1,27 @@
-<h1>Editing page</h1>
+<h2>Modifier la page "<%= @page.title %>"</h2>
+<p>Emission: <%= @page.show.name %></p>
 
 <% form_for([:admin, @page.show, @page]) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :title %><br />
+    <%= f.label :title, "Title" %><br />
     <%= f.text_field :title %>
   </p>
   <p>
-    <%= f.label :slug %><br />
+    <%= f.label :slug, "Lien" %><br />
     <%= f.text_field :slug %>
   </p>
   <p>
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
+    <%= f.label :content, "Texte" %><br />
+    <%= textile_editor 'page', 'content', :rows => 20, :cols => 60 -%></p>
   </p>
   <p>
     <%= f.submit "Modifier" %>
     ou <%= link_to 'revenir', admin_show_page_path(@page.show, @page) %>
   </p>
+
+ <%= textile_editor_initialize -%>
 <% end %>
 
 

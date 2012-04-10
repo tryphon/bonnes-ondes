@@ -82,10 +82,13 @@ img { border: none; vertical-align: middle; }
 #content a:hover.rel-tag { text-decoration: none; background: #efefef; }
 ul#welcome { margin: 16px 100px 16px 14px; }
 
-#content .description p, #content .description li { margin: 6px; }
+#content .description p, #content .description li, #content .content p { margin: 6px; }
 #content .description img { float: right; margin: 0 3px 10px 3px; }
-#content .description ul li { list-style: circle inside; }
-#content .description li { padding: 0 0 0 2px; }
+#content .description ul li, #content .content ul li { list-style: circle inside; }
+#content .description li, #content .content li { padding: 0 0 0 2px; }
+
+.pages.index #content li { position: relative; }
+.pages.index #content a.up { position: absolute; right: 0px }
 
 #content p.dates { text-align: right; color: #999; font-size: 0.8em; }
 

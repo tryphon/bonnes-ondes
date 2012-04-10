@@ -81,7 +81,7 @@ class PagesController < ApplicationController
     show.pages.find(params[:id]).destroy
 
     respond_to do |format|
-      format.html { redirect_to(admin_show_pages_url(show)) }
+      format.html { redirect_to(admin_show_pages_path(show)) }
       format.xml  { head :ok }
     end
   end
@@ -91,7 +91,7 @@ class PagesController < ApplicationController
     show.pages.find(params[:id]).move_higher
 
     respond_to do |format|
-      format.html { redirect_to(admin_show_path(show)) }
+      format.html { redirect_to(admin_show_pages_path(show)) }
       format.xml  { head :ok }
     end
   end
