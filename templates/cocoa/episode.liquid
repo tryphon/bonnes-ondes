@@ -61,7 +61,8 @@
                   {% if content.has_duration? %}
                     <span class="info">Durée: {{content.duration}} minutes</span>
                   {% endif %}
-                </a>
+                </a><br/>
+                <span class="info"><a href="{{content.url_for_ogg}}">Télécharger en Ogg/Vorbis</a> | <a href="{{content.url_for_mp3}}">Télécharger en MP3</a></span>
                 </div>
               </li>
             {% endfor %}

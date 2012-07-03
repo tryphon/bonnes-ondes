@@ -124,7 +124,7 @@ class Template::LiquidDropClass
       view.link_to("S'identifier", :controller => "account", :action => "login")
     end
 
-    "#{account_link} - hébergé par <a href='http://www.bonnes-ondes.fr'>Bonnes Ondes</a>"
+    "#{account_link} - hébergé par <a href=\"http://www.tryphon.eu\">Tryphon</a> sur <a href='http://www.bonnes-ondes.fr'>Bonnes Ondes</a>"
   end
 
 end
