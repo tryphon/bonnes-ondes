@@ -140,4 +140,8 @@ class Content::LiquidDropClass
     view.audio_player(@object)
   end
 
+  def larg_audio_player
+    view.audio_player(@object, :larg => true)
+  end
+
 end
