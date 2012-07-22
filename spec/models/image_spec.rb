@@ -7,7 +7,7 @@ describe Image do
   end
 
   it "should have a french message when size is too large" do
-    @image.size = 1.megabyte
+    @image.size = 2.megabyte
     @image.error_on(:size).first.should match(/fichier.*trop grand/)
   end
 
