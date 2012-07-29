@@ -56,11 +56,11 @@ Factory.define :audiobank_content do |f|
   f.name "name"
   f.principal true
   f.audiobank_id 123
+  f.association :episode
   
   f.after_build { |content|
     content.audiobank_project = AudiobankProjectMock.new
   }
-
 end
   
 Factory.define :post do |u|
