@@ -38,6 +38,30 @@ Factory.define :content, :class => TestContent do |f|
   f.name "name"
   f.principal true
 end
+
+class AudiobankProjectMock
+  
+  def exists?(id)
+    true
+  end
+
+  def document(id)
+    nil
+  end
+
+end
+
+Factory.define :audiobank_content do |f|
+  f.sequence(:slug) { |n| "content-#{n}" }
+  f.name "name"
+  f.principal true
+  f.audiobank_id 123
+  
+  f.after_build { |content|
+    content.audiobank_project = AudiobankProjectMock.new
+  }
+
+end
   
 Factory.define :post do |u|
   u.sequence(:slug) { |n| "slug-#{n}" }
@@ -63,4 +87,9 @@ Factory.define :template do |f|
   f.name "Test"
   f.sequence(:slug) { |n| "test-#{n}" }
   f.scm_url "dummy"
+end
+
+Factory.define :audiobank_project do |f|
+  f.sequence(:token) { |n| "user:password" }
+  f.association :show
 end

@@ -29,6 +29,8 @@ class Show < ActiveRecord::Base
   has_many :posts, :dependent => :destroy, :order => "`created_at` desc"
   has_many :pages, :dependent => :destroy, :order => "position"
 
+  belongs_to :audiobank_project
+
   belongs_to :logo, :class_name => "Image", :foreign_key => "logo_id"
 
   def next_episode_order

@@ -7,10 +7,17 @@ gem 'liquid'
 gem 'exception_notification'
 gem 'acts-as-list'
 
+gem 'httparty'
+
 group :development do
   gem "sqlite3-ruby"
   gem 'rmagick'
   gem 'capistrano'
+end
+
+group :development, :test do
+  gem "guard"
+  gem 'guard-rspec'
 end
 
 group :test do
@@ -18,7 +25,7 @@ group :test do
   gem 'rcov'
   gem 'remarkable_rails'
   gem 'factory_girl'
-  gem 'autotest'
+  gem 'fakeweb'
 end
 
 group :cucumber do

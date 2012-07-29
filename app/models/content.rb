@@ -37,6 +37,10 @@ class Content < ActiveRecord::Base
     available_end_at.nil? or available_end_at.future?
   end
 
+  def ready?
+    true
+  end
+
   def validate_content_type(content_types)
     return false if content_url.blank?
 

@@ -9,35 +9,45 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110109094221) do
+ActiveRecord::Schema.define(:version => 20120728080421) do
 
-  create_table "contents", :force => true do |t|
-    t.string   "type",             :null => false
-    t.string   "name",             :null => false
-    t.string   "slug",             :null => false
-    t.integer  "duration"
-    t.integer  "episode_id",       :null => false
+  create_table "audiobank_projects", :force => true do |t|
+    t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "audiobank_id"
+  end
+
+  create_table "contents", :force => true do |t|
+    t.string   "type",             :default => "", :null => false
+    t.string   "name",             :default => "", :null => false
+    t.string   "slug",             :default => "", :null => false
+    t.integer  "duration"
+    t.integer  "episode_id",       :default => 0,  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "audiobank_cast"
     t.string   "url"
     t.boolean  "principal"
     t.datetime "available_end_at"
+    t.integer  "audiobank_id"
   end
+
+  add_index "contents", ["audiobank_cast"], :name => "index_contents_on_audiobank_cast"
+  add_index "contents", ["audiobank_id"], :name => "index_contents_on_audiobank_id"
 
   create_table "episodes", :force => true do |t|
     t.integer  "order"
-    t.string   "title",                                                          :null => false
-    t.string   "slug",                                                           :null => false
-    t.string   "description",    :limit => 32000
-    t.integer  "show_id",                                                        :null => false
+    t.string   "title",                                                       :default => "", :null => false
+    t.string   "slug",                                                        :default => "", :null => false
+    t.text     "description"
+    t.integer  "show_id",                                                     :default => 0,  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "image_id"
     t.datetime "broadcasted_at"
     t.integer  "rating_count"
-    t.decimal  "rating_total"
-    t.decimal  "rating_avg",                      :precision => 10, :scale => 2
+    t.integer  "rating_total",   :limit => 10, :precision => 10, :scale => 0
+    t.decimal  "rating_avg",                   :precision => 10, :scale => 2
   end
 
   create_table "hosts", :force => true do |t|
@@ -85,7 +95,7 @@ ActiveRecord::Schema.define(:version => 20110109094221) do
   create_table "ratings", :force => true do |t|
     t.integer "rated_id"
     t.string  "rated_type"
-    t.decimal "rating"
+    t.integer "rating",     :limit => 10, :precision => 10, :scale => 0
   end
 
   add_index "ratings", ["rated_type", "rated_id"], :name => "index_ratings_on_rated_type_and_rated_id"
@@ -101,19 +111,20 @@ ActiveRecord::Schema.define(:version => 20110109094221) do
 
   create_table "shows", :force => true do |t|
     t.string   "name"
-    t.string   "description",     :limit => 32000
-    t.string   "slug",                             :default => "", :null => false
+    t.text     "description"
+    t.string   "slug",                 :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "logo_id"
-    t.integer  "visit_count",                      :default => 0,  :null => false
+    t.integer  "visit_count",          :default => 0,  :null => false
     t.string   "podcast_comment"
     t.integer  "template_id"
+    t.integer  "audiobank_project_id"
   end
 
   create_table "shows_users", :id => false, :force => true do |t|
-    t.integer "show_id", :null => false
-    t.integer "user_id", :null => false
+    t.integer "show_id", :default => 0, :null => false
+    t.integer "user_id", :default => 0, :null => false
   end
 
   create_table "taggings", :force => true do |t|

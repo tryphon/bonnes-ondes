@@ -16,7 +16,8 @@ config.action_view.debug_rjs                         = true
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
-# config.to_prepare do 
-#   AudiobankContent.audiobank_base_url = "http://audiobank.dbx.tryphon.priv"
-# end
+config.to_prepare do 
+  AudiobankContent.audiobank_base_url = "http://audiobank.local"
+  Audiobank::Account.base_uri "http://audiobank.local"
+end
 

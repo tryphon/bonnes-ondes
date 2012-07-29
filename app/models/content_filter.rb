@@ -29,4 +29,11 @@ class ContentFilter
     end
   end
 
+  def description_without_players(view)
+    content_references.inject(description) do |description, pair|
+      reference, content = pair
+      description.gsub reference, ""
+    end
+  end
+
 end

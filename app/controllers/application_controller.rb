@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   helper :all
   helper_method :admin_show_path
 
-
   before_filter :login_from_cookie, :login_required
 
   layout "default"

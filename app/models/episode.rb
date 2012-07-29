@@ -6,7 +6,7 @@ class Episode < ActiveRecord::Base
   named_scope :broadcasted, lambda { {:conditions => ["broadcasted_at < ?", Time.now] } }
   named_scope :not_broadcasted, lambda { {:conditions => ["broadcasted_at > ?", Time.now] } }
 
-  liquid_methods :show, :slug, :title, :description, :image, :contents, :broadcasted_at, :tags, :rating_count, :rating_total, :rating_avg
+  liquid_methods :show, :slug, :title, :description, :image, :broadcasted_at, :tags, :rating_count, :rating_total, :rating_avg
 
   validates_presence_of :order, :message => "Pas de numéro défini"
   validates_uniqueness_of :order, :scope => :show_id, :message => "Un épisode utilise déjà ce numéro"
@@ -56,12 +56,20 @@ class Episode::LiquidDropClass
     view.url_for_episode(@object)
   end
 
+  def contents
+    @object.contents.select(&:ready?)
+  end
+
   def principal_contents
-    @object.contents.principal
+    @object.contents.principal.select(&:ready?)
   end
 
   def html_description
     view.textilize(ContentFilter.new(@object).description_with_players(view))
+  end
+
+  def text_description
+    view.textilize(ContentFilter.new(@object).description_without_players)
   end
 
   def vote_tag
