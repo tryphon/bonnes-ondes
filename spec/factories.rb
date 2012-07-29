@@ -24,6 +24,8 @@ Factory.define :show do |f|
 end
 
 Factory.define :episode do |f|
+  f.association :show
+
   f.sequence(:slug) { |n| "episode-#{n}" }
   f.sequence(:order) { |n| n }
   f.title "title"
