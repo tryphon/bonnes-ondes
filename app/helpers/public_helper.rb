@@ -3,7 +3,7 @@ module PublicHelper
 
   def contents_for_feed(show)
     Episode.sort(show.episodes).select(&:broadcasted?).collect do |episode|
-      episode.contents.select(&:principal?) 
+      episode.contents.select(&:principal?).select(&:ready?) 
     end.flatten
   end
 
