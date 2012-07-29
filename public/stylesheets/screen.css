@@ -140,3 +140,4 @@ p#cloud { margin-bottom: 8px; }
 
 .fieldWithErrors { display: inline }
 #content form .hint { font-size: 0.85em; color: #aaa; margin-bottom: 5px }
+#content form input[type=checkbox] { margin: 8px 0 10px 0; }

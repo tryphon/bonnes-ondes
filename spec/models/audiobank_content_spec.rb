@@ -55,9 +55,9 @@ describe AudiobankContent do
 
   describe "cast_url" do
 
-    it "should have this form : <audiobank_base_url>/casts/<audiobank_id>" do
-      subject.stub :audiobank_base_url => "<audiobank_base_url>", :audiobank_id => "<audiobank_id>"
-      subject.cast_url.should == "<audiobank_base_url>/casts/<audiobank_id>"
+    it "should have this form : <audiobank_base_url>/casts/<audiobank_cast>" do
+      subject.stub :audiobank_base_url => "<audiobank_base_url>", :audiobank_cast => "<audiobank_cast>"
+      subject.cast_url.should == "<audiobank_base_url>/casts/<audiobank_cast>"
     end
     
   end

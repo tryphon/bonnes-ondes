@@ -8,7 +8,7 @@ class AudiobankProject < ActiveRecord::Base
     @audiobank_account ||= Audiobank::Account.new(token)
   end
 
-  delegate :document, :to => :audiobank_account
+  delegate :document, :documents, :to => :audiobank_account
 
   def exists?(id)
     document(id).present?

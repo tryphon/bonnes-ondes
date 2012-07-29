@@ -31,6 +31,18 @@ class Episode < ActiveRecord::Base
   has_many :contents, :dependent => :destroy
   belongs_to :image
 
+  attr_accessor :create_audiobank_document
+
+  def create_audiobank_document?
+    [true, "1"].include?(create_audiobank_document)
+  end
+
+  after_create :create_audiobank_content
+
+  def create_audiobank_content
+    AudiobankContent.create(:episode => self, :principal => true, :name => "Intégrale", :slug => "integrale", :create_document => true) if create_audiobank_document?
+  end
+
   def broadcasted?
     if broadcasted_at
       broadcasted_at < Time.now

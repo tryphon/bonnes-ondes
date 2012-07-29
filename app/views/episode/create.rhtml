@@ -25,6 +25,11 @@
  <p><label for="episode_broadcasted_at">Date de diffusion :</label><br/>
  <%= datetime_select 'episode', 'broadcasted_at', :order => [ :day, :month, :year ], :minute_step => 15 -%></p>
 
+ <p>
+   <label for="create_audiobank_document">Créer un document AudioBank :</label>
+   <%= check_box 'episode', :create_audiobank_document %>
+ </p>
+
  <%= hidden_field("episode", "show_id") %>
 
  <%= submit_tag "Créer" %> ou <%= link_to("revenir", :controller => "show", :action => "show", :id => @episode.show ) %>

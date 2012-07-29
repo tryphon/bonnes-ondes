@@ -37,12 +37,17 @@
           <% else %>
             inconnue
           <% end %>
+
+          <% if AudiobankContent === content %>
+          - Document <%= content.audiobank_id %>
+          <% end %>
         </p>
         <div class="details">
           <span class="created_at">créé <%= format_date(content.created_at) %></span>
         </div>
         <div class="actions">
-          <%= link_to("Ecouter", { :controller => "content", :action => "play", :id => content }) %>
+          <%= link_to("Ecouter", { :controller => "content", :action => "play", :id => content }) if content.ready? %>
+          <%= link_to("Voir dans AudioBank", content.document_url, :popup => true) if AudiobankContent === content %>
           <%= link_to("Supprimer", { :controller => "content", :action => "delete", :id => content }, :confirm => "Etes-vous sûr de vouloir définitivement supprimer ce contenu ?", :class => "destroy") %>
         </div>
       </li>

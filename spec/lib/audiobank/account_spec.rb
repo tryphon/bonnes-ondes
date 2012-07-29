@@ -7,6 +7,25 @@ describe Audiobank::Account do
   before(:each) do
     FakeWeb.allow_net_connect = false    
   end
+
+  describe "#get" do
+    
+    it "should send get request to the specified url" do
+      FakeWeb.register_uri :get, "http://test:dummy@audiobank.tryphon.org/dummy", :body => 'dummy'
+      subject.get("/dummy").body.should == 'dummy'
+    end
+
+  end
+
+  describe "#post" do
+    
+    it "should send post request to the specified url" do
+      FakeWeb.register_uri :post, "http://test:dummy@audiobank.tryphon.org/dummy", :body => 'dummy'
+      subject.post("/dummy", :key => "value")
+      FakeWeb.last_request.body.should == '{"key":"value"}'
+    end
+
+  end
   
   describe "#document" do
 

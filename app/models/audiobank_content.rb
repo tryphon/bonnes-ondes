@@ -28,13 +28,72 @@ class AudiobankContent < Content
   end
 
   def cast_url
-    "#{audiobank_base_url}/casts/#{audiobank_id}"
+    "#{audiobank_base_url}/casts/#{audiobank_cast}"
+  end
+
+  def document_url
+    "#{audiobank_base_url}/documents/show/#{audiobank_id}"
   end
 
   attr_accessor :audiobank_project
 
   def audiobank_project
     @audiobank_project ||= episode.try(:show).try(:audiobank_project)
+  end
+
+  attr_accessor :create_document
+
+  def create_document?
+    [true, "1"].include?(create_document)
+  end
+
+  before_validation_on_create :create_document!
+
+  def create_document!
+    return unless audiobank_id.nil? and create_document?
+    self.audiobank_id = DocumentBuilder.new(self).create
+  end
+
+  class DocumentBuilder
+
+    attr_accessor :content
+
+    def initialize(content)
+      @content = content
+    end
+
+    delegate :name, :episode, :audiobank_project, :to => :content
+
+    def default_name?
+      name == "Intégrale"
+    end
+
+    def name_without_default
+      name unless default_name?
+    end
+
+    def title
+      [ episode.try(:title), name_without_default ].compact.join(" - ")
+    end
+
+    def description
+      description = (episode.try(:description) || "created by Bonnes-Ondes")
+      truncate description, 250
+    end
+
+    def truncate(text, length)
+      omission = "..."
+      l = length - omission.mb_chars.length
+      chars = text.mb_chars
+      (chars.length > length ? chars[0...l] + omission : text).to_s
+    end
+
+    def create
+      attributes = { :title => title, :description => description }
+      puts self.inspect
+      audiobank_project.documents.create(attributes).id
+    end
+
   end
 
   validate_on_create :check_audiobank_document_exists

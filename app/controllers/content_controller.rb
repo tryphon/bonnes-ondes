@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class ContentController < ApplicationController
 
   def create_audiobank
@@ -26,7 +27,7 @@ class ContentController < ApplicationController
     episode_id = request.post? ? params[:content][:episode_id] : params[:episode_id]
     episode = current_user.find_episode(episode_id)
 
-    @content = Content.create(type, params[:content])
+    @content = Content.build(type, params[:content])
     @content.episode = episode
 
     if request.post?
