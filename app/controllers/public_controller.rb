@@ -144,7 +144,7 @@ class PublicController < ApplicationController
       if host = Host.find_by_name(request.host)
         @show = Show.find(host.show, :include => include)
       else
-        if request.host =~ /^(.*).bonnes-ondes.(fr|local)$/
+        if request.host =~ /^(.*).bonnes-ondes.(fr|local|priv)$/
           @show = Show.find_by_slug($1, :include => include)
         end
       end
