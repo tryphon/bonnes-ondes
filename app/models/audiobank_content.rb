@@ -41,6 +41,10 @@ class AudiobankContent < Content
     @audiobank_project ||= episode.try(:show).try(:audiobank_project)
   end
 
+  def audiobank_enabled?
+    audiobank_project.present?
+  end
+
   attr_accessor :create_document
 
   def create_document?

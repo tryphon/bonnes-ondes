@@ -31,6 +31,16 @@ class Episode < ActiveRecord::Base
   has_many :contents, :dependent => :destroy
   belongs_to :image
 
+  attr_accessor :audiobank_project
+
+  def audiobank_project
+    @audiobank_project ||= show.try(:audiobank_project)
+  end
+
+  def audiobank_enabled?
+    audiobank_project.present?
+  end
+
   attr_accessor :create_audiobank_document
 
   def create_audiobank_document?

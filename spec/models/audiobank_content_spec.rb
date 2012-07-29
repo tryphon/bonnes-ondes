@@ -134,4 +134,13 @@ describe AudiobankContent do
 
   end
 
+  describe "#audiobank_enabled?" do
+    
+    it "should be true if audiobank_project is defined" do
+      subject.stub :audiobank_project => mock
+      subject.should be_audiobank_enabled
+    end
+
+  end
+
 end

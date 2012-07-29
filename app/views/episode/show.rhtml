@@ -65,7 +65,7 @@
 <div class="actions">
   <%=
     link_to("Ajouter un document AudioBank",
-    { :controller => "content", :action => "create_audiobank", :episode_id => @episode})
+    { :controller => "content", :action => "create_audiobank", :episode_id => @episode}) if @episode.audiobank_enabled?
   %>
   <%=
     link_to("Ajouter un son sur le net",

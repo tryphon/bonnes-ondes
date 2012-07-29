@@ -41,6 +41,15 @@ describe Show do
 
   end
 
+  describe "#audiobank_enabled?" do
+    
+    it "should be true if audiobank_project is defined" do
+      @show.stub :audiobank_project => mock
+      @show.should be_audiobank_enabled
+    end
+
+  end
+
 end
 
 describe Show::LiquidDropClass do

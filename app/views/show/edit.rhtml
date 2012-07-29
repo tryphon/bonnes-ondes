@@ -13,6 +13,11 @@
    <%= textile_editor 'show', 'description', :rows => 10, :cols => 60 -%>
  </p>
 
+ <p>
+   <%= f.label :audiobank_account %><br/>
+   <%= f.text_field 'audiobank_account' %>
+ </p>
+
  <% unless current_user.templates.empty? %>
  <p>
    <%= f.label :template_id, "Template" %><br/>

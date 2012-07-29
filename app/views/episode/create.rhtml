@@ -25,10 +25,12 @@
  <p><label for="episode_broadcasted_at">Date de diffusion :</label><br/>
  <%= datetime_select 'episode', 'broadcasted_at', :order => [ :day, :month, :year ], :minute_step => 15 -%></p>
 
+ <% if @episode.audiobank_enabled? %>
  <p>
    <label for="create_audiobank_document">Créer un document AudioBank :</label>
    <%= check_box 'episode', :create_audiobank_document %>
  </p>
+ <% end %>
 
  <%= hidden_field("episode", "show_id") %>
 

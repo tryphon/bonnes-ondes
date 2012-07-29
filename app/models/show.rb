@@ -31,6 +31,26 @@ class Show < ActiveRecord::Base
 
   belongs_to :audiobank_project
 
+  def audiobank_account
+    audiobank_project.try(:token)
+  end
+
+  def audiobank_account=(token)
+    if audiobank_project
+      if token.present?
+        audiobank_project.update_attributes :token => token
+      else
+        audiobank_project.destroy
+      end
+    else
+      create_audiobank_project :token => token
+    end
+  end
+
+  def audiobank_enabled?
+    audiobank_project.present?
+  end
+
   belongs_to :logo, :class_name => "Image", :foreign_key => "logo_id"
 
   def next_episode_order
