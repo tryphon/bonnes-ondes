@@ -109,7 +109,7 @@ module ApplicationHelper
   end
 
   def textile_editor(*args)
-    (super *args) + '<br/><div class="textile_editor_help">Ajouter un lien: "Bonnes Ondes":http://bonnes-ondes.fr</div>'.html_safe
+    (super *args) + '<br/><div class="hint">Ajouter un lien: "Bonnes Ondes":http://bonnes-ondes.fr</div>'.html_safe
   end
 
   def textilize_in_text(content)
