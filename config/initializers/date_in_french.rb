@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 # French month names
 require 'date'
 
 silence_warnings do
   Date.const_set "MONTHNAMES_EN", Date::MONTHNAMES
   Date.const_set "MONTHNAMES", [nil] + %w(Janvier Février Mars Avril Mai Juin Juillet Août Septembre Octobre Novembre Décembre)
+  Date.const_set "DAYNAMES_EN", Date::DAYNAMES
   Date.const_set "DAYNAMES", %w(Dimanche Lundi Mardi Mercredi Jeudi Vendredi Samedi)
   Date.const_set "ABBR_MONTHNAMES", [nil] + %w(Jan Fév Mar Avr Mai Juin Juil Aoû Sep Oct Nov Dec)
 end
@@ -23,6 +25,12 @@ class Time
     if format.include? '%B'
       Date::MONTHNAMES_EN.each_with_index do |month_en, index|
         formatted = formatted.gsub(month_en, Date::MONTHNAMES[index]) unless month_en.nil?
+      end
+    end
+
+    if format.include? '%A'
+      Date::DAYNAMES_EN.each_with_index do |day_en, index|
+        formatted = formatted.gsub(day_en, Date::DAYNAMES[index]) unless day_en.nil?
       end
     end
 
