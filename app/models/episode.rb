@@ -102,4 +102,8 @@ class Episode::LiquidDropClass
     @object.tag_list
   end
 
+  def broadcast_distance
+    ((@object.broadcasted_at - Time.now) / 1.minute).to_i
+  end
+
 end
