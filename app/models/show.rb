@@ -100,7 +100,7 @@ class Show::LiquidDropClass
   end
 
   def not_broadcasted_episodes
-    Episode.sort @object.episodes.not_broadcasted.reverse
+    Episode.sort(@object.episodes.not_broadcasted).reverse
   end
 
   def popular_episodes
