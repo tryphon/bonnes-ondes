@@ -3,14 +3,14 @@ class Image < ActiveRecord::Base
   liquid_methods :width, :height, :title
 
   belongs_to :show
-  has_attachment :storage => :file_system, :max_size => 1.megabyte, :content_type => :image, :thumbnails => { :larg => '500>', :normal => '200>', :thumb => '75' }
+  has_attachment :storage => :file_system, :max_size => 2.megabytes, :content_type => :image, :thumbnails => { :larg => '500>', :normal => '200>', :thumb => '75' }
   validates_as_attachment
 
   protected
 
   def attachment_attributes_valid?
     if self.size and self.size > attachment_options[:max_size]
-      errors.add :size, "Le fichier de l'image est trop grand (300 ko maximum)"
+      errors.add :size, "Le fichier de l'image est trop grand (2Mo maximum)"
     elsif not attachment_options[:content_type].include? self.content_type
       errors.add :size, "Le fichier n'est pas reconnu comme une image (#{content_type})"
     else
