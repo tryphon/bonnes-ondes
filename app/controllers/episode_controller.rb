@@ -45,7 +45,7 @@ class EpisodeController < ApplicationController
     @filter = params[:filter]
     case @filter
       when 'without_content'
-        @episodes = @episodes.find_all { |episode| episode.contents.empty? }
+        @episodes = @episodes.find_all { |episode| episode.contents.select(&:ready?).empty? }
     end
 
     if params[:tag]
