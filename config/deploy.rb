@@ -1,7 +1,7 @@
 set :application, "bonnes-ondes"
 set :scm, "git"
 
-set :repository, "git://www.tryphon.priv/bonnes-ondes"
+set :repository, "git://projects.tryphon.priv/bonnes-ondes"
 set :deploy_to, "/var/www/bonnes-ondes"
 
 set :keep_releases, 5
