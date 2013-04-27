@@ -103,6 +103,10 @@ class Show::LiquidDropClass
     Episode.sort(@object.episodes.not_broadcasted).reverse
   end
 
+  def episodes
+    Episode.sort(@object.episodes)
+  end
+
   def popular_episodes
     @object.episodes.find(:all, :order => 'rating_avg desc, rating_count desc')
   end
