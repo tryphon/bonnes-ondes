@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class Show < ActiveRecord::Base
 
-  has_one :host, :dependent => :destroy
+  has_one :host, :dependent => :destroy, :as => :site
   belongs_to :template
 
   liquid_methods :name, :description, :episodes, :logo, :tags, :posts, :pages
@@ -28,6 +28,8 @@ class Show < ActiveRecord::Base
   has_many :images, :dependent => :destroy
   has_many :posts, :dependent => :destroy, :order => "`created_at` desc"
   has_many :pages, :dependent => :destroy, :order => "position"
+
+  has_and_belongs_to_many :radios
 
   belongs_to :audiobank_project
 

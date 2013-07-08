@@ -1,9 +1,12 @@
-Sitemap: <%= url_for :controller => :sitemaps, :action => :show, :id => @show.slug, :only_path => false %>
+Sitemap: <%= url_for_sitemap @site %>
 
 User-agent: *
-<%- for content in @show.contents -%>
-Disallow: <%= url_for_content(content, :only_path => true) %>
+
+<% @shows.each do |show| %>
+<%- for content in show.contents -%>
+Disallow: <%= url_for_content content, :only_path => true %>
 <%- end -%>
-<%- for episode in @show.episodes -%>
-Disallow: <%= url_for :controller => "public", :action => "vote", :episode_id => episode %>
+<%- for episode in show.episodes -%>
+Disallow: <%= url_for_vote episode, :only_path => true %>
 <%- end -%>
+<% end %>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120728080421) do
+ActiveRecord::Schema.define(:version => 20130708071550) do
 
   create_table "audiobank_projects", :force => true do |t|
     t.string   "token"
@@ -52,10 +52,11 @@ ActiveRecord::Schema.define(:version => 20120728080421) do
 
   create_table "hosts", :force => true do |t|
     t.string   "name"
-    t.integer  "show_id"
+    t.integer  "site_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "google_analytics_tracker_id"
+    t.string   "site_type"
   end
 
   create_table "images", :force => true do |t|
@@ -90,6 +91,25 @@ ActiveRecord::Schema.define(:version => 20120728080421) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "radios", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.text     "description"
+    t.integer  "template_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "radios_shows", :id => false, :force => true do |t|
+    t.integer "radio_id", :null => false
+    t.integer "show_id",  :null => false
+  end
+
+  create_table "radios_users", :id => false, :force => true do |t|
+    t.integer "radio_id", :null => false
+    t.integer "user_id",  :null => false
   end
 
   create_table "ratings", :force => true do |t|

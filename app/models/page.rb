@@ -28,4 +28,8 @@ class Page::LiquidDropClass
     view.url_for_page(@object)
   end
 
+  def parent
+    show
+  end
+
 end

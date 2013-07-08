@@ -69,6 +69,10 @@ class Episode < ActiveRecord::Base
     end
   end
 
+  def parent
+    show
+  end
+
 end
 
 # TODO move this f... code anywhere else

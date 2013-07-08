@@ -8,40 +8,41 @@ module ApplicationHelper
     RAILS_ENV == 'development' ? 'bonnes-ondes.local' : 'bonnes-ondes.fr'
   end
 
-  def show_hostname(show)
-    hostname = if show.host.nil? or show.host.name.nil?
-      "#{show.slug}.#{main_domain}"
+  def site_hostname(object)
+    site = site_object(object)
+
+    hostname = if site.host.nil? or site.host.name.nil?
+      "#{site.slug}.#{main_domain}"
     else
-      show.host.name
+      site.host.name
     end
 
     hostname + request.port_string
   end
 
+  def url_for_radio(radio, options = {})
+    url_for_object radio, options
+  end
+
   def url_for_show(show, options = {})
-    options.update({ :controller => "public", :action => "show",
-      :host => show_hostname(show) })
-    url_for options
+    url_for_object show, :action => "show"
   end
 
   def url_for_podcast(show)
-    url_for :controller => "public", :action => "feed", :host => show_hostname(show)
+    url_for_object show, :action => "feed"
   end
 
   def url_for_page(page, options = {})
-    options.update({ :controller => "public", :action => "page",
-      :host => show_hostname(page.show),
-      :page_slug => page.slug })
-
-    url_for options
+    url_for_object page, :action => "page", :page_slug => page.slug
   end
 
   def url_for_episode(episode, options = {})
-    options.update({ :controller => "public", :action => "episode",
-      :host => show_hostname(episode.show),
-      :episode_slug => episode.slug })
+    url_for_object episode, :action => "episode", :episode_slug => episode.slug
+  end
 
-    url_for options
+  def url_for_vote(episode, options = {})
+    options = options.merge(:action => "vote", :episode_id => episode.id)
+    url_for_object episode, options
   end
 
   def url_for_content(content, options = {})
@@ -52,14 +53,16 @@ module ApplicationHelper
       mode = options.delete(:mode) if options[:mode]
     end
 
-    url_for(options.merge({ :controller => "public", :action => mode,
-      :host => show_hostname(content.episode.show),
-      :episode_slug => content.episode.slug, :content_slug => content.slug }))
+    options = options.merge :action => mode, :content_slug => content.slug, :episode_slug => content.episode.slug
+    url_for_object content, options
   end
 
   def url_for_show_tag(show, tag, options = {})
-    url_for(options.merge({ :controller => "public", :action => "tags",
-      :host => show_hostname(show), :search => tag.name}))
+    url_for_object show, :action => "tags", :search => tag.name
+  end
+
+  def url_for_sitemap(site)
+    url_for :controller => "sitemaps", :action => "show", :id => site.slug, :only_path => false
   end
 
   def link_to_show(show)
@@ -115,5 +118,52 @@ module ApplicationHelper
   def textilize_in_text(content)
     strip_tags textilize(content)
   end
+
+  private
+
+  def url_for_object(object, options)
+    base_options = { :host => site_hostname(object) }
+
+    parents = parents_object(object)
+
+    if parents.first.is_a?(Radio)
+      show = object.is_a?(Show) ? object : parents.second
+      base_options[:show_slug] = show.slug
+    end
+
+    options = options.merge(base_options).merge(:controller => "public")
+
+    url_for options
+  end
+
+  def site_object(object)
+    parents_object(object).first or object
+  end
+
+  def parent_object(object)
+    if object.is_a?(Show)
+      # FIXME Force Radio site for the moment
+      object.radios.present? ? object.radios.first : nil
+    else
+      object.parent
+    end
+  end
+
+  def parents_object(object)
+    [].tap do |parents|
+      while parent = parent_object(object)
+        parents.unshift parent
+        object = parent
+      end
+    end
+  end
+
+  # def object_slugs(object)
+  #   ([object] + parents_object(object)).inject({}) do |slugs, parent|
+  #     parent_type = parent.class.name.parameterize
+  #     slugs["#{parent_type}_slug"] = parent
+  #     slugs
+  #   end
+  # end
 
 end

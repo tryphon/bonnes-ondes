@@ -15,8 +15,7 @@ class PublicController < ApplicationController
 
   def welcome
     begin
-      load_show
-      render_show
+      render_site
     rescue ActiveRecord::RecordNotFound
       # localhost is used in development
       # www.example.com is used by cucumber
@@ -43,7 +42,7 @@ class PublicController < ApplicationController
   end
 
   def feed
-    load_show [{:episodes => [ :show, { :contents => { :episode => [ :contents, :tags, { :show => :host } ] } }, :tags ]}, :host] 
+    load_show [{:episodes => [ :show, { :contents => { :episode => [ :contents, :tags, { :show => :host } ] } }, :tags ]}, :host]
     render :content_type => "application/rss+xml", :layout => false
   end
 
@@ -61,7 +60,15 @@ class PublicController < ApplicationController
   end
 
   def robots
-    load_show [{:episodes => {:show => :host }}, {:contents => {:episode => {:show => :host}} }]
+    show_includes = [{:episodes => {:show => :host }}, {:contents => {:episode => {:show => :host}} }]
+
+    @shows =
+      if current_site.is_a?(Radio)
+        current_site.shows.find :all, :include => show_includes
+      else
+        [ load_show show_includes ]
+      end
+
     respond_to do |format|
    	  format.txt { render :layout => false }
     end
@@ -112,13 +119,21 @@ class PublicController < ApplicationController
     render_optional_error_file :not_found
   end
 
+  def render_site
+    render_template current_site, :auto, current_site
+  end
+
   def render_show
     create_visit current_show
     render_template current_show, :show, current_show
   end
 
-  def render_template(show, view, object)
-    template = show.template
+  def render_template(site, view, object)
+    if view == :auto
+      view = object.class.name.parameterize.to_s
+    end
+
+    template = site.template
     @theme = template
     render :layout => false, :template => "#{template.slug}/#{view}",
       :locals => { view.to_sym => object }
@@ -139,19 +154,37 @@ class PublicController < ApplicationController
     logger.debug "Can't find an associated Show for Goggle Analytics account"
   end
 
-  def current_show(include = [])
-    unless @show
-      if host = Host.find_by_name(request.host)
-        @show = Show.find(host.show, :include => include)
-      else
-        if request.host =~ /^(.*).bonnes-ondes.(fr|local|tryphon.priv)$/
-          @show = Show.find_by_slug($1, :include => include)
+  def current_site
+    @site ||=
+      begin
+        if host = Host.find_by_name(request.host)
+          host.site
+        else
+          if request.host =~ /^(.*).bonnes-ondes.(fr|local|tryphon.priv)$/
+            Show.find_by_slug($1) or Radio.find_by_slug($1)
+          end
         end
       end
 
-      raise ActiveRecord::RecordNotFound unless @show
-    end
+    raise ActiveRecord::RecordNotFound unless @site
+    @site
+  end
 
+  def current_show(include = [])
+    @show ||=
+      if show_slug = params[:show_slug]
+        current_site.shows.find_by_slug(show_slug, :include => include)
+      else
+        if host = Host.find_by_name(request.host)
+          @show = Show.find(host.site_id, :include => include)
+        else
+          if request.host =~ /^(.*).bonnes-ondes.(fr|local|tryphon.priv)$/
+            @show = Show.find_by_slug($1, :include => include)
+          end
+        end
+      end
+
+    raise ActiveRecord::RecordNotFound unless @show
     @show
   end
   alias_method :load_show, :current_show

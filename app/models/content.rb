@@ -4,8 +4,8 @@ require 'net/http'
 class Content < ActiveRecord::Base
 
   named_scope :principal, :conditions => { :principal => true }
-  named_scope :for_feed, lambda { |show| { 
-      :conditions => [ "shows.id = ? and episodes.broadcasted_at < ? ", show.id, Time.now ], 
+  named_scope :for_feed, lambda { |show| {
+      :conditions => [ "shows.id = ? and episodes.broadcasted_at < ? ", show.id, Time.now ],
       :include => { :episode => [:tags, :show, :contents] },
       :order => "episodes.broadcasted_at desc"
     }
@@ -54,6 +54,10 @@ class Content < ActiveRecord::Base
       logger.warn("Can't validate content type for #{content_url}: #{e}")
       false
     end
+  end
+
+  def parent
+    episode
   end
 
   private
