@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 gem 'rails', '2.3.8'
 gem 'inherited_resources', '= 1.0.6'
