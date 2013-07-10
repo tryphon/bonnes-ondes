@@ -97,17 +97,23 @@ module Rubaidh # :nodoc:
     end
 
     def google_analytics_code(ssl = false)
-      extra_code = domain_name.blank? ? nil : "_gaq.push(['_setDomainName', '#{domain_name}');"
+      tracker_prefix = "tracker_#{tracker_id.gsub(/^UA-/,'').gsub('-','_')}." if self != default_account
+      extra_code = domain_name.blank? ? nil : "_gaq.push(['#{tracker_prefix}_setDomainName', '#{domain_name}']);"
 
       code = <<-HTML
 <script type="text/javascript">
-
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-1837360-1']);
+  var _inserted_ga_script = _inserted_ga_script || false;
+
+  _gaq.push(['#{tracker_prefix}_setAccount', '#{tracker_id}']);
   #{extra_code}
-  _gaq.push(['_trackPageview']);
+  _gaq.push(['#{tracker_prefix}_trackPageview']);
 
   (function() {
+    if (_inserted_ga_script == true) {
+        return;
+    }
+    _inserted_ga_script = true;
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
