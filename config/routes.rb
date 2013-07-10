@@ -19,6 +19,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'compte/activate/:code', :controller => 'account', :action => 'activate'
   map.connect 'compte/:action', :controller => 'account', :requirements => { :action => /activate|content_playlist|index|login|logout|recover_password|signup|and user_session/ }
   map.connect 'e/:show_slug', :controller => 'public', :action => 'show'
+
+  map.connect 'e/:show_slug/p/:page_slug', :controller => 'public', :action => 'page'
   map.connect 'p/:page_slug', :controller => 'public', :action => 'page'
 
   map.connect 'e/:show_slug/ep/:episode_slug', :controller => 'public', :action => 'episode'

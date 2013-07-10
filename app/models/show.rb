@@ -133,6 +133,10 @@ class Show::LiquidDropClass
     url_for_podcast.gsub(/^http:/, "itpc:")
   end
 
+  def page
+    @show_pages ||= ShowPages.new(@object)
+  end
+
 end
 
 class ShowTags < Liquid::Drop
@@ -143,6 +147,18 @@ class ShowTags < Liquid::Drop
 
   def [](key)
     Episode.sort @show.episodes.find_tagged_with(key)
+  end
+
+end
+
+class ShowPages < Liquid::Drop
+
+  def initialize(show)
+    @show = show
+  end
+
+  def [](key)
+    @show.pages.find_by_slug(key)
   end
 
 end
