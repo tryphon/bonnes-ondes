@@ -4,7 +4,7 @@ class Show < ActiveRecord::Base
   has_one :host, :dependent => :destroy, :as => :site
   belongs_to :template
 
-  liquid_methods :name, :description, :episodes, :logo, :tags, :posts, :pages
+  liquid_methods :name, :description, :episodes, :logo, :tags, :posts, :pages, :slug
 
   def visit_count
     read_attribute(:visit_count) or 0
