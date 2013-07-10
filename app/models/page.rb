@@ -19,6 +19,10 @@ class Page < ActiveRecord::Base
 
   acts_as_list :scope => :show
   liquid_methods :show, :title, :content
+
+  def parent
+    show
+  end
 end
 
 # TODO move this f... code anywhere else
@@ -26,10 +30,6 @@ class Page::LiquidDropClass
 
   def url_for
     view.url_for_page(@object)
-  end
-
-  def parent
-    show
   end
 
 end
