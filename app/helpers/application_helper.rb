@@ -136,28 +136,6 @@ module ApplicationHelper
     url_for options
   end
 
-  def site_object(object)
-    parents_object(object).first or object
-  end
-
-  def parent_object(object)
-    if object.is_a?(Show)
-      # FIXME Force Radio site for the moment
-      object.radios.present? ? object.radios.first : nil
-    else
-      object.parent
-    end
-  end
-
-  def parents_object(object)
-    [].tap do |parents|
-      while parent = parent_object(object)
-        parents.unshift parent
-        object = parent
-      end
-    end
-  end
-
   # def object_slugs(object)
   #   ([object] + parents_object(object)).inject({}) do |slugs, parent|
   #     parent_type = parent.class.name.parameterize

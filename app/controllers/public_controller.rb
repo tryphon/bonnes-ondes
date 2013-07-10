@@ -133,7 +133,7 @@ class PublicController < ApplicationController
       view = object.class.name.parameterize.to_s
     end
 
-    template = site.template
+    template = site_object(site).template
     @theme = template
     render :layout => false, :template => "#{template.slug}/#{view}",
       :locals => { view.to_sym => object }
