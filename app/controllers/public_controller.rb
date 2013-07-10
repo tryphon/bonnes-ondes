@@ -144,7 +144,7 @@ class PublicController < ApplicationController
   end
 
   def create_user_google_analytics_account
-    user_tracker_id = (current_show and current_show.host and current_show.host.google_analytics_tracker_id)
+    user_tracker_id = (current_site and current_site.host and current_site.host.google_analytics_tracker_id)
 
     if user_tracker_id.present?
       logger.debug "Use additionnal Google Analytics account: #{user_tracker_id}"
