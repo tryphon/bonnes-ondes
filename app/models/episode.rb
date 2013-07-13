@@ -110,4 +110,8 @@ class Episode::LiquidDropClass
     ((@object.broadcasted_at - Time.now) / 1.minute).to_i
   end
 
+  def broadcasted
+    @object.broadcasted?
+  end
+
 end
