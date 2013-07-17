@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class AudiobankContent < Content
 
-  @@audiobank_base_url = "http://audiobank.tryphon.org"
+  @@audiobank_base_url = "http://audiobank.tryphon.eu"
   cattr_accessor :audiobank_base_url
 
   validates_presence_of :audiobank_id, :on => :create

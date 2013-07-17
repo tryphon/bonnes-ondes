@@ -8,6 +8,7 @@ gem 'exception_notification'
 gem 'acts-as-list'
 
 gem 'httparty'
+gem 'audiobank-client', :path => "~/Projects/AudioBankClient"
 
 group :development do
   gem "sqlite3-ruby"
