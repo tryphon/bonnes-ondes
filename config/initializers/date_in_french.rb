@@ -4,10 +4,10 @@ require 'date'
 
 silence_warnings do
   Date.const_set "MONTHNAMES_EN", Date::MONTHNAMES
-  Date.const_set "MONTHNAMES", [nil] + %w(Janvier Février Mars Avril Mai Juin Juillet Août Septembre Octobre Novembre Décembre)
+  Date.const_set "MONTHNAMES", [nil] + %w(janvier février mars avril mai juin juillet août septembre octobre novembre décembre)
   Date.const_set "DAYNAMES_EN", Date::DAYNAMES
-  Date.const_set "DAYNAMES", %w(Dimanche Lundi Mardi Mercredi Jeudi Vendredi Samedi)
-  Date.const_set "ABBR_MONTHNAMES", [nil] + %w(Jan Fév Mar Avr Mai Juin Juil Aoû Sep Oct Nov Dec)
+  Date.const_set "DAYNAMES", %w(dimanche lundi mardi mercredi jeudi vendredi samedi)
+  Date.const_set "ABBR_MONTHNAMES", [nil] + %w(jan fév mar avr mai juin juil aoû sep oct nov dec)
 end
 
 ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(
