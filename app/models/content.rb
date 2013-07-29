@@ -41,6 +41,11 @@ class Content < ActiveRecord::Base
     true
   end
 
+  def length
+    # FIXME we need to save two lengths, for ogg and mp3 formats
+    duration and duration * 700000
+  end
+
   def validate_content_type(content_types)
     return false if content_url.blank?
 

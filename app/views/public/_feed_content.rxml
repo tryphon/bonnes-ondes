@@ -20,7 +20,7 @@ xml.item do
 
   # TODO add content length
   if content.available?
-    xml.enclosure :url => content.content_url(:format => :mp3), :type => "audio/mpeg"
+    xml.enclosure :url => content.content_url(:format => :mp3), :type => "audio/mpeg", :length => content.length
   end
 
   xml.guid url_for_episode(content.episode, :only_path => false)
