@@ -116,7 +116,7 @@ module ApplicationHelper
   end
 
   def textilize_in_text(content)
-    strip_tags textilize(content)
+    RedCloth.new(content).to_plain
   end
 
   private

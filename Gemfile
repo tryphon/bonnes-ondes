@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '2.3.8'
 gem 'inherited_resources', '= 1.0.6'
 gem 'RedCloth'
+gem 'red_cloth_formatters_plain'
+
 gem 'liquid'
 gem 'exception_notification'
 gem 'acts-as-list'

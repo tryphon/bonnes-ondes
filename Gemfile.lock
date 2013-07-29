@@ -105,6 +105,8 @@ GEM
     rb-inotify (0.8.8)
       ffi (>= 0.5.0)
     rcov (0.9.8)
+    red_cloth_formatters_plain (0.2.1)
+      RedCloth (>= 4.2.3)
     remarkable (3.1.13)
       rspec (>= 1.2.0)
     remarkable_activerecord (3.1.13)
@@ -159,6 +161,7 @@ DEPENDENCIES
   pickle
   rails (= 2.3.8)
   rcov
+  red_cloth_formatters_plain
   remarkable_rails
   rmagick
   rspec-rails (< 2)
