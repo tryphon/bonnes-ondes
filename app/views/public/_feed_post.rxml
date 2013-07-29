@@ -11,5 +11,5 @@ xml.item do
   # TODO
   # xml.link url_for_episode(content.episode, :only_path => false)
 
-  xml.pubDate post.created_at.strftime("%a, %e %b %Y %T %Z")
+  xml.pubDate post.created_at.to_formatted_s(:rfc822)
 end
