@@ -92,6 +92,15 @@ class Show < ActiveRecord::Base
     @@default_template ||= Template.find_by_slug('cocoa')
   end
 
+  def category
+    # FIXME
+    "News & Politics"
+  end
+
+  def contact_email
+    "bonnes-ondes+#{id}@tryphon.eu"
+  end
+
 end
 
 # TODO move this f... code anywhere else

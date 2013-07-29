@@ -14,9 +14,10 @@ xml.item do
 
   text = textilize_in_text(content.episode.description)
   xml.description text
-  xml.itunes :summary, text
 
+  xml.itunes :summary, text
   xml.itunes :duration, "#{content.duration}:00" if content.has_duration?
+  xml.itunes :explicit, "no"
 
   # TODO add content length
   if content.available?

@@ -12,6 +12,12 @@ xml.rss :version => "2.0", 'xmlns:itunes' => "http://www.itunes.com/dtds/podcast
 		xml.language "fr"
 
 		xml.itunes :summary, textilize_in_text(@show.description)
+		xml.itunes :category, :text => @show.category
+    xml.itunes :explicit, "clean"
+    xml.itunes :owner do
+      xml.itunes :email, @show.contact_email
+    end
+
 		if @show.logo
   		xml.itunes :image, :href => image_path(@show.logo.public_filename(:normal))
 		end
