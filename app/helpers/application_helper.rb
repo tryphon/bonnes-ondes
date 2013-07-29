@@ -28,7 +28,7 @@ module ApplicationHelper
     url_for_object show, :action => "show"
   end
 
-  def url_for_podcast(show)
+  def url_for_podcast(show, options = {})
     url_for_object show, :action => "feed"
   end
 
