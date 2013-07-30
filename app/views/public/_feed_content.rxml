@@ -6,7 +6,7 @@ xml.item do
   xml.title title
 
   unless content.episode.tag_list.empty?
-    xml.itunes :keywords, content.episode.tag_list.join(', ')
+    xml.itunes :keywords, content.episode.tag_list.join(',')
     content.episode.tag_list.each do |category|
       xml.category category
     end
@@ -24,7 +24,7 @@ xml.item do
     xml.enclosure :url => content.content_url(:format => :mp3), :type => "audio/mpeg", :length => content.length
   end
 
-  xml.guid url_for_episode(content.episode, :only_path => false)
+  xml.guid url_for_content(content, :only_path => false)
   xml.link url_for_episode(content.episode, :only_path => false)
 
   pub_date = (content.episode.broadcasted_at or content.episode.created_at)
