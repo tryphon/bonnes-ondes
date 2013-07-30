@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   belongs_to :show
-  validates_presence_of :show_id
+  validates_presence_of :show_id, :title, :slug, :description
 
   liquid_methods :title, :description, :created_at
 
