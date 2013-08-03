@@ -3,7 +3,7 @@ class Image < ActiveRecord::Base
   liquid_methods :width, :height, :title
 
   belongs_to :show
-  has_attachment :storage => :file_system, :max_size => 2.megabytes, :content_type => :image, :thumbnails => { :larg => '500>', :normal => '200>', :thumb => '75' }
+  has_attachment :storage => :file_system, :max_size => 5.megabytes, :content_type => :image, :thumbnails => { :larg => '500>', :normal => '200>', :thumb => '75' }
   validates_as_attachment
 
   protected
