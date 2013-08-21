@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '2.3.8'
+gem 'rails', '2.3.18'
 gem 'inherited_resources', '= 1.0.6'
 gem 'RedCloth'
 gem 'red_cloth_formatters_plain'
@@ -21,6 +21,7 @@ end
 group :development, :test do
   gem "guard"
   gem 'guard-rspec'
+  gem 'guard-cucumber'
 end
 
 group :test do
