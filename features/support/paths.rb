@@ -17,16 +17,16 @@ module NavigationHelpers
     when /the account page/
       '/compte'
     when /the new show page/
-      '/compte/emission/create'
+      '/compte/shows/new'
     when /the "(.*)" show page/
       show = Show.find_by_slug($1)
-      "/compte/emission/show/#{show.id}"
+      admin_show_path(show)
     when /the edit "(.*)" show page/
       show = Show.find_by_slug($1)
-      "/compte/emission/edit/#{show.id}"
+      edit_admin_show_path(show)
     when /the edit "(.*)" show logo page/
       show = Show.find_by_slug($1)
-      "/compte/emission/select_logo/#{show.id}"
+      edit_admin_show_logo_path(show)
     when /the new post page of "(.*)" show/
       show = Show.find_by_slug($1)
       new_admin_show_post_path(show)
@@ -41,7 +41,7 @@ module NavigationHelpers
     when /the "(.*)" post page of "(.*)" show/
       show = Show.find_by_slug($2)
       post = show.posts.find_by_slug($1)
- 
+
       admin_show_post_path(show, post)
     when /the posts page of "(.*)" show/
       show = Show.find_by_slug($1)

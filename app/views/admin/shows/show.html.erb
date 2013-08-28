@@ -1,0 +1,113 @@
+<h2><%= @show.name %></h2>
+<div class="description">
+<%= (image_tag @show.logo.public_filename(:thumb)) if @show.logo %>
+<%= textilize(@show.description) %>
+</div>
+
+<p class="dates">créée <%= format_date(@show.created_at) %>, modifiée <%= format_date(@show.updated_at) %></p>
+
+<div class="actions">
+<%= link_to("Voir", url_for_show(@show), :class => "view", :popup => true) %>
+<%= link_to("Modifier", edit_admin_show_path(@show), :class => "edit") %>
+<%= link_to("Logo", edit_admin_show_logo_path(@show), :class => "edit_show_logo") %>
+<%= link_to("Supprimer", admin_show_path(@show), :method => :delete, :confirm => "Etes-vous sûr de vouloir définitivement supprimer cette émission ?", :class => "destroy") %>
+</div>
+
+<h3>Episodes</h3>
+
+<% unless @show.episodes.empty? %>
+  <p>
+  <% if @show.episodes.many? %>
+    Les derniers épisodes modifiés :
+  <% else %>
+    Votre premier épisode :
+  <% end %>
+  </p>
+
+  <ul>
+  <% for episode in @show.episodes.find(:all, :order => 'updated_at desc', :limit => 5) %>
+    <li>
+      <%= link_to "#{episode.order} - #{episode.title}", admin_show_episode_path(@show, episode) %>
+      <br/>modifié <%= format_date(episode.updated_at) %>
+    </li>
+  <% end %>
+  </ul>
+
+  <div class="actions">
+    <%= link_to "Tous les épisodes", admin_show_episodes_path(@show) %>
+    <%= link_to "Ajouter un nouvel épisode", new_admin_show_episode_path(@show) %>
+  </div>
+<% else %>
+  <div class="actions">
+    <%= link_to "Renseigner le premier épisode", new_admin_show_episode_path(@show) %>
+  </div>
+<% end %>
+
+<h3>Pages</h3>
+
+<ul>
+  <% for page in @show.pages %>
+  <li>
+    <%= link_to page.title, [:admin, @show, page] %>
+    <br/>modifiée <%= format_date(page.updated_at) %>
+  </li>
+  <% end %>
+</ul>
+
+<div class="actions">
+  <%= link_to "Tous les pages", admin_show_pages_path(@show) %>
+  <%= link_to "Ajouter une page", new_admin_show_page_path(@show) %>
+</div>
+
+<h3>Actualités</h3>
+
+<ul>
+  <% for post in @show.posts.last_updated %>
+  <li>
+    <%= link_to post.title, [:admin, @show, post] %>
+    <br/>modifié <%= format_date(post.updated_at) %>
+  </li>
+  <% end %>
+</ul>
+
+<div class="actions">
+  <%= link_to "Toutes les actualités", admin_show_posts_path(@show) %>
+  <%= link_to "Ajouter une actualité", new_admin_show_post_path(@show) %>
+</div>
+
+<h3>Images</h3>
+
+<% unless @show.images.empty? %>
+  <p>Les dernières images modifiées :</p>
+
+  <ul class="images">
+    <% for image in @show.images.find(:all, :order => 'updated_at desc', :limit => 5) %>
+      <li>
+        <%= image_tag image.public_filename(:thumb) %>
+        <div>
+          <%= h image.title %>
+          <br/>modifiée <%= format_date(image.updated_at) %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<div class="actions">
+  <%= link_to "Toutes les images", admin_show_images_path(@show) %>
+  <%= link_to "Ajouter une nouvelle image", new_admin_show_image_path(@show) %>
+</div>
+
+<h3>Template</h3>
+
+<p>
+Le template utilisé est <strong><%= @show.template.name %></strong>.
+</p>
+
+<h3>Statistiques</h3>
+
+<% if @show.visit_count > 0 %>
+  <p>La page de votre émission a été visitée <%= @show.visit_count %> fois.</p>
+<% else %>
+  <p>La page de votre émission n'a pas encore été visitée.</p>
+<% end %>

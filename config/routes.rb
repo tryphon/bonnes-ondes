@@ -1,11 +1,22 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.with_options :path_prefix => 'compte', :name_prefix => 'admin_' do |admin|
-    admin.resources :shows do |shows|
-      shows.resources :posts
-      shows.resources :pages, :member => "move_up"
+  map.admin 'compte', :controller => 'account', :action => 'index'
+
+  map.with_options(:path_prefix => "compte", :name_prefix => "admin_", :namespace => "admin/") do |admin|
+    admin.resources :shows, :collection => { :slug => :post } do |shows|
+      shows.resource :logo
+      shows.resources :episodes, :collection => { :slug => :post } do |episodes|
+        episodes.resource :image, :controller => "EpisodeImages"
+        episodes.resources :contents
+        episodes.resources :net_contents
+        episodes.resources :audiobank_contents
+      end
+      shows.resources :posts, :collection => { :slug => :post }
+      shows.resources :pages, :member => "move_up", :collection => { :slug => :post }
       shows.resources :images
     end
+
+    admin.resources :templates
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -50,18 +61,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '', :controller => "public", :action => "show"
 
   map.connect '/:action', :controller => "public"
-
-  # Install the default route as the lowest priority.
-  map.connect 'compte/emission/:action/:id', :controller => "show"
-  map.connect 'compte/episode/:action/:id', :controller => "episode"
-
-  map.with_options(:path_prefix => "compte", :name_prefix => "admin_", :namespace => "admin/") do |admin|
-    admin.resources :templates
-  end
-
-  # Allow downloading Web Service WSDL as a file with an extension
-  # instead of a file named 'wsdl'
-  map.connect ':controller/service.wsdl', :action => 'wsdl'
 
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'

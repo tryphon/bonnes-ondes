@@ -1,4 +1,4 @@
-class Admin::TemplatesController < InheritedResources::Base
+class Admin::TemplatesController < AdminController
   defaults :collection_name => 'user_templates', :instance_name => 'user_template'
 
   def create
@@ -7,10 +7,6 @@ class Admin::TemplatesController < InheritedResources::Base
   end
 
   protected
-
-  def begin_of_association_chain
-    current_user
-  end
 
   def method_for_association_chain
     :templates

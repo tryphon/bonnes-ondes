@@ -5,6 +5,8 @@ gem 'inherited_resources', '= 1.0.6'
 gem 'RedCloth'
 gem 'red_cloth_formatters_plain'
 
+gem 'will_paginate', '~> 2.3.16'
+
 gem 'liquid'
 gem 'exception_notification'
 gem 'acts-as-list'

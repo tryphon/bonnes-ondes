@@ -46,6 +46,7 @@ Rails::Initializer.run do |config|
   config.gem "liquid"
   config.gem 'exception_notification'
   config.gem 'acts-as-list'
+  config.gem 'will_paginate', :version => '~> 2.3.16'
 
   # See Rails::Configuration for more options
 end

@@ -29,6 +29,9 @@ class Episode < ActiveRecord::Base
   # validates_presence_of :show_id
 
   has_many :contents, :dependent => :destroy
+  has_many :net_contents
+  has_many :audiobank_contents
+
   belongs_to :image
 
   attr_accessor :audiobank_project

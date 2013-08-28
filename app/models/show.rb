@@ -23,6 +23,13 @@ class Show < ActiveRecord::Base
   validates_exclusion_of :slug, :in => %w(www ftp assets0 assets1 assets2 assets3), :message => "Ce lien '%s' n'est pas disponible"
 
   has_and_belongs_to_many :users
+
+  # FIXME Workaround to support User#shows.build and save
+  before_create :add_first_user
+  def add_first_user
+    users << User.find(user_id) if self[:user_id]
+  end
+
   has_many :episodes, :dependent => :destroy, :order => "`order` desc"
   has_many :contents, :through => :episodes
   has_many :images, :dependent => :destroy

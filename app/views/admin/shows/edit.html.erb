@@ -1,0 +1,31 @@
+<h2>Modifier l'émission</h2>
+
+<% form_for([:admin, @show]) do |f| %>
+ <%= f.error_messages %>
+
+ <p>
+   <%= f.label :name, "Nom" %><br/>
+   <%= f.text_field :name %>
+ </p>
+
+ <p>
+   <%= f.label :description %><br/>
+   <%= textile_editor 'show', 'description', :rows => 10, :cols => 60 -%>
+ </p>
+
+ <p>
+   <%= f.label :audiobank_account %><br/>
+   <%= f.text_field 'audiobank_account' %>
+ </p>
+
+ <% unless current_user.templates.empty? %>
+ <p>
+   <%= f.label :template_id, "Template" %><br/>
+   <%= f.select :template_id, options_from_collection_for_select(([ Show.default_template, @show.template ] + current_user.templates).uniq, 'id', 'name', @show.template_id)%>
+ </p>
+ <% end %>
+
+ <%= f.submit "Modifier" %> ou <%= link_to("revenir", :action => "show", :id => @show) %>
+
+ <%= textile_editor_initialize -%>
+<% end %>

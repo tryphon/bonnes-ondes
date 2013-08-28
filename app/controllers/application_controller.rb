@@ -24,10 +24,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def admin_show_path(show)
-    url_for :controller => "/show", :action => "show", :id => show
-  end
-
   private
 
   def user_session
