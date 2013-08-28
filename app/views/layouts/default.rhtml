@@ -19,12 +19,12 @@
    <h1>Bonnes Ondes</h1>
    <ul>
     <% if logged_in? %>
-     <li><%= link_to("Tableau de bord", :controller => "/account", :action => "index") %></li>
-     <li><%= link_to("Quitter", :controller => "/account", :action => "logout") %></li>
+     <li><%= link_to "Tableau de bord", admin_path %></li>
+     <li><%= link_to "Quitter", admin_logout_path %></li>
     <% else %>
-     <li><%= link_to("Accueil", :controller => "public", :action => "welcome") %></li>
-     <li><%= link_to("S'identifier", :controller => "account", :action => "login") %></li>
-     <li><%= link_to("Créer un compte", :controller => "account", :action => "signup") %></li>
+     <li><%= link_to "Accueil", public_path %></li>
+     <li><%= link_to "S'identifier", admin_login_path %></li>
+     <li><%= link_to "Créer un compte", admin_signup_path %></li>
     <% end %>
    </ul>
    </div>

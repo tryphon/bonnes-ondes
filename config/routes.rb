@@ -5,6 +5,13 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options(:path_prefix => "compte", :name_prefix => "admin_", :namespace => "admin/") do |admin|
     admin.resource :dashboard
 
+    admin.activate 'activate/:code', :controller => 'account', :action => 'activate'
+
+    admin.login 'login', :controller => 'account', :action => 'login'
+    admin.logout 'logout', :controller => 'account', :action => 'logout'
+    admin.signup 'signup', :controller => 'account', :action => 'signup'
+    admin.recover_password 'recover_password', :controller => 'account', :action => 'recover_password'
+
     admin.resources :shows, :collection => { :slug => :post } do |shows|
       shows.resource :logo
       shows.resources :episodes, :collection => { :slug => :post } do |episodes|
@@ -29,8 +36,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :audiobank_updates
 
-  map.connect 'compte/activate/:code', :controller => 'account', :action => 'activate'
-  map.connect 'compte/:action', :controller => 'account', :requirements => { :action => /activate|content_playlist|index|login|logout|recover_password|signup|and user_session/ }
+  map.public '', :controller => "welcome", :action => 'show'
 
   map.connect 'e/:show_slug', :controller => 'public', :action => 'show'
 

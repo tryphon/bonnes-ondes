@@ -6,7 +6,6 @@
       <li><%= link_to_admin_show show %></li>
     <% end %>
   <% else %>
-    <li><%= link_to("Renseigner votre première émission", :controller => "show", :action => "create") %></li>
-  <% end %>  
+    <li><%= link_to "Renseigner votre première émission", new_admin_show_path %></li>
+  <% end %>
 </ul>
-
