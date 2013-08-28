@@ -2,13 +2,10 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  include AuthenticatedSystem
   include ExceptionNotification::Notifiable
 
   helper :all
   helper_method :admin_show_path
-
-  before_filter :login_from_cookie, :login_required
 
   layout "default"
 
@@ -24,12 +21,9 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  private
-
   def user_session
     @user_session ||= UserSession.new(session)
   end
-
 
   def site_object(object)
     parents_object(object).first or object

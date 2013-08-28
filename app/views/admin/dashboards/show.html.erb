@@ -1,0 +1,52 @@
+<h2>Vos émissions</h2>
+
+<% unless @dashboard.shows.empty? %>
+
+<p>Vous avez renseigné <%= pluralize(@dashboard.show_count, "émission") %>.
+  Les dernières émissions modifiées :</p>
+<ul>
+  <% for show in @dashboard.show_lasts %>
+  <li><%= link_to show.name, admin_show_path(show) %></li>
+  <% end %>
+</ul>
+<% else %>
+<p>Vous n'avez pas encore renseigné d'émission.</p>
+<% end %>
+
+<div class="actions">
+  <%= link_to "Ajouter une nouvelle émission", new_admin_show_path, :class => "new_show" %>
+</div>
+
+<h2>Episodes</h2>
+
+<% unless @dashboard.episodes.empty? %>
+<p>Vous avez renseigné <%= pluralize(@dashboard.episodes_count, "épisode") %>. Les derniers épisodes renseignés :</p>
+<ul>
+  <% for episode in @dashboard.episodes_lasts %>
+  <li>
+    <%= link_to "#{episode.show.name} - #{episode.title}", admin_show_episode_path(episode.show, episode) %>
+  </li>
+  <% end %>
+</ul>
+
+<% end %>
+
+<h2>Templates</h2>
+
+<% unless @dashboard.templates.empty? %>
+<p>Vos templates :</p>
+
+<ul>
+  <% for template in @dashboard.templates %>
+  <li>
+    <%= link_to template.name, [:admin, template] %>
+  </li>
+  <% end %>
+</ul>
+<% else %>
+<p>Vous n'avez pas encore créé de template</p>
+<% end %>
+
+<div class="actions">
+  <%= link_to "Ajouter un nouveau template", new_admin_template_path, :class => "new_show" %>
+</div>

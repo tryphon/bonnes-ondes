@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     shows.collect { |show| show.episodes }.flatten
   end
 
+  def dashboard
+    @dashboard ||= Dashboard.new self
+  end
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     user = find_by_login(login)
