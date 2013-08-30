@@ -59,7 +59,6 @@ class Template < ActiveRecord::Base
     end
 
     if update_success
-      TemplateLiquidEngine.clear_cache!
       true
     end
   end
