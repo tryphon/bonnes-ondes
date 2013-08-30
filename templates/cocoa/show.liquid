@@ -39,8 +39,8 @@
         <ul class="posts">
           {% for post in show.posts %}
             <li>
-              <h2>{{post.title}}</h2>
-              {{post.description | textilize}}
+              <a href="{{post.url_for}}">{{post.title}}</a>
+              {{post.description | textilize | truncate: 200 }}
             </li>
           {% endfor %}
         </ul>
@@ -67,7 +67,7 @@
         <p>
         Pour suivre tous nos programmes, il suffit de vous abonner au podcast de {{show.name}} :
         </p>
-        
+
         <div class="podcast_resources">
           <a href="{{show.url_for_podcast}}">
             <img class="podcast" src="{{theme.url_for_assets}}/images/podcast.png"/>
@@ -76,7 +76,7 @@
           <p>
             Adresse du podcast : <input class="podcast" size="{{show.url_for_podcast | size}}" value="{{show.url_for_podcast}}" type="text" readonly="true"/> {{show.clippy_for_podcast}}
           </p>
-        
+
           <p>
             <a href="{{show.itpc_url_for_podcast}}" title="Ajouter ce podcast dans votre iTunes">iTunes</a> | <a href="{{show.url_for_podcast}}" title="Voir le feed RSS">RSS</a> | <a href="http://wiki.tryphon.org/comment_lire_un_podcast" title="Comment lire un podcast ?">Aide</a>
           </p>

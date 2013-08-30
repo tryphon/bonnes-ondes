@@ -15,7 +15,7 @@
 </div>
 
 <div class="actions">
-<%= link_to("Voir", url_for_episode(@episode), :class => "view", :popup => true) %>
+<%= link_to("Voir", episode_url(@episode), :class => "view", :popup => true) %>
 <%= link_to("Modifier", edit_admin_show_episode_path(@show, @episode), :class => "edit") %>
 <%= link_to("Image", edit_admin_show_episode_image_path(@show, @episode), :class => "edit") %>
 <%= link_to("Supprimer", admin_show_episode_path(@show, @episode), :method => :delete, :confirm => "Etes-vous sûr de vouloir définitivement supprimer cet épisode ?", :class => "destroy") %>
@@ -27,7 +27,7 @@
   <ul>
     <% for content in @episode.contents %>
       <li>
-        <h4><%= link_to(content.name, { :controller => "content", :action => "play", :id => content })%></h4>
+        <h4><%= link_to content.name, content_url(content, :format => :mp3) %></h4>
         <p>
           <%= content.slug %> -
           <% if content.principal? %>Principal -<% end %>

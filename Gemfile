@@ -24,6 +24,10 @@ group :development, :test do
   gem "guard"
   gem 'guard-rspec'
   gem 'guard-cucumber'
+  group :linux do
+    gem 'rb-inotify'
+    gem 'libnotify'
+  end
 end
 
 group :test do

@@ -59,7 +59,7 @@ class Template < ActiveRecord::Base
     end
 
     if update_success
-      TemplateLiquidEngine.clear_cache! 
+      TemplateLiquidEngine.clear_cache!
       true
     end
   end
@@ -98,11 +98,25 @@ class Template < ActiveRecord::Base
   # end
 
   def resources_dir
-    "#{Rails.root}/templates/#{slug}"
+    root + slug
   end
 
-  def backup_resources_dir
-    "#{resources_dir}.old"
+  @@root = Rails.root + "templates"
+  cattr_accessor :root
+
+  def template(name)
+    LiquidTemplate.new self, name
+  end
+
+  def liquid_file_system
+    Liquid::LocalFileSystem.new resources_dir
+  end
+
+  @@default_slug = "cocoa"
+  cattr_accessor :default_slug
+
+  def self.default
+    Template.find_by_slug('cocoa')
   end
 
 end
@@ -118,13 +132,7 @@ class Template::LiquidDropClass
   end
 
   def admin_link_tag
-    account_link = if view.logged_in?
-      view.link_to("Mon compte", :controller => "account", :action => "index")
-    else
-      view.link_to("S'identifier", :controller => "account", :action => "login")
-    end
-
-    "#{account_link} - hébergé par <a href=\"http://www.tryphon.eu\">Tryphon</a> sur <a href='http://www.bonnes-ondes.fr'>Bonnes Ondes</a>"
+    "Hébergé par <a href=\"http://www.tryphon.eu\">Tryphon</a> sur <a href='http://bonnes-ondes.tryphon.eu'>Bonnes Ondes</a>"
   end
 
 end

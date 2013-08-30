@@ -7,7 +7,7 @@
 <p class="dates">créée <%= format_date(@show.created_at) %>, modifiée <%= format_date(@show.updated_at) %></p>
 
 <div class="actions">
-<%= link_to("Voir", url_for_show(@show), :class => "view", :popup => true) %>
+<%= link_to("Voir", show_url(@show), :class => "view", :popup => true) %>
 <%= link_to("Modifier", edit_admin_show_path(@show), :class => "edit") %>
 <%= link_to("Logo", edit_admin_show_logo_path(@show), :class => "edit_show_logo") %>
 <%= link_to("Supprimer", admin_show_path(@show), :method => :delete, :confirm => "Etes-vous sûr de vouloir définitivement supprimer cette émission ?", :class => "destroy") %>

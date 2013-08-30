@@ -12,8 +12,7 @@
     <%= f.text_field :slug %>
   </p>
 
-  <%= observe_field 'post_title', :url => slug_admin_show_posts_path,
-    :with => 'name', :frequency => 2 %>
+  <%= observe_field 'post_title', :url => slug_admin_show_posts_path(@post.show), :with => 'name', :frequency => 2 %>
 
   <p>
     <%= f.label :description, "Contenu" %><br />

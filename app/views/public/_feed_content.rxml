@@ -21,11 +21,11 @@ xml.item do
 
   # TODO add content length
   if content.available?
-    xml.enclosure :url => content.content_url(:format => :mp3), :type => "audio/mpeg", :length => content.length
+    xml.enclosure :url => content_url(content, :format => :mp3), :type => "audio/mpeg", :length => content.length
   end
 
-  xml.guid url_for_content(content, :only_path => false)
-  xml.link url_for_episode(content.episode, :only_path => false)
+  xml.guid content_url(content)
+  xml.link episode_url(content.episode)
 
   pub_date = (content.episode.broadcasted_at or content.episode.created_at)
   xml.pubDate pub_date.to_formatted_s(:rfc822)

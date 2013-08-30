@@ -23,13 +23,17 @@ class Page < ActiveRecord::Base
   def parent
     show
   end
+
+  def to_param
+    slug
+  end
 end
 
 # TODO move this f... code anywhere else
 class Page::LiquidDropClass
 
   def url_for
-    view.url_for_page(@object)
+    view.page_url(@object)
   end
 
 end

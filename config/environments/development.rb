@@ -19,4 +19,6 @@ config.action_mailer.raise_delivery_errors = false
 config.to_prepare do
   # AudiobankContent.audiobank_base_url = "http://audiobank.local"
   # Audiobank::Account.base_uri "http://audiobank.local"
+  ResourceLink.public_domain = "bonnes-ondes.local"
+  ResourceLink.admin_domain = "bonnes-ondes.tryphon.local"
 end

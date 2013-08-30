@@ -1,0 +1,7 @@
+<h2>Les derniers épisodes mis en ligne</h2>
+
+<ul>
+<% for episode in @episodes_last %>
+  <li><%= link_to episode.title, episode_url(episode) %> - <%= link_to episode.show.name, show_url(episode.show) %></li>
+<% end %>
+</ul>

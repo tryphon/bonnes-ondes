@@ -91,12 +91,8 @@ class Show < ActiveRecord::Base
     @default_template ||= (Template.find_by_slug(self.slug) or Show.default_template)
   end
 
-  def self.default_template=(default_template)
-    @@default_template = default_template
-  end
-
   def self.default_template
-    @@default_template ||= Template.find_by_slug('cocoa')
+    Template.default
   end
 
   def category
@@ -106,6 +102,10 @@ class Show < ActiveRecord::Base
 
   def contact_email
     "bonnes-ondes+#{id}@tryphon.eu"
+  end
+
+  def to_param
+    slug
   end
 
 end
@@ -134,11 +134,11 @@ class Show::LiquidDropClass
   end
 
   def url_for
-    view.url_for_show(@object)
+    view.show_url(@object)
   end
 
   def url_for_podcast
-    view.url_for_podcast(@object)
+    view.podcast_show_url(@object)
   end
 
   def clippy_for_podcast

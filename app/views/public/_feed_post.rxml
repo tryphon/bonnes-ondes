@@ -7,9 +7,9 @@ xml.item do
   xml.description text
   xml.itunes :summary, text
 
-  xml.guid "#{url_for_show(post.show, :only_path => false)}/posts/#{post.id}"
+  xml.guid post_url(post)
   # TODO
-  xml.link url_for_show(post.show, :only_path => false)
+  xml.link show_url(post.show)
 
   xml.pubDate post.created_at.to_formatted_s(:rfc822)
 end

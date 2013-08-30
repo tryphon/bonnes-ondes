@@ -31,7 +31,7 @@ Liquid::Template.register_filter(TextFilter)
 module PrettyDateFilter
 
   def prettydate(input, format = nil)
-    date = 
+    date =
       case input
       when String
         Time.parse(input)
@@ -69,7 +69,7 @@ class Liquid::Drop
   protected
 
   def view
-    @context.registers[:action_view]
+    @context.registers[:view_context]
   end
 
 end

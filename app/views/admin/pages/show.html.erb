@@ -4,7 +4,7 @@
 </div>
 
 <div class="actions">
-<%= link_to("Voir", url_for_page(@page), :class => "view", :popup => true) %>
+<%= link_to("Voir", page_url(@page), :class => "view", :popup => true) %>
 <%= link_to("Modifier", edit_admin_show_page_path(@page.show, @page), :class => "edit") %>
 <%= link_to("Supprimer", admin_show_page_path(@page.show, @page), :method => "delete", :confirm => "Etes-vous sûr de vouloir définitivement supprimer cette page ?", :class => "destroy") %>
 </div>

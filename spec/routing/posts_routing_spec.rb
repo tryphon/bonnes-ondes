@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe PostsController do
+describe Admin::PostsController do
   describe "route generation" do
 
     it "should map { :controller => 'posts', :action => 'index', :show_id => 1 } to /compte/shows/1/posts" do

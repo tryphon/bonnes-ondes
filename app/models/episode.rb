@@ -76,13 +76,17 @@ class Episode < ActiveRecord::Base
     show
   end
 
+  def to_param
+    slug
+  end
+
 end
 
 # TODO move this f... code anywhere else
 class Episode::LiquidDropClass
 
   def url_for
-    view.url_for_episode(@object)
+    view.episode_url(@object)
   end
 
   def contents

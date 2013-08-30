@@ -41,6 +41,10 @@ class Content < ActiveRecord::Base
     true
   end
 
+  def self.model_name
+    @model_name ||= ::ActiveSupport::ModelName.new(Content.name)
+  end
+
   def length
     # FIXME we need to save two lengths, for ogg and mp3 formats
     duration and duration * 700000
@@ -63,6 +67,10 @@ class Content < ActiveRecord::Base
 
   def parent
     episode
+  end
+
+  def to_param
+    slug
   end
 
   private
@@ -100,11 +108,11 @@ end
 class Content::LiquidDropClass
 
   def url_for
-    view.url_for_content(@object)
+    view.content_url(@object)
   end
 
   def url_for_playlist
-    view.url_for_content(@object, :mode => :playlist)
+    view.content_url(@object, :format => :m3u)
   end
 
   def url_for_mp3
