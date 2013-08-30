@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "public/feed" do
+describe "public/feeds/show" do
 
   let(:show) { assigns[:show] = Factory(:show) }
   let(:contents) { show.contents}
@@ -10,7 +10,7 @@ describe "public/feed" do
   end
 
   def render_page
-    render "public/feed.rxml"
+    render "public/feeds/show.rxml"
   end
 
   it "should display show title" do

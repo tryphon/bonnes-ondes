@@ -1,13 +1,13 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
-describe "Partial public/feed_content" do
+describe "Partial public/feeds/feed_content" do
 
   before do
     @content = Factory(:show).contents.first
   end
 
   def render_partial
-    render :partial => "public/feed_content", :object => @content
+    render :partial => "public/feeds/feed_content", :object => @content
   end
 
   it "should display enclosure with content url if content is available" do

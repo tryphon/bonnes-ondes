@@ -40,6 +40,9 @@ ActionController::Routing::Routes.draw do |map|
       end
       show.resources :pages
       show.resources :posts
+      show.resource :feed
+      show.resource :robots
+      show.resource :sitemap
     end
 
     public.with_options(:conditions => { :show_host => true }) do |show|
@@ -52,6 +55,8 @@ ActionController::Routing::Routes.draw do |map|
       radio.resources :shows, :as => "e" do |shows|
         show_routes(shows)
       end
+      radio.resource :robots
+      radio.resource :sitemap
     end
   end
 

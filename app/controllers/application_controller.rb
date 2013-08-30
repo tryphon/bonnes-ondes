@@ -23,6 +23,17 @@ class ApplicationController < ActionController::Base
       end
     EOM
     helper_method "#{resource_name}_url"
+
+    eval <<-EOM
+      def #{resource_name}_path(resource, options = {})
+        resource_link(resource).path(options)
+      end
+    EOM
+    helper_method "#{resource_name}_path"
+  end
+
+  def site_url(site)
+    site.is_a?(Radio) ? radio_url(site) : show_url(site)
   end
 
   def podcast_show_url(show)
@@ -31,6 +42,16 @@ class ApplicationController < ActionController::Base
   end
   helper_method :podcast_show_url
 
+  def sitemap_url(site)
+    "#{site_url(site)}sitemap.xml"
+  end
+  helper_method :sitemap_url
+
+  def show_tag_url(show, tag)
+    # FIXME
+    "#{show_url(show)}tags/#{tag}"
+  end
+  helper_method :show_tag_url
 
   # def content_playlist(content)
   #   if content.respond_to? "playlist_url"

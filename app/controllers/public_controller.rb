@@ -24,9 +24,11 @@ class PublicController < ApplicationController
   end
 
   def check_current_site
-    unless current_site
-      render :file => Rails.root + "public/404.html", :status => "404"
-    end
+    render_not_found unless current_site
+  end
+
+  def render_not_found
+    render :file => Rails.root + "public/404.html", :status => "404"
   end
 
   def current_site
