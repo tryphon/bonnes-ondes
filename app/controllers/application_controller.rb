@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
 
   def podcast_show_url(show)
     # FIXME
-    "#{show_url(show)}feed"
+    "#{show_url(show).gsub(%r{/$},'')}/feed"
   end
   helper_method :podcast_show_url
 
@@ -49,9 +49,16 @@ class ApplicationController < ActionController::Base
 
   def show_tag_url(show, tag)
     # FIXME
-    "#{show_url(show)}tags/#{tag}"
+    "#{show_url(show).gsub(%r{/$},'')}/tags/#{tag}"
   end
   helper_method :show_tag_url
+
+  def episode_vote_path(episode, arguments = {})
+    # FIXME
+    query = "?" + arguments.map { |k,v| "#{k}=#{v}" }.join('&') if arguments.present?
+    "#{episode_path(episode)}/vote#{query}"
+  end
+  helper_method :episode_vote_path
 
   # def content_playlist(content)
   #   if content.respond_to? "playlist_url"

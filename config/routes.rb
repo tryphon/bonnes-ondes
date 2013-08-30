@@ -36,22 +36,25 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options(:name_prefix => "public_", :namespace => "public/") do |public|
     def show_routes(show)
       show.resources :episodes, :as => "ep" do |episodes|
-        episodes.resources :contents
+        episodes.resources :contents, :as => "c"
+        episodes.resource :vote
       end
-      show.resources :pages
+      show.resources :pages, :as => "p"
       show.resources :posts
+      show.resources :tags
       show.resource :feed
       show.resource :robots
       show.resource :sitemap
+      show.resource :stream, :as => "direct"
     end
 
     public.with_options(:conditions => { :show_host => true }) do |show|
-      show.show '', :controller => "show", :action => 'show' # too dummy show ?? :)
+      show.connect '', :controller => "show", :action => "show"
       show_routes(show)
     end
 
     public.with_options(:conditions => { :radio_host => true }) do |radio|
-      radio.radio '', :controller => "radio", :action => 'show'
+      radio.connect '', :controller => "radio", :action => 'show'
       radio.resources :shows, :as => "e" do |shows|
         show_routes(shows)
       end

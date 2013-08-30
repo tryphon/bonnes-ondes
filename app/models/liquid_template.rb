@@ -10,6 +10,10 @@ class LiquidTemplate
     @theme.resources_dir + "#{name}.liquid"
   end
 
+  def exists?
+    File.exists?(file)
+  end
+
   def liquid_template
     Liquid::Template.parse(file.read)
   end

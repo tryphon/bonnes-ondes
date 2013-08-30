@@ -6,7 +6,7 @@ module RateHelper
     content << content_tag(:ul, :class => "rate#{episode.rating_avg.to_i}")do
       returning [] do |list|
         (1..5).each do |rating|
-          list << content_tag(:li, link_to_remote(rating, {:url => url_for_rating(episode.id, rating) },
+          list << content_tag(:li, link_to_remote(rating, {:url => episode_vote_path(episode, :rating => rating) },
               :class => [ star_class(rating), rating_class(rating, episode.rating_avg) ].join(' '), :name => "#{rating} sur 5"))
         end
       end.join("\n")
@@ -18,10 +18,6 @@ module RateHelper
     else
       content
     end
-  end
-
-  def url_for_rating(id, rating)
-    url_for :controller => "public", :action => "vote", :episode_id => id, :rating => rating
   end
 
   private

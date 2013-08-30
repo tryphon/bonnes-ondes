@@ -10,14 +10,14 @@
  </head>
  <body class="episode">
    <div id="page" class="deuxcolonnes">
-     {% include 'rmll2010/header' %}
+     {% include 'header' %}
 
      <div id="content">
 
-     {% include 'rmll2010/sidebar' %}
+     {% include 'sidebar' %}
 
      <div id="location">
-       {% include 'rmll2010/location' %} ; <a title="{{ episode.title }}" href="{{ episode.url_for }}">{{ episode.title }}</a> }
+       {% include 'location' %} ; <a title="{{ episode.title }}" href="{{ episode.url_for }}">{{ episode.title }}</a> }
      </div>
 
        <h2>{{ episode.title }}</h2>
@@ -65,13 +65,13 @@
        {% endunless %}
        
 			<div id="programme">
-         {% include 'rmll2010/program' %}
+         {% include 'program' %}
        </div>
 
      </div>
 
      
-     {% include 'rmll2010/footer' %}
+     {% include 'footer' %}
    </div>
  </body>
 </html>

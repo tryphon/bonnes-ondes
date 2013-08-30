@@ -8,7 +8,7 @@
  </head>
  <body>
   <div id="wrapper">
-    {% include 're2009/header' %}
+    {% include 'header' %}
    <div id="page">
      {% unless show.tag.jeudi == empty %}
        <p class="program"><a href="#program" onclick="Effect.ScrollTo('program'); return false;">Le programme &#8595;</a>
@@ -21,18 +21,18 @@
       </p>
      </div>
      {% for episode in show.broadcasted_episodes limit:7 %}
-      {% include 're2009/episode' %}
+      {% include 'episode' %}
      {% endfor %}
     </div>
     <div id="sidebar">
-     {% include 're2009/sidebar' %}
+     {% include 'sidebar' %}
     </div>
     <div id="program">
-     {% include 're2009/program' %}
+     {% include 'program' %}
     </div>
    </div>
-   <div id="footer">{% include 're2009/footer' %}</div>
+   <div id="footer">{% include 'footer' %}</div>
   </div>
-  {% include 're2009/javascript' %}
+  {% include 'javascript' %}
  </body>
 </html>

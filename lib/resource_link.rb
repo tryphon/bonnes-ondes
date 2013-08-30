@@ -17,13 +17,15 @@ class ResourceLink
   end
 
   def path(options = {})
-    url_for path_resources, options
+    path_for path_resources, options
   end
 
   attr_accessor :url_context
-  def url_for(path_resources, options = {})
+  def path_for(path_resources, options = {})
     url_context.polymorphic_path [ :public, *path_resources ], options
   end
+
+  attr_accessor :current_radio
 
   def with(url_context)
     self.url_context = url_context
@@ -51,6 +53,9 @@ class ResourceLink
     [ resource ].tap do |resources|
       while parent = parent_resource(resources.first)
         resources.unshift parent
+      end
+      if current_radio and resources.first != current_radio
+        resources.unshift current_radio
       end
     end
   end

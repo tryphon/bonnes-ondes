@@ -58,9 +58,21 @@ describe ResourceLink do
     context "when resource is a Show" do
       let(:show) { Factory(:show) }
 
-      it "should be [ show ] " do
-        link(show).url_resources.should == [ show ]
+      context "without current_radio" do
+        it "should be [ show ]" do
+          link(show).url_resources.should == [ show ]
+        end
       end
+
+      context "with current_radio" do
+        it "should be [ show ]" do
+          link = link(show)
+          link.current_radio = Radio.new
+
+          link.url_resources.should == [ link.current_radio, show ]
+        end
+      end
+
     end
 
     context "when resource is an Episode" do
@@ -110,7 +122,7 @@ describe ResourceLink do
 
     it "should use url_for with path_resources" do
       subject.stub :path_resources => [ "dummy" ]
-      subject.should_receive(:url_for).with(subject.path_resources, {}).and_return("/path/to/resource")
+      subject.should_receive(:path_for).with(subject.path_resources, {}).and_return("/path/to/resource")
       subject.path.should == "/path/to/resource"
     end
 

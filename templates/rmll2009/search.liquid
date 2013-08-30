@@ -8,13 +8,13 @@
  </head>
  <body>
    <div id="page" class="deuxcolonnes">
-     {% include 'rmll2009/header' %}
+     {% include 'header' %}
 
      <div id="location">
-       {% include 'rmll2009/location' %} - <a title="{{ search }}" href="">{{ search }}</a>
+       {% include 'location' %} - <a title="{{ search }}" href="">{{ search }}</a>
      </div>
 
-     {% include 'rmll2009/sidebar' %}
+     {% include 'sidebar' %}
 
      <div id="content" class="search">
        <h2>Recherche : {{ search }}</h2>
@@ -34,7 +34,7 @@
        {% endfor %}
      </div>
      
-     {% include 'rmll2009/footer' %}
+     {% include 'footer' %}
    </div>
  </body>
 </html>

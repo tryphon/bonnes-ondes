@@ -7,6 +7,11 @@ class PublicController < ApplicationController
 
   protected
 
+   def user_session
+    @user_session ||= UserSession.new(session)
+  end
+  helper_method :user_session
+
   def current_theme
     @theme ||= current_site.template
   end
@@ -16,11 +21,19 @@ class PublicController < ApplicationController
   end
 
   def render_template(template_name, assigns = {})
-    render :text => current_theme.template(template_name).render(view_context, default_assigns.merge(assigns))
+    theme_template = current_theme.template(template_name)
+    if theme_template.exists?
+      render :text => theme_template.render(view_context, default_assigns.merge(assigns))
+    else
+      render_not_found
+    end
   end
 
   def default_assigns
-    { "template" => current_theme }
+    { :template => current_theme }.tap do |assigns|
+      assigns[:show] = current_show if current_show
+      assigns[:radio] = current_radio if current_radio
+    end
   end
 
   def check_current_site
@@ -52,5 +65,11 @@ class PublicController < ApplicationController
     @radio ||= current_site if current_site.is_a?(Radio)
   end
   helper_method :current_radio
+
+  def resource_link(resource)
+    super.tap do |link|
+      link.current_radio = current_radio
+    end
+  end
 
 end
