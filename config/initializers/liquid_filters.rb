@@ -73,3 +73,5 @@ class Liquid::Drop
   end
 
 end
+
+Liquid::Template.register_filter Liquid::ImageFilters

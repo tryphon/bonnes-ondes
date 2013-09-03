@@ -9,3 +9,4 @@ public/attachments
 tmp
 db/*.sqlite3
 config/database.yml
+storage/

@@ -14,6 +14,9 @@ gem 'acts-as-list'
 gem 'httparty'
 gem 'audiobank-client', '~> 0.0.2'
 
+gem 'dragonfly', '0.8.5'
+gem 'rack-cache'
+
 group :development do
   gem "sqlite3-ruby"
   gem 'rmagick'

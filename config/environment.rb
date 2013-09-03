@@ -20,7 +20,7 @@ Rails::Initializer.run do |config|
   # config.plugins = %W( exception_notification ssl_requirement )
 
   # Add additional load paths for your own custom dirs
-  # config.load_paths += %W( #{RAILS_ROOT}/extras )
+  config.autoload_paths += %W( #{Rails.root}/app/liquid )
 
   # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)
@@ -48,7 +48,8 @@ Rails::Initializer.run do |config|
   config.gem 'acts-as-list'
   config.gem 'will_paginate', :version => '~> 2.3.16'
 
-  # See Rails::Configuration for more options
+  config.gem 'dragonfly', '0.8.5'
+  config.gem 'rack-cache', :lib => 'rack/cache'
 end
 
 # Add new inflection rules using the following format

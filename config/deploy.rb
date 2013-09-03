@@ -5,7 +5,7 @@ set :repository, "git://projects.tryphon.priv/bonnes-ondes"
 set :deploy_to, "/var/www/bonnes-ondes"
 
 set :keep_releases, 5
-after "deploy:update", "deploy:cleanup" 
+after "deploy:update", "deploy:cleanup"
 set :use_sudo, false
 
 set :rake, "bundle exec rake"
@@ -35,7 +35,6 @@ namespace :deploy do
 
     attachements_shared_dir = File.join(shared_path, "attachments")
     attachements_local_dir = File.join(release_path, "public", "attachments")
-
     run "ln -nfs #{attachements_shared_dir} #{attachements_local_dir}"
 
     templates_shared_dir = File.join(shared_path, "templates")
@@ -43,8 +42,11 @@ namespace :deploy do
 
     run "rsync -a #{templates_local_dir}/* #{templates_shared_dir}/"
     run "rm -rf #{templates_local_dir}"
-
     run "ln -nfs #{templates_shared_dir} #{templates_local_dir}"
+
+    storage_shared_dir = File.join(shared_path, "storage")
+    storage_local_dir = File.join(release_path, "storage")
+    run "ln -nfs #{storage_shared_dir} #{storage_local_dir}"
   end
 end
 
