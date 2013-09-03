@@ -119,6 +119,7 @@ GEM
     rack (1.1.6)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-google-analytics (0.12.0)
     rack-test (0.5.7)
       rack (>= 1.0)
     rails (2.3.18)
@@ -207,6 +208,7 @@ DEPENDENCIES
   mysql
   pickle
   rack-cache
+  rack-google-analytics
   rails (= 2.3.18)
   rb-inotify
   rcov

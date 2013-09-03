@@ -4,10 +4,11 @@ class PublicController < ApplicationController
   layout nil
 
   before_filter :check_current_site
+  before_filter :push_host_google_analytics
 
   protected
 
-   def user_session
+  def user_session
     @user_session ||= UserSession.new(session)
   end
   helper_method :user_session
@@ -70,6 +71,11 @@ class PublicController < ApplicationController
     super.tap do |link|
       link.current_radio = current_radio
     end
+  end
+
+  def push_host_google_analytics
+    # FIXME requires Rails 3.x
+    # ga_push("_addItem", "ID", "SKU")
   end
 
 end

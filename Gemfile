@@ -17,6 +17,8 @@ gem 'audiobank-client', '~> 0.0.2'
 gem 'dragonfly', '0.8.5'
 gem 'rack-cache'
 
+gem 'rack-google-analytics'
+
 group :development do
   gem "sqlite3-ruby"
   gem 'rmagick'

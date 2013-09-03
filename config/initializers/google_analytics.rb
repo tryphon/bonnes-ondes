@@ -1,4 +1,4 @@
-Rubaidh::GoogleAnalytics.default_account = Rubaidh::GoogleAnalytics.new('UA-1896598-5')
-Rubaidh::GoogleAnalytics.default_account.domain_name = "bonnes-ondes.fr"
+require 'rack-google-analytics'
 
-Rubaidh::GoogleAnalytics.environments = ['production' ]
+middleware = Rails.respond_to?(:application) ? Rails.application.middleware : ActionController::Dispatcher.middleware
+middleware.use Rack::GoogleAnalytics, :tracker => 'UA-1896598-5' #, :domain => 'bonnes-ondes.fr', :multiple => true

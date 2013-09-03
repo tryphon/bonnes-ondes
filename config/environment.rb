@@ -50,6 +50,8 @@ Rails::Initializer.run do |config|
 
   config.gem 'dragonfly', '0.8.5'
   config.gem 'rack-cache', :lib => 'rack/cache'
+
+  config.gem 'rack-google-analytics', :lib => 'rack/google-analytics'
 end
 
 # Add new inflection rules using the following format
