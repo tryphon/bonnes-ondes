@@ -25,6 +25,8 @@ rescue MissingSourceFile
     module Rake
       class SpecTask
         def initialize(name)
+          include Rake::DSL if defined?(Rake::DSL)
+
           task name do
             # if rspec-rails is a configured gem, this will output helpful material and exit ...
             require File.expand_path(File.join(File.dirname(__FILE__),"..","..","config","environment"))
