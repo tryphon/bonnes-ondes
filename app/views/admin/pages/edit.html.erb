@@ -14,14 +14,10 @@
   </p>
   <p>
     <%= f.label :content, "Texte" %><br />
-    <%= textile_editor 'page', 'content', :rows => 20, :cols => 60 -%></p>
+    <%= textile_area 'page', 'content', :disable => :image -%></p>
   </p>
   <p>
     <%= f.submit "Modifier" %>
     ou <%= link_to 'revenir', admin_show_page_path(@page.show, @page) %>
   </p>
-
- <%= textile_editor_initialize -%>
 <% end %>
-
-

@@ -11,7 +11,7 @@
  <%= text_field("episode", "order", :size => 3) %></p>
 
  <p><label for="episode_description">Description :</label><br/>
- <%= textile_editor 'episode', 'description', :rows => 25, :cols => 62 -%></p>
+ <%= textile_area 'episode', 'description', :disable => :image -%></p>
 
  <p><label for="episode_tag_list">Etiquettes :</label><br/>
  <%= text_field 'episode', 'tag_list', :size => 60 -%></p>
@@ -21,5 +21,4 @@
  <%= datetime_select 'episode', 'broadcasted_at', :order => [ :day, :month, :year ], :minute_step => 15 -%></p>
 
  <%= submit_tag "Modifier" %> ou <%= link_to("revenir", :action => "show", :id => @episode ) %>
- <%= textile_editor_initialize -%>
 <% end %>

@@ -10,7 +10,7 @@
 
  <p>
    <%= f.label :description %><br/>
-   <%= textile_editor 'show', 'description', :rows => 10, :cols => 60 -%>
+   <%= textile_area 'show', 'description', :disable => :image -%>
  </p>
 
  <p>
@@ -26,6 +26,4 @@
  <% end %>
 
  <%= f.submit "Modifier" %> ou <%= link_to("revenir", :action => "show", :id => @show) %>
-
- <%= textile_editor_initialize -%>
 <% end %>

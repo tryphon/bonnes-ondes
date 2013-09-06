@@ -132,7 +132,23 @@ p#cloud { margin-bottom: 8px; }
 #wrap:after, #content .vcard:after, #subscribers:after, #users:after, #members:after, #content .hreview:after, #search:after { content: ".";  display: block; height: 0; clear: both; visibility: hidden; }
 * html #wrap, * html #content .vcard, * html #subscribers, * html #users, * html #members, * html #search { height: 1%; }
 
-.textile_editor_help { padding: 4px 0 10px 10px; font-size: 0.9em; font-style: italic; }
+/* .textile_editor_help { padding: 4px 0 10px 10px; font-size: 0.9em; font-style: italic; } */
+.textile_toolbar {
+background: #ece9d8;
+padding: 3px;
+}
+
+.textile_toolbar small {
+display: none;
+}
+
+.textile_toolbar img {
+border: 1px solid #fff;
+}
+
+.textile_area, .textile_area textarea {
+  width: 100%;
+}
 
 #selection li { display: inline; }
 

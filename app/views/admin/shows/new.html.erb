@@ -13,9 +13,7 @@
  <%= text_field("show", "slug") %></p>
 
  <p><label for="show_description">Description :</label><br/>
- <%= textile_editor 'show', 'description', :rows => 10, :cols => 60 -%></p>
+ <%= textile_area 'show', 'description', :disable => :image -%>
 
  <%= submit_tag "Créer" %> ou <%= link_to("revenir", admin_path) %>
-
- <%= textile_editor_initialize -%>
 <% end %>

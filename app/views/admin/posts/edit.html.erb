@@ -10,12 +10,10 @@
   </p>
   <p>
     <%= f.label :description, "Contenu" %><br />
-    <%= textile_editor 'post', 'description', :rows => 20, :cols => 60 -%></p>
+    <%= textile_area 'post', 'description', :disable => :image -%></p>
   </p>
   <p>
     <%= f.submit "Modifier" %>
     ou <%= link_to 'revenir', admin_show_post_path(@post.show, @post) %>
   </p>
 <% end %>
-
-<%= textile_editor_initialize -%>

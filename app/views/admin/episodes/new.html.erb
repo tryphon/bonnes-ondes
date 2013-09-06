@@ -17,7 +17,7 @@
  <%= text_field("episode", "slug", :size => 45) %></p>
 
  <p><label for="episode_description">Description :</label><br/>
- <%= textile_editor 'episode', 'description', :rows => 10, :cols => 60 -%></p>
+ <%= textile_area 'episode', 'description', :disable => :image -%></p>
 
  <p><label for="episode_tag_list">Etiquettes :</label><br/>
  <%= text_field 'episode', 'tag_list' -%></p>
@@ -34,7 +34,5 @@
 
  <%= hidden_field("episode", "show_id") %>
 
- <%= submit_tag "Créer" %> ou <%= link_to("revenir", :controller => "show", :action => "show", :id => @episode.show ) %>
-
- <%= textile_editor_initialize -%>
+ <%= submit_tag "Créer" %> ou <%= link_to "annuler", admin_show_path(@episode.show) %>
 <% end %>
