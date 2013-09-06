@@ -18,6 +18,7 @@ gem 'dragonfly', '0.8.5'
 gem 'rack-cache'
 
 gem 'rack-google-analytics'
+gem 'acts-as-rated', :git => 'git://github.com/jasherai/acts-as-rated.git', :ref => '319d2e46f3776a77206d380b3705ab47c888360e'
 
 group :development do
   gem "sqlite3-ruby"

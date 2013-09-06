@@ -52,6 +52,7 @@ Rails::Initializer.run do |config|
   config.gem 'rack-cache', :lib => 'rack/cache'
 
   config.gem 'rack-google-analytics', :lib => 'rack/google-analytics'
+  config.gem 'acts-as-rated'
 end
 
 # Add new inflection rules using the following format

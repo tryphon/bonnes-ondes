@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/jasherai/acts-as-rated.git
+  revision: 319d2e46f3776a77206d380b3705ab47c888360e
+  ref: 319d2e46f3776a77206d380b3705ab47c888360e
+  specs:
+    acts-as-rated (0.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -186,6 +193,7 @@ DEPENDENCIES
   RedCloth
   SyslogLogger
   acts-as-list
+  acts-as-rated!
   audiobank-client (~> 0.0.2)
   capistrano
   capybara (= 1.1.1)
