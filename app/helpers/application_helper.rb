@@ -98,22 +98,6 @@ module ApplicationHelper
     end
   end
 
-  def format_date(date)
-    format = 'le %d/%m/%Y'
-
-    if date.today?
-      format = 'à %H:%M'
-    end
-    if date.yesterday?
-      format = 'hier à %H:%M'
-    end
-
-    date.strftime(format)
-  end
-
-  def textile_editor(*args)
-    (super *args) + '<br/><div class="hint">Ajouter un lien: "Bonnes Ondes":http://bonnes-ondes.fr</div>'.html_safe
-  end
 
   def textilize_in_text(content)
     RedCloth.new(content).to_plain
