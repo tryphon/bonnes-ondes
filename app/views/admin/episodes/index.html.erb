@@ -37,7 +37,9 @@
     <%= link_to "Ajouter un nouvel épisode", new_admin_show_episode_path(@show) %>
   </div>
 <% else %>
+  <p>Aucun épisode trouvé</p>
   <div class="actions">
-    <%= link_to "Renseigner le premier épisode", new_admin_show_episode_path(@show) %>
+    <% action_name = (@tag or @filter ? "Ajouter un nouvel épisode" : "Renseigner le premier épisode") %>
+    <%= link_to action_name, new_admin_show_episode_path(@show) %>
   </div>
 <% end %>

@@ -3,8 +3,10 @@ require 'net/http'
 
 class Content < ActiveRecord::Base
 
-  named_scope :principal, :conditions => { :principal => true }
-  named_scope :for_feed, lambda { |show| {
+  attr_accessible :name, :slug, :principal
+
+  scope :principal, :conditions => { :principal => true }
+  scope :for_feed, lambda { |show| {
       :conditions => [ "shows.id = ? and episodes.broadcasted_at < ? ", show.id, Time.now ],
       :include => { :episode => [:tags, :show, :contents] },
       :order => "episodes.broadcasted_at desc"
@@ -41,9 +43,9 @@ class Content < ActiveRecord::Base
     true
   end
 
-  def self.model_name
-    @model_name ||= ::ActiveSupport::ModelName.new(Content.name)
-  end
+  # def self.model_name
+  #   @model_name ||= ActiveModel::Name.new(Content)
+  # end
 
   def length
     # FIXME we need to save two lengths, for ogg and mp3 formats
@@ -106,6 +108,7 @@ end
 
 # TODO move this f... code anywhere else
 class Content::LiquidDropClass
+  include Liquid::ViewSupport
 
   def url_for
     view.content_url(@object)

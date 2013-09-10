@@ -4,6 +4,8 @@ class Page < ActiveRecord::Base
   belongs_to :show
   validates_presence_of :show_id
 
+  attr_accessible :slug, :title, :content
+
   @@slug_length = 40
   cattr_reader :slug_length
 
@@ -31,6 +33,7 @@ end
 
 # TODO move this f... code anywhere else
 class Page::LiquidDropClass
+  include Liquid::ViewSupport
 
   def url_for
     view.page_url(@object)

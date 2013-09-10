@@ -1,5 +1,5 @@
 class Admin::ImagesController < AdminController
-  belongs_to :show
+  belongs_to :show, :finder => :find_by_slug
 
   protected
 

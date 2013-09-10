@@ -23,8 +23,9 @@ class Admin::AccountController < ApplicationController
     return unless request.post?
     @user.save!
     self.current_user = @user
-    redirect_back_or_default(:controller => 'account', :action => 'index')
+
     flash[:notice] = "Votre compte est créé. Vous allez recevoir un email pour l'activer."
+    redirect_to admin_path
   rescue ActiveRecord::RecordInvalid
     render :action => 'signup'
   end

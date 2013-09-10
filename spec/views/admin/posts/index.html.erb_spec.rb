@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "/admin/posts/index.html.erb" do
+describe "admin/posts/index" do
   include PostsHelper
 
   before(:each) do
@@ -15,16 +15,16 @@ describe "/admin/posts/index.html.erb" do
   end
 
   it "should render list of posts" do
-    render "/admin/posts/index.html.erb"
+    render
     @posts.each do |post|
-      response.should have_tag("a", post.title)
+      rendered.should have_selector("a", :text => post.title)
     end
   end
 
   it "should render link to show each post" do
-    render "/admin/posts/index.html.erb"
+    render
     @posts.each do |post|
-      response.should have_tag("a[href=?]", admin_show_post_path(@show, post))
+      rendered.should have_selector("a", :href => admin_show_post_path(@show, post))
     end
   end
 

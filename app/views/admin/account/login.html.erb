@@ -1,4 +1,4 @@
-<% form_tag do -%>
+<%= form_tag do -%>
 <p><label for="login">Utilisateur</label><br/>
 <%= text_field_tag 'login' %></p>
 
@@ -12,6 +12,6 @@
 
 <p><%= submit_tag "S'identifier" %>
 ou
-<%= link_to "rappel de votre mot de passe &#8250;", :controller => :account, :action => :recover_password%>
+<%= link_to "rappel de votre mot de passe", :controller => :account, :action => :recover_password%>
 </p>
 <% end -%>

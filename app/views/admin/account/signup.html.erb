@@ -1,18 +1,10 @@
 <h2>Créez un compte Bonnes-Ondes</h2>
 
-<%= error_messages_for :user %>
-<% form_for :user do |f| -%>
-<p><label for="login">Utilisateur</label><br/>
-<%= f.text_field :login %></p>
+<%= simple_form_for @user, :url => admin_signup_path do |f| %>
+  <%= f.input :login %>
+  <%= f.input :email %>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
 
-<p><label for="email">Email</label><br/>
-<%= f.text_field :email %></p>
-
-<p><label for="password">Mot de passe</label><br/>
-<%= f.password_field :password %></p>
-
-<p><label for="password_confirmation">Confirmation du mot de passe</label><br/>
-<%= f.password_field :password_confirmation %></p>
-
-<p><%= submit_tag 'Créez votre compte' %></p>
-<% end -%>
+  <%= f.button :submit, :cancel => :back %>
+<% end %>

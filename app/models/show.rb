@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 class Show < ActiveRecord::Base
 
+  attr_accessible :name, :description, :slug, :host, :template_id, :audiobank_account, :logo_id
+
   has_one :host, :dependent => :destroy, :as => :site
   belongs_to :template
 
@@ -23,13 +25,7 @@ class Show < ActiveRecord::Base
   validates_exclusion_of :slug, :in => %w(www ftp assets0 assets1 assets2 assets3), :message => "Ce lien '%s' n'est pas disponible"
 
   has_and_belongs_to_many :users
-
-  # FIXME Workaround to support User#shows.build and save
-  before_create :add_first_user
-  def add_first_user
-    users << User.find(user_id) if self[:user_id]
-  end
-
+1
   has_many :episodes, :dependent => :destroy, :order => "`order` desc"
   has_many :contents, :through => :episodes
   has_many :images, :dependent => :destroy
@@ -112,6 +108,7 @@ end
 
 # TODO move this f... code anywhere else
 class Show::LiquidDropClass
+  include Liquid::ViewSupport
 
   def broadcasted_episodes
     Episode.sort @object.episodes.broadcasted
@@ -126,7 +123,7 @@ class Show::LiquidDropClass
   end
 
   def popular_episodes
-    @object.episodes.find(:all, :order => 'rating_avg desc, rating_count desc')
+    @object.episodes.order('rating_avg desc, rating_count desc')
   end
 
   def tag

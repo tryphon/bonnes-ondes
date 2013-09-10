@@ -1,26 +1,4 @@
 <h2>Renseigner une page</h2>
 <p>Emission: <%= @page.show.name %></p>
 
-<% form_for([:admin, @page.show, @page]) do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :title, "Titre" %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :slug, "Lien" %><br />
-    <%= f.text_field :slug %>
-  </p>
-
-  <%= observe_field 'page_title', :url => slug_admin_show_pages_path,
-    :with => 'name', :frequency => 2 %>
-
-  <p>
-    <%= f.label :content, "Texte" %><br />
-    <%= textile_area 'page', 'content', :disable => :image -%></p>
-  </p>
-  <p>
-    <%= f.submit "Créer" %> ou
-    <%= link_to 'annuler', admin_show_pages_path(@page.show) %>
-  </p>
-<% end %>
+<%= render 'form' %>

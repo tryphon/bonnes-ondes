@@ -14,6 +14,7 @@ class Radio < ActiveRecord::Base
 end
 
 class Radio::LiquidDropClass
+  include Liquid::ViewSupport
 
   # def url_for
   #   view.url_for_show(@object)

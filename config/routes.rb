@@ -1,101 +1,140 @@
-ActionController::Routing::Routes.draw do |map|
+BonnesOndes::Application.routes.draw do
+  constraints(ResourceLink::AdminHost) do
+    root :to => 'admin/welcome#show', :as => :public
 
-  map.with_options(:conditions => { :host => ResourceLink.admin_domain }) do |admin_host|
-    admin_host.public '', :controller => "admin/welcome", :action => 'show'
-    admin_host.admin 'compte', :controller => 'admin/dashboards', :action => 'show'
+    resources :audiobank_updates
 
-    admin_host.with_options(:path_prefix => "compte", :name_prefix => "admin_", :namespace => "admin/") do |admin|
-      admin.resource :dashboard
+    match 'compte' => "admin/dashboards#show", :as => :admin
 
-      admin.activate 'activate/:code', :controller => 'account', :action => 'activate'
+    namespace :admin, :path => "compte" do
+      resource :dashboard
 
-      admin.login 'login', :controller => 'account', :action => 'login'
-      admin.logout 'logout', :controller => 'account', :action => 'logout'
-      admin.signup 'signup', :controller => 'account', :action => 'signup'
-      admin.recover_password 'recover_password', :controller => 'account', :action => 'recover_password'
+      match 'activate/:code' => 'account#active', :as => :activate
+      match 'login' => 'account#login', :as => :login
+      match 'logout' => 'account#logout', :as => :logout
+      match 'signup' => 'account#signup', :as => :signup
+      match 'recover_password' => 'account#recover_password', :as => :recover_password
 
-      admin.resources :shows, :collection => { :slug => :post } do |shows|
-        shows.resource :logo
-        shows.resources :episodes, :collection => { :slug => :post } do |episodes|
-          episodes.resource :image, :controller => "EpisodeImages"
-          episodes.resources :contents
-          episodes.resources :net_contents
-          episodes.resources :audiobank_contents
+      resources :shows do
+        collection do
+          post 'slug'
         end
-        shows.resources :posts, :collection => { :slug => :post }
-        shows.resources :pages, :member => "move_up", :collection => { :slug => :post }
-        shows.resources :images
+
+        resource :logo
+        resources :episodes do
+          collection do
+            post 'slug'
+          end
+
+          resource :episode_image, :path => "image", :as => "image"
+          resources :contents
+          resources :net_contents
+          resources :audiobank_contents
+        end
+        resources :posts do
+          collection do
+            post 'slug'
+          end
+        end
+        resources :pages do
+          collection do
+            post 'slug'
+          end
+          member do
+            get 'move_up'
+          end
+        end
+        resources :images
       end
 
-      admin.resources :templates
-    end
-
-    admin_host.resources :audiobank_updates
-  end
-
-  map.with_options(:name_prefix => "public_", :namespace => "public/") do |public|
-    def show_routes(show)
-      show.resources :episodes, :as => "ep" do |episodes|
-        episodes.resources :contents, :as => "c"
-        episodes.resource :vote
-      end
-      show.resources :pages, :as => "p"
-      show.resources :posts
-      show.resources :tags
-      show.resource :feed
-      show.resource :robots
-      show.resource :sitemap
-      show.resource :stream, :as => "direct"
-    end
-
-    public.with_options(:conditions => { :show_host => true }) do |show|
-      show.connect '', :controller => "show", :action => "show"
-      show_routes(show)
-    end
-
-    public.with_options(:conditions => { :radio_host => true }) do |radio|
-      radio.connect '', :controller => "radio", :action => 'show'
-      radio.resources :shows, :as => "e" do |shows|
-        show_routes(shows)
-      end
-      radio.resource :robots
-      radio.resource :sitemap
+      resources :templates
     end
   end
 
-  # map.connect 'e/:show_slug', :controller => 'public', :action => 'show'
+  scope :module => "public", :as => "public" do
+    def show_resources(context)
+      context.resources :episodes, :path => "ep" do
+        resources :contents, :path => "c"
+        resource :vote
+      end
+      context.resources :pages, :path => "p"
+      context.resources :posts
+      context.resources :tags
+      context.resource :feed, :defaults => { :format => "xml" }
+      context.resource :robots
+      context.resource :sitemap
+      context.resource :stream, :path => "direct"
+    end
 
-  # map.connect 'e/:show_slug/p/:page_slug', :controller => 'public', :action => 'page'
-  # map.connect 'p/:page_slug', :controller => 'public', :action => 'page'
+    constraints(ResourceLink::ShowHost) do
+      root :to => "show#show"
+      show_resources self
+    end
 
-  # map.connect 'e/:show_slug/ep/:episode_slug', :controller => 'public', :action => 'episode'
-  # map.connect 'ep/:episode_slug', :controller => 'public', :action => 'episode'
+    constraints(ResourceLink::RadioHost) do
+      root :to => 'radio#show'
+      resources :shows, :path => "e" do
+        show_resources self
+      end
+      resource :robots
+      resource :sitemap, :defaults => { :format => "xml" }
+    end
+  end
 
-  # map.connect 'e/:show_slug/ep/:episode_slug/ecoute/:content_slug', :controller => 'public', :action => 'content'
-  # map.connect 'ep/:episode_slug/ecoute/:content_slug', :controller => 'public', :action => 'content'
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
 
-  # map.connect 'e/:show_slug/ep/:episode_slug/ecouter/:content_slug', :controller => 'public', :action => 'playlist'
-  # map.connect 'ep/:episode_slug/ecouter/:content_slug', :controller => 'public', :action => 'playlist'
+  # Sample of regular route:
+  #   match 'products/:id' => 'catalog#view'
+  # Keep in mind you can assign values other than :controller and :action
 
-  # map.connect 'e/:show_slug/tags/:search', :controller => 'public', :action => 'tags'
-  # map.connect 'tags/:search', :controller => 'public', :action => 'tags'
+  # Sample of named route:
+  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  # This route can be invoked with purchase_url(:id => product.id)
 
-  # map.connect 'e/:show_slug/vote/:episode_id', :controller => 'public', :action => 'vote'
-  # map.connect 'vote/:episode_id', :controller => 'public', :action => 'vote'
+  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
 
-  # map.connect '/e/:show_slug/feed', :controller => 'public', :action => 'feed'
-  # map.connect 'feed', :controller => 'public', :action => 'feed'
+  # Sample resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
 
-  # map.connect 'robots.txt', :controller => 'public', :action => 'robots'
+  # Sample resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
 
-  # # You can have the root of your site routed by hooking up ''
-  # # -- just remember to delete public/index.html.
-  # map.connect '', :controller => "public", :action => "welcome"
-  # # prevent /show path in url_for_show
-  # map.connect '', :controller => "public", :action => "show"
+  # Sample resource route with more complex sub-resources
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
+  #   end
 
-  # map.connect '/:action', :controller => "public"
+  # Sample resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
 
-  # map.connect ':controller/:action/:id.:format'
-  # map.connect ':controller/:action/:id'
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => 'welcome#index'
+
+  # See how all your routes lay out with "rake routes"
+
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  # match ':controller(/:action(/:id))(.:format)'
 end

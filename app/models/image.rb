@@ -1,20 +1,23 @@
 class Image < ActiveRecord::Base
 
+  attr_accessible :title, :content
+
   liquid_methods :width, :height, :title
 
   belongs_to :show
-
-  has_attachment :storage => :file_system, :max_size => 5.megabytes, :content_type => :image, :thumbnails => { :larg => '500>', :normal => '200>', :thumb => '75' }
-  validates_as_attachment
 
   image_accessor :content
 
   validates_presence_of :content
   validates_size_of :content, :maximum => 5.megabytes
-  validates_property :format, :of => :content, :in => [:jpeg, :png, :gif]
+  validates_property :format, :of => :content, :in => [:jpg, :png, :gif]
 
   @@default_geometry = "200x200>"
   cattr_accessor :default_geometry
+
+  def admin_thumb_url
+    content.thumb("200x200>").url
+  end
 
   protected
 
@@ -31,6 +34,8 @@ class Image < ActiveRecord::Base
 end
 
 class Image::LiquidDropClass
+  include Liquid::ViewSupport
+
   def url_for
     @object.content.thumb('200x200>').url
   end

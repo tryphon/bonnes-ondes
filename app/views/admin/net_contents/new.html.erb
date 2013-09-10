@@ -1,22 +1,14 @@
-<%= error_messages_for(:net_content) %>
-
 <h2>Ajouter un son sur le net</h2>
 <p>Episode: <%= @episode.title %></p>
 
-<% form_for [:admin, @show, @episode, @net_content] do |f| %>
- <p><label for="net_content_name">Nom :</label><br/>
- <%= f.text_field :name %></p>
+<%= simple_form_for [:admin, @show, @episode, @net_content ] do |f| %>
+  <%= f.input :name %>
+  <%= f.input :slug if @net_content.new_record? %>
 
- <p><label for="net_content_slug">Lien :</label><br/>
- <%= f.text_field :slug %></p>
+  <%= f.input :principal %>
 
- <p><label for="net_content_url">URL :</label><br/>
- <%= f.text_field :url %></p>
+  <%= f.input :url %>
+  <%= f.input :duration %>
 
- <p><label for="net_content_duration">Durée (en minutes):</label><br/>
- <%= f.text_field :duration %></p>
-
- <p><label for="net_content_principal">Contenu principal :</label><%= f.check_box :principal %></p>
-
- <%= submit_tag "Créer" %> ou <%= link_to "revenir", admin_show_episode_path(@show, @episode) %>
+  <%= f.button :submit, :cancel => admin_show_path(@show) %>
 <% end %>

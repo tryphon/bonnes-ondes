@@ -1,6 +1,7 @@
-require 'digest/sha1'
-require "digest/sha2"
 class User < ActiveRecord::Base
+
+  attr_accessible :email, :password, :password_confirmation, :login
+
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
@@ -59,7 +60,8 @@ class User < ActiveRecord::Base
 	  generated_password = new_password
 	  self.password = generated_password
     self.password_confirmation = generated_password
-	  UserNotifier.deliver_new_password(self, generated_password)
+
+	  UserMailer.new_password(self, generated_password).deliver
 	end
 
 	def new_password
@@ -89,13 +91,13 @@ class User < ActiveRecord::Base
   def remember_me
     self.remember_token_expires_at = 2.weeks.from_now.utc
     self.remember_token            = random_digest
-    save(false)
+    save
   end
 
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
-    save(false)
+    save
   end
 
   # Activates the user in the database.

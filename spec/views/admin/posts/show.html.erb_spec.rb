@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe "/admin/posts/show.html.erb" do
-  include PostsHelper
+describe "/admin/posts/show" do
 
   before(:each) do
     assigns[:post] = @post = Factory(:post,
@@ -14,10 +13,10 @@ describe "/admin/posts/show.html.erb" do
   it "should render attributes in <p>" do
     # FIXME no wait to render textilize in view spec
     # can't find' ActionView::Helpers::TextHelper::RedCloth
-    template.stub :textilize => "textilized_description"
+    view.stub :textilize => "textilized_description"
 
-    render "/admin/posts/show.html.erb"
-    response.should have_text(/value\ for\ title/)
-    response.should have_text(/textilized_description/)
+    render
+    rendered.should match(/value\ for\ title/)
+    rendered.should match(/textilized_description/)
   end
 end

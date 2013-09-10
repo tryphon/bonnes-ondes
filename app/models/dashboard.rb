@@ -13,7 +13,7 @@ class Dashboard
   end
 
   def show_lasts
-    @show_lasts ||= shows.find(:all, :order => "updated_at desc", :limit => 3)
+    @show_lasts ||= shows.order("updated_at desc").limit(3)
   end
 
   def episodes_count

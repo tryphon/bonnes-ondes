@@ -1,35 +1,71 @@
 source 'https://rubygems.org'
 
-gem 'rails', '2.3.18'
-gem 'inherited_resources', '= 1.0.6'
+gem 'rails', '3.2.14'
+
+gem 'inherited_resources', '< 1.4'
+gem 'simple_form'
+
+gem 'user_interface', :git => 'git://projects.tryphon.priv/user-interface', :branch => 'rails3', :path => "~/Projects/UserInterface"
+
 gem 'RedCloth'
 gem 'red_cloth_formatters_plain'
-
-gem 'will_paginate', '~> 2.3.16'
-
+gem 'will_paginate'
 gem 'liquid'
 gem 'exception_notification'
 gem 'acts-as-list'
-
-gem 'httparty'
 gem 'audiobank-client', '~> 0.0.2'
 
-gem 'dragonfly', '0.8.5'
+gem 'dragonfly'
 gem 'rack-cache'
 
-gem 'rack-google-analytics'
+gem 'dynamic_form'
 
-gem 'acts-as-rated', :git => 'git://github.com/jasherai/acts-as-rated.git', :ref => '319d2e46f3776a77206d380b3705ab47c888360e'
+gem 'rack-google-analytics'
+gem 'rails-i18n'
+
+gem 'acts-as-rated', :git => 'git://github.com/bteitelb/acts-as-rated.git'
 gem 'acts_as_taggable_on_steroids'
-gem 'textile_toolbar', "0.5.4"
+gem 'textile_toolbar'
+
+gem 'json'
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'therubyracer', :platforms => :ruby
+  gem 'uglifier', '>= 1.0.3'
+end
+
+gem 'jquery-rails'
+
+# to support Ruby 1.8.7 :
+gem 'nokogiri', '~> 1.5.10'
 
 group :development do
   gem "sqlite3-ruby"
-  gem 'rmagick'
   gem 'capistrano'
 end
 
 group :development, :test do
+  gem 'pry-rails'
+
+  gem 'rspec-rails', '~> 2.0'
+
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+
+  gem 'pickle'
+  gem "shoulda-matchers"
+  gem 'fakeweb'
+
+  # to support Ruby 1.8.7 :
+  gem "capybara", "< 2"
+  gem 'factory_girl', "< 3"
+
   gem "guard"
   gem 'guard-rspec'
   gem 'guard-cucumber'
@@ -37,27 +73,6 @@ group :development, :test do
     gem 'rb-inotify'
     gem 'libnotify'
   end
-end
-
-group :test do
-  gem 'rspec-rails', '< 2'
-  gem 'rcov'
-  gem 'remarkable_rails'
-  gem 'factory_girl'
-  gem 'fakeweb'
-end
-
-group :cucumber do
-  gem "capybara", "1.1.1"
-  gem "cucumber", "1.1.0"
-  gem "cucumber-rails", "0.3.2"
-
-  gem 'webrat'
-  gem 'database_cleaner'
-  gem 'pickle'
-  gem 'factory_girl'
-  gem "launchy"
-  gem "gherkin"
 end
 
 group :production do

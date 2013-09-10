@@ -8,7 +8,7 @@ describe AudiobankContent do
 
     subject { Factory.build :audiobank_content }
 
-    it { should validate_presence_of(:audiobank_id, :on => :create) }
+    it { should validate_presence_of(:audiobank_id) }
 
     it "should validate the existence of AudioBank document on create" do
       subject.audiobank_project.should_receive(:exists?).with(subject.audiobank_id).and_return(true)
@@ -27,7 +27,7 @@ describe AudiobankContent do
   end
 
   it "should not validate the existence of Audiobank document on update" do
-    subject.stub :audiobank_project => mock, :audiobank_id => 1
+    subject.stub :audiobank_project => double, :audiobank_id => 1
     subject.audiobank_project.should_not_receive(:exists?)
     subject.valid?
   end
@@ -38,7 +38,7 @@ describe AudiobankContent do
       subject.stub :cast_url => "<cast_url>"
       subject.content_url(:format => "<format>").should == "<cast_url>.<format>"
     end
-    
+
   end
 
   describe "playlist_url" do
@@ -50,7 +50,7 @@ describe AudiobankContent do
     it "should be the cast_url" do
       subject.playlist_url.should == subject.cast_url
     end
-    
+
   end
 
   describe "cast_url" do
@@ -59,13 +59,13 @@ describe AudiobankContent do
       subject.stub :audiobank_base_url => "<audiobank_base_url>", :audiobank_cast => "<audiobank_cast>"
       subject.cast_url.should == "<audiobank_base_url>/casts/<audiobank_cast>"
     end
-    
+
   end
 
   it { should validate_numericality_of(:audiobank_id) }
 
-  it { should allow_values_for(:audiobank_cast, "vxoo3iyg") }
-  it { should_not allow_values_for(:audiobank_cast, "dummy") }
+  it { should allow_value("vxoo3iyg").for(:audiobank_cast) }
+  it { should_not allow_value("dummy").for(:audiobank_cast) }
 
   describe "ready?" do
 
@@ -81,10 +81,10 @@ describe AudiobankContent do
     let(:document) { Audiobank::Document.new }
 
     before(:each) do
-      subject.stub :audiobank_project => mock
+      subject.stub :audiobank_project => double
       subject.audiobank_project.stub :document => document
     end
-    
+
     it "should update cast if available" do
       document.cast = "vxoo3iyg"
       subject.update_document
@@ -135,9 +135,9 @@ describe AudiobankContent do
   end
 
   describe "#audiobank_enabled?" do
-    
+
     it "should be true if audiobank_project is defined" do
-      subject.stub :audiobank_project => mock
+      subject.stub :audiobank_project => double
       subject.should be_audiobank_enabled
     end
 

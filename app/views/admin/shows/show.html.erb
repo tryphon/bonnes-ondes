@@ -1,13 +1,13 @@
 <h2><%= @show.name %></h2>
 <div class="description">
-<%= (image_tag @show.logo.public_filename(:thumb)) if @show.logo %>
+<%= image_tag @show.logo.admin_thumb_url if @show.logo %>
 <%= textilize(@show.description) %>
 </div>
 
 <p class="dates">créée <%= format_date(@show.created_at) %>, modifiée <%= format_date(@show.updated_at) %></p>
 
 <div class="actions">
-<%= link_to("Voir", show_url(@show), :class => "view", :popup => true) %>
+<%= link_to("Voir", show_url(@show), :class => "view", :target => :blank) %>
 <%= link_to("Modifier", edit_admin_show_path(@show), :class => "edit") %>
 <%= link_to("Logo", edit_admin_show_logo_path(@show), :class => "edit_show_logo") %>
 <%= link_to("Supprimer", admin_show_path(@show), :method => :delete, :confirm => "Etes-vous sûr de vouloir définitivement supprimer cette émission ?", :class => "destroy") %>
@@ -25,7 +25,7 @@
   </p>
 
   <ul>
-  <% for episode in @show.episodes.find(:all, :order => 'updated_at desc', :limit => 5) %>
+  <% for episode in @show.episodes.order('updated_at desc').limit(5) %>
     <li>
       <%= link_to "#{episode.order} - #{episode.title}", admin_show_episode_path(@show, episode) %>
       <br/>modifié <%= format_date(episode.updated_at) %>
@@ -81,9 +81,9 @@
   <p>Les dernières images modifiées :</p>
 
   <ul class="images">
-    <% for image in @show.images.find(:all, :order => 'updated_at desc', :limit => 5) %>
+    <% for image in @show.images.order('updated_at desc').limit(5) %>
       <li>
-        <%= image_tag image.public_filename(:thumb) %>
+        <%= image_tag image.admin_thumb_url %>
         <div>
           <%= h image.title %>
           <br/>modifiée <%= format_date(image.updated_at) %>

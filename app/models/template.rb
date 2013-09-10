@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 class Template < ActiveRecord::Base
 
+  attr_accessible :name, :slug, :scm_url
+
   # Used to prevent problems with old migrations
   def self.supports_scm_url?
     column_names.include? "scm_url"
@@ -116,6 +118,10 @@ class Template < ActiveRecord::Base
 
   def self.default
     Template.find_by_slug('cocoa')
+  end
+
+  def to_param
+    slug
   end
 
 end
