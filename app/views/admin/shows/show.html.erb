@@ -1,6 +1,6 @@
 <h2><%= @show.name %></h2>
 <div class="description">
-<%= image_tag @show.logo.admin_thumb_url if @show.logo %>
+<%= image_tag @show.logo.admin_preview_url if @show.logo %>
 <%= textilize(@show.description) %>
 </div>
 
@@ -85,7 +85,7 @@
       <li>
         <%= image_tag image.admin_thumb_url %>
         <div>
-          <%= h image.title %>
+          <%= link_to image.title, admin_show_image_path(@show, image) %>
           <br/>modifiée <%= format_date(image.updated_at) %>
         </div>
       </li>

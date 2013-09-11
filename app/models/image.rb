@@ -15,8 +15,12 @@ class Image < ActiveRecord::Base
   @@default_geometry = "200x200>"
   cattr_accessor :default_geometry
 
-  def admin_thumb_url
+  def admin_preview_url
     content.thumb("200x200>").url
+  end
+
+  def admin_thumb_url
+    content.thumb("75x75").url
   end
 
   protected

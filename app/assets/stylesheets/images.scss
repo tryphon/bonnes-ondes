@@ -1,0 +1,39 @@
+ul.images {
+    li {
+        clear: both;
+        img {
+            float: left;
+        }
+        div {
+            margin-left: 90px;
+        }
+        input {
+            float:left;
+            margin:15px 20px 10px 0;
+        }
+        &:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+    }
+}
+
+form {
+    ul.images {
+        margin-top: 10px !important;
+
+        li div {
+            margin-left: 120px;
+        }
+    }
+}
+
+body.images.show {
+    .preview {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}

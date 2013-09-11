@@ -14,7 +14,9 @@ Sélectionnez le parmi les images de votre émission :
       <li>
         <%= radio_button_tag "show[logo_id]", image.id, @show.logo == image %>
         <%= image_tag image.admin_thumb_url %>
-        <%= h image.title %>
+        <div>
+          <%= image.title %>
+        </div>
       </li>
     <% end %>
   </ul>

@@ -1,6 +1,6 @@
 <h2><%= @episode.show.name %> - <%= @episode.title %></h2>
 <div class="description">
-<%= image_tag @episode.image.admin_thumb_url if @episode.image %>
+<%= image_tag @episode.image.admin_preview_url if @episode.image %>
 <%= textilize(@episode.description) %>
 </div>
 

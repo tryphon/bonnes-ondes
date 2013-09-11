@@ -5,7 +5,10 @@
     <% for image in @images %>
       <li>
         <%= link_to image_tag(image.admin_thumb_url), admin_show_image_path(image.show, image) %>
-        <%= link_to image.title, admin_show_image_path(image.show, image) %>
+        <div>
+          <%= link_to image.title, admin_show_image_path(image.show, image) %>
+          <br/>modifiée <%= format_date(image.updated_at) %>
+        </div>
       </li>
     <% end %>
   </ul>
