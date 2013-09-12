@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://projects.tryphon.priv/user-interface
-  revision: 29c24c9e8ac8a95ad2a513f5c1e84debe4834f10
+  revision: 297b1183c9617912a388af3387cd4ed12b753688
   branch: rails3
   specs:
 

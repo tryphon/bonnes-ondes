@@ -1,0 +1,9 @@
+fr:
+  activerecord:
+    models:
+      post: Actualité
+    attributes:
+      post:
+        title: Titre
+        slug: Lien
+        content: Contenu

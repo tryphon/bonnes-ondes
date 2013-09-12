@@ -1,0 +1,6 @@
+fr:
+  activerecord:
+    attributes:
+      image:
+        title: Titre
+        content: Contenu

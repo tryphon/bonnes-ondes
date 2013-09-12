@@ -1,0 +1,14 @@
+fr:
+  activerecord:
+    attributes:
+      template:
+        name: Nom
+        slug: Lien
+        scm_url: Dépôt des sources
+  simple_form:
+    hints:
+      template:
+        name: 'ex: Mon Template'
+        slug: 'ex: mon-template'
+        scm_url: 'ex: git://github.com/my-account/mon-template'
+
