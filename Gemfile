@@ -61,6 +61,7 @@ group :development, :test do
   gem 'pickle'
   gem "shoulda-matchers"
   gem 'fakeweb'
+  gem 'launchy'
 
   # to support Ruby 1.8.7 :
   gem "capybara", "< 2"

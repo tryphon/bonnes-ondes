@@ -1,3 +1,3 @@
 Before do
-  Show.default_template = Factory(:template)
+  Template.default_slug = Factory(:template).slug
 end

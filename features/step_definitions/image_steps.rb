@@ -17,6 +17,5 @@ end
 
 When /^I attach the image file at "([^\"]*)" to "([^\"]*)"$/ do |path, field|
   path = fixture_file(path)
-  content_type = `file --brief --mime-type #{path}`
-  attach_file(field, path, content_type)
+  attach_file(field, path)
 end

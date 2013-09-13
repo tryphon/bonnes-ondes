@@ -117,7 +117,7 @@ class Template < ActiveRecord::Base
   cattr_accessor :default_slug
 
   def self.default
-    Template.find_by_slug('cocoa')
+    Template.find_by_slug(default_slug)
   end
 
   def to_param

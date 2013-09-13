@@ -12,15 +12,12 @@ Feature: Manage images
   When I follow "Ajouter une nouvelle image"
   Then I should be on the new image page of "test" show
 
-  # FIXME Image is not valid 
-  # Scenario: Create a new image
-  # Given I am on the new image page of "test" show
-  # And I fill in "image[title]" with "Titre de mon image"
-  # And I attach the image file at "image.jpg" to "image[uploaded_data]"
-  # When I press "Créer" 
-  # Then I should be on the images page of "test" show 
-  # And I should see "L'image est ajoutée"
-  # And I should see "Titre de mon image"
+  Scenario: Create a new image
+  Given I am on the new image page of "test" show
+  And I fill in "image[title]" with "Titre de mon image"
+  And I attach the image file at "image.jpg" to "image[content]"
+  When I press "Créer" 
+  And I should see "Le/la Image est maintenant créé(e)"
 
   Scenario: Go to images page from show page
   Given I am on the "test" show page
@@ -29,9 +26,9 @@ Feature: Manage images
 
   Scenario: See the show images
   Given the following images exist for "test" show
-  | title  | 
-  | Image 1 |
-  | Image 2 |
+    | title   | 
+    | Image 1 |
+    | Image 2 |
   When I am on the images page of "test" show
   Then I should see "Image 1"
   And I should see "Image 2"
