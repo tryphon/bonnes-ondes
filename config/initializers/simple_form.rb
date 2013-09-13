@@ -115,6 +115,7 @@ SimpleForm.setup do |config|
   # to match as key, and the input type that will be used when the field name
   # matches the regexp as value.
   # config.input_mappings = { /count/ => :integer }
+  config.input_mappings = { /slug/ => :slug }
 
   # Default priority for time_zone inputs.
   # config.time_zone_priority = nil

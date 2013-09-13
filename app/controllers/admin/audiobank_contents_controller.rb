@@ -6,4 +6,9 @@ class Admin::AudiobankContentsController < AdminController
       success.html { redirect_to admin_show_episode_path(@show, @episode) }
     end
   end
+
+  def slug
+    render :json => {:slug => Slug.slugify(params[:name])}
+  end
+
 end

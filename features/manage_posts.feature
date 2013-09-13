@@ -34,12 +34,12 @@ Feature: Manage posts
   And I should see "Nouveau titre de mon info"
   And I should see "Nouvelle description de mon info"
 
-  @wip
-  Scenario: Cancel post editing
-  Given a post "test" exists for "test" show
-  And I am on the edit "test" post page of "test" show
-  When I follow "revenir"
-  Then I should be on the "test" post page of "test" show 
+#  @wip
+#  Scenario: Cancel post editing
+#  Given a post "test" exists for "test" show
+#  And I am on the edit "test" post page of "test" show
+#  When I follow "revenir"
+#  Then I should be on the "test" post page of "test" show 
 
   Scenario: See the last posts in show page
   Given a post "test" with title "Last updated title" exists for "test" show

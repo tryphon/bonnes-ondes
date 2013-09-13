@@ -28,8 +28,16 @@ BonnesOndes::Application.routes.draw do
 
           resource :episode_image, :path => "image", :as => "image"
           resources :contents
-          resources :net_contents
-          resources :audiobank_contents
+          resources :net_contents do
+            collection do
+              post 'slug'
+            end
+          end
+          resources :audiobank_contents do
+            collection do
+              post 'slug'
+            end
+          end 
         end
         resources :posts do
           collection do

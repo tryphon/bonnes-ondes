@@ -25,7 +25,7 @@ class Admin::ShowsController < AdminController
   end
 
   def slug
-    @slug = Slug.slugify(params[:name])
+    render :json => {:slug => Slug.slugify(params[:name])}
   end
 
   protected

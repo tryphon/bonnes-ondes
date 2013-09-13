@@ -2,7 +2,7 @@ class Admin::PagesController < AdminController
   belongs_to :show, :finder => :find_by_slug
 
   def slug
-    @slug = Slug.slugify(params[:name], Page.slug_length)
+    render :json => {:slug => Slug.slugify(params[:name], Page.slug_length)}
   end
 
   def move_up
