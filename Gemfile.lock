@@ -6,12 +6,8 @@ GIT
 
 GIT
   remote: git://projects.tryphon.priv/user-interface
-  revision: 297b1183c9617912a388af3387cd4ed12b753688
+  revision: 11c71e2d7439a918671e069506fbd721bda8d4c9
   branch: rails3
-  specs:
-
-PATH
-  remote: ~/Projects/UserInterface
   specs:
     user_interface (0.0.1)
       rails (>= 3.1.3)

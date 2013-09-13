@@ -5,7 +5,7 @@ gem 'rails', '3.2.14'
 gem 'inherited_resources', '< 1.4'
 gem 'simple_form'
 
-gem 'user_interface', :git => 'git://projects.tryphon.priv/user-interface', :branch => 'rails3', :path => "~/Projects/UserInterface"
+gem 'user_interface', :git => 'git://projects.tryphon.priv/user-interface', :branch => 'rails3' # , :path => "~/Projects/UserInterface"
 
 gem 'RedCloth'
 gem 'red_cloth_formatters_plain'
