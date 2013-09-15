@@ -15,6 +15,7 @@
 /tmp
 
 /storage
-/coverageconfig/database.yml
+/coverage
+/config/database.yml
 .rbenv-version
 .ruby-version
