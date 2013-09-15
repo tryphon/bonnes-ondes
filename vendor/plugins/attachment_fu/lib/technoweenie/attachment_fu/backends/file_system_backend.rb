@@ -78,13 +78,13 @@ module Technoweenie # :nodoc:
           
           # Saves the file to the file system
           def save_to_storage
-            if save_attachment?
-              # TODO: This overwrites the file if it exists, maybe have an allow_overwrite option?
-              FileUtils.mkdir_p(File.dirname(full_filename))
-              File.cp(temp_path, full_filename)
-              File.chmod(attachment_options[:chmod] || 0644, full_filename)
-            end
-            @old_filename = nil
+            # if save_attachment?
+            #   # TODO: This overwrites the file if it exists, maybe have an allow_overwrite option?
+            #   FileUtils.mkdir_p(File.dirname(full_filename))
+            #   File.cp(temp_path, full_filename)
+            #   File.chmod(attachment_options[:chmod] || 0644, full_filename)
+            # end
+            # @old_filename = nil
             true
           end
           
