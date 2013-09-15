@@ -14,6 +14,8 @@ server "bonnesondes.dbx1.tryphon.priv", :app, :web, :db, :primary => true
 
 after "deploy:update_code", "deploy:symlink_shared", "deploy:gems"
 
+load "deploy/assets"
+
 namespace :deploy do
   # Prevent errors when chmod isn't allowed by server
   task :setup, :except => { :no_release => true } do
