@@ -6,9 +6,16 @@ describe Post do
     @post = Factory(:post)
   end
 
-  it "should presence of show" do
+  it "should valid presence of show" do
     @post.show = nil
     @post.should have(1).error_on(:show_id)
+  end
+
+  it "should touch parent Show" do
+    lambda {
+      @post.title = "Dummy"
+      @post.save
+    }.should change(@post.show, :updated_at)
   end
 
 end

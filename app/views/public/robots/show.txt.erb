@@ -3,7 +3,9 @@ Sitemap: <%= sitemap_url @site %>
 User-agent: *
 
 <% @shows.each do |show| %>
-<%- for content in show.contents -%>
+  <% cache [:robots, show] do -%>
+    <% for content in show.contents -%>
 Disallow: <%= content_path content %>
-<%- end -%>
+    <% end -%>
+  <% end -%>
 <% end %>

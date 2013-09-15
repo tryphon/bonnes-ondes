@@ -16,6 +16,8 @@ class Template < ActiveRecord::Base
   has_and_belongs_to_many :users if supports_users?
   has_many :shows
 
+  after_touch { |template| template.shows.each(&:touch) }
+
   liquid_methods :slug, :name
 
   validates_uniqueness_of :slug

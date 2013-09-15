@@ -2,6 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Episode do
 
+  subject { Factory :episode }
+
   describe "#audiobank_enabled?" do
 
     it "should be true if audiobank_project is defined" do
@@ -9,6 +11,13 @@ describe Episode do
       subject.should be_audiobank_enabled
     end
 
+  end
+
+  it "should touch parent show" do
+    lambda {
+      subject.title = "Dummy"
+      subject.save
+    }.should change(subject.show, :updated_at)
   end
 
 end

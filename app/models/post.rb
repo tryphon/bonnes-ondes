@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
 
   attr_accessible :slug, :description, :title
 
-  belongs_to :show
+  belongs_to :show, :touch => true
   validates_presence_of :show_id, :title, :slug, :description
 
   validates_presence_of :title, :message => "Pas de titre défini"

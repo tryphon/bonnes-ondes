@@ -11,6 +11,20 @@ describe Content do
     @content.should be_valid
   end
 
+  it "should touch parent Episode" do
+    lambda {
+      @content.duration = 5
+      @content.save
+    }.should change(@content.episode, :updated_at)
+  end
+
+  it "should touch parent Show" do
+    lambda {
+      @content.duration = 5
+      @content.save
+    }.should change(@content.episode.show, :updated_at)
+  end
+
   describe "available_end_at" do
 
     before do

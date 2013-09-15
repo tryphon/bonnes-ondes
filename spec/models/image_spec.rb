@@ -2,8 +2,13 @@ require 'spec_helper'
 
 describe Image do
 
-  before(:each) do
-    @image = Image.new
+  subject { Factory :image }
+
+  it "should touch parent Show" do
+    lambda {
+      subject.title = "Dummy"
+      subject.save
+    }.should change(subject.show, :updated_at)
   end
 
 end

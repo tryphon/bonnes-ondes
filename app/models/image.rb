@@ -4,7 +4,7 @@ class Image < ActiveRecord::Base
 
   liquid_methods :width, :height, :title
 
-  belongs_to :show
+  belongs_to :show, :touch => true
 
   image_accessor :content
 

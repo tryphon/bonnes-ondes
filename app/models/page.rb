@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'acts_as_list'
 class Page < ActiveRecord::Base
-  belongs_to :show
+  belongs_to :show, :touch => true
   validates_presence_of :show_id
 
   attr_accessible :slug, :title, :content

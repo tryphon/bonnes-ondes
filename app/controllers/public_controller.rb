@@ -20,7 +20,13 @@ class PublicController < ApplicationController
   def render_template(template_name, assigns = {})
     theme_template = current_theme.template(template_name)
     if theme_template.exists?
-      render :text => theme_template.render(view_context, default_assigns.merge(assigns))
+      cache_reference =  [:template, template_name, current_site, :path, request.path.gsub(%r{^/}, '') ]
+      Rails.logger.info "Cache reference #{ActiveSupport::Cache.expand_cache_key(cache_reference)}"
+      rendered_template = cache(cache_reference) do
+        theme_template.render(view_context, default_assigns.merge(assigns))
+      end
+
+      render :text => rendered_template
     else
       render_not_found
     end

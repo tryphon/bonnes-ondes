@@ -33,6 +33,7 @@ class Show < ActiveRecord::Base
   has_many :pages, :dependent => :destroy, :order => "position"
 
   has_and_belongs_to_many :radios
+  after_touch { |show| show.radios.each(&:touch) }
 
   belongs_to :audiobank_project
 

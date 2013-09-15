@@ -23,7 +23,7 @@ class Content < ActiveRecord::Base
   validates_format_of :slug, :with => /^[a-z0-9-]*$/, :message => "Le lien ne peut contenir que des minuscules, des chiffres et des tirets"
   validates_uniqueness_of :slug, :scope => :episode_id, :message => "Un contenu utilise déjà ce lien"
 
-  belongs_to :episode
+  belongs_to :episode, :touch => true
   # FIXME no way to build Factory(:content) with this validation
   # validates_presence_of :episode_id
 

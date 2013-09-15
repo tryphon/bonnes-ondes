@@ -26,7 +26,7 @@ class Episode < ActiveRecord::Base
   validates_format_of :slug, :with => /^[a-z0-9-]*$/, :message => "Le lien ne peut contenir que des minuscules, des chiffres et des tirets"
   validates_uniqueness_of :slug, :scope => :show_id, :message => "Un épisode utilise déjà ce lien"
 
-  belongs_to :show
+  belongs_to :show, :touch => true
   # FIXME no way to build Factory(:episode) with this validation
   # validates_presence_of :show_id
 
