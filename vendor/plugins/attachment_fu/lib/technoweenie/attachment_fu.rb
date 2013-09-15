@@ -251,7 +251,7 @@ module Technoweenie # :nodoc:
             :thumbnail_resize_options => size
           }
           callback_with_args :before_thumbnail_saved, thumb
-          thumb.save!
+          # thumb.save!
         end
       end
 
