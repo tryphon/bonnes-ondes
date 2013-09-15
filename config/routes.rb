@@ -9,7 +9,7 @@ BonnesOndes::Application.routes.draw do
     namespace :admin, :path => "compte" do
       resource :dashboard
 
-      match 'activate/:code' => 'account#active', :as => :activate
+      match 'activate/:code' => 'account#activate', :as => :activate
       match 'login' => 'account#login', :as => :login
       match 'logout' => 'account#logout', :as => :logout
       match 'signup' => 'account#signup', :as => :signup

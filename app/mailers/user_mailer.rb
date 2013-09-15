@@ -9,13 +9,13 @@ class UserMailer < ActionMailer::Base
 
   def signup_notification(user)
     @user = user
-    @url  = admin_activate_path user.activation_code
+    @url  = admin_activate_url user.activation_code
     mail :to => user.email, :subject => "[Bonnes Ondes] Activation de votre compte Bonnes-Ondes"
   end
 
   def activation(user)
     @user = user
-    @url  = admin_login_path
+    @url  = admin_login_url
     mail :to => user.email, :subject => "[Bonnes Ondes] Bienvenue"
   end
 

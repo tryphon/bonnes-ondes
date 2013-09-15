@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :login
+  attr_accessible :activation_code, :activated_at
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password
