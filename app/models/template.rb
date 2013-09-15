@@ -14,9 +14,12 @@ class Template < ActiveRecord::Base
   validates_presence_of :name, :message => "Le nom doit être renseigné"
 
   has_and_belongs_to_many :users if supports_users?
-  has_many :shows
 
+  has_many :shows
   after_touch { |template| template.shows.each(&:touch) }
+
+  has_many :radios
+  after_touch { |template| template.radios.each(&:touch) }
 
   liquid_methods :slug, :name
 
