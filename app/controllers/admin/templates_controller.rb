@@ -6,6 +6,11 @@ class Admin::TemplatesController < AdminController
     @user_template.users << current_user
   end
 
+  def edit
+    edit!
+    @user_template.touch
+  end 
+
   protected
 
   def method_for_association_chain
