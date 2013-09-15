@@ -7,6 +7,7 @@ set :deploy_to, "/var/www/bonnes-ondes"
 set :keep_releases, 5
 after "deploy:update", "deploy:cleanup"
 set :use_sudo, false
+default_run_options[:pty] = true
 
 set :rake, "bundle exec rake"
 
@@ -35,28 +36,25 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/"
     run "ln -nfs #{shared_path}/config/production.rb #{release_path}/config/environments/"
 
-    attachements_shared_dir = File.join(shared_path, "attachments")
-    attachements_local_dir = File.join(release_path, "public", "attachments")
-    run "ln -nfs #{attachements_shared_dir} #{attachements_local_dir}"
-
-    templates_shared_dir = File.join(shared_path, "templates")
-    templates_local_dir = File.join(release_path, "templates")
-
-    run "rsync -a #{templates_local_dir}/* #{templates_shared_dir}/"
-    run "rm -rf #{templates_local_dir}"
-    run "ln -nfs #{templates_shared_dir} #{templates_local_dir}"
-
     storage_shared_dir = File.join(shared_path, "storage")
     storage_local_dir = File.join(release_path, "storage")
     run "ln -nfs #{storage_shared_dir} #{storage_local_dir}"
+    
+    # REMOVEME with direct access to /templates
+    templates_local_dir = File.join(release_path, "templates")
+
+    run "mv #{templates_local_dir} #{templates_local_dir}.orig"
+    sudo "rsync -a #{templates_local_dir}.orig/ #{storage_local_dir}/templates/", :as => "www-data"
+
+    run "ln -nfs #{storage_local_dir}/templates #{templates_local_dir}"
+
+    cache_local_dir = File.join(release_path, "tmp", "cache")
+    run "ln -nfs #{storage_local_dir}/cache #{cache_local_dir}"
   end
 end
 
 desc "Create data directories"
 task :after_setup, :roles => [:app, :web] do
-  attachements_shared_dir = File.join(shared_path, "attachments")
-  run "umask 02 && mkdir -p #{attachements_shared_dir}"
-
   templates_shared_dir = File.join(shared_path, "templates")
   run "umask 02 && mkdir -p #{templates_shared_dir}"
 end
