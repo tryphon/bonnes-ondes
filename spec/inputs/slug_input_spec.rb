@@ -13,7 +13,7 @@ describe "SlugInput" do
 	context "when builder url is '/compte/shows/slug-1/posts'" do
 
 	  it "should set data-slug-url at '/compte/shows/slug-1/posts/slug'" do
-	    slug_input(:url => '/compte/shows/slug-1/posts').should have_selector("input[data-slug-url='/compte/shows/slug-1/posts/slug']")
+	    slug_input(:url => '/compte/shows/slug-1/posts').should have_selector("input[data-slug-url='/compte/shows/slug-1/posts/slug.json']")
 	  end
 
 	end
