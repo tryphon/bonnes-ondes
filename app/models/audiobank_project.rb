@@ -1,5 +1,7 @@
 class AudiobankProject < ActiveRecord::Base
 
+  attr_accessible :token
+
   has_one :show
 
   validates_presence_of :token

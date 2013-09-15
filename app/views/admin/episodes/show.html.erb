@@ -1,6 +1,6 @@
 <h2><%= @episode.show.name %> - <%= @episode.title %></h2>
 <div class="description">
-<%= (image_tag @episode.image.public_filename(:thumb)) if @episode.image %>
+<%= image_tag @episode.image.admin_preview_url if @episode.image %>
 <%= textilize(@episode.description) %>
 </div>
 
@@ -15,7 +15,7 @@
 </div>
 
 <div class="actions">
-<%= link_to("Voir", episode_url(@episode), :class => "view", :popup => true) %>
+<%= link_to("Voir", episode_url(@episode), :class => "view", :target => :blank) %>
 <%= link_to("Modifier", edit_admin_show_episode_path(@show, @episode), :class => "edit") %>
 <%= link_to("Image", edit_admin_show_episode_image_path(@show, @episode), :class => "edit") %>
 <%= link_to("Supprimer", admin_show_episode_path(@show, @episode), :method => :delete, :confirm => "Etes-vous sûr de vouloir définitivement supprimer cet épisode ?", :class => "destroy") %>
@@ -47,7 +47,7 @@
         </div>
         <div class="actions">
           <%= link_to("Ecouter", admin_show_episode_content_path(@show, @episode, content, :format => "m3u")) if content.ready? %>
-          <%= link_to("Voir dans AudioBank", content.document_url, :popup => true) if AudiobankContent === content %>
+          <%= link_to("Voir dans AudioBank", content.document_url, :target => :blank) if AudiobankContent === content %>
           <%= link_to "Supprimer", admin_show_episode_content_path(@show, @episode, content), :method => :delete, :confirm => "Etes-vous sûr de vouloir définitivement supprimer ce contenu ?", :class => "destroy" %>
         </div>
       </li>

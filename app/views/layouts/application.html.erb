@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+ <head>
+  <title>Bonnes Ondes</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tag %>
+
+ </head>
+ <body class="<%= controller.controller_name %> <%= action_name %>">
+  <ul id="access">
+   <li><a href="#content">Aller au contenu</a></li>
+   <li><a href="#sidebar">Aller au menu</a></li>
+  </ul>
+  <hr/>
+  <div id="header">
+   <div>
+   <ul id="menu">
+    <% if logged_in? %>
+     <li><%= link_to "Tableau de bord", admin_path %></li>
+     <li><%= link_to "Quitter", admin_logout_path %></li>
+    <% else %>
+     <li><%= link_to "Accueil", public_path %></li>
+     <li><%= link_to "S'identifier", admin_login_path %></li>
+     <li><%= link_to "Créer un compte", admin_signup_path %></li>
+    <% end %>
+   </ul>
+   </div>
+  </div>
+  <hr/>
+  <div id="frame">
+    <%= flash_tag(flash) %>
+
+    <div id="content">
+      <%= yield %>
+    </div>
+
+    <hr/>
+    <div id="sidebar">
+     <% if logged_in? %>
+      <%= render :partial => "layouts/sidebar" %>
+     <% else %>
+      <%= render :partial => "layouts/guest" %>
+     <% end %>
+    </div>
+   </div>
+  </div>
+  <hr/>
+  <div id="footer">
+   <div>
+    &nbsp;
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,17 @@
+fr:
+  activerecord:
+    models:
+      episode: Épisode
+    attributes:
+      episode:
+        show: Émission
+        slug: Lien
+        title: Titre
+        broadcasted_at: Date de diffusion
+        order: Numéro
+        tag_list: Étiquettes
+        create_audiobank_document: Créer un document associé dans AudioBank
+  simple_form:
+    hints:
+      episode:
+        tag_list: 'Séparées par une virgule'

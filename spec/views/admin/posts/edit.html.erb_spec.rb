@@ -1,18 +1,17 @@
 require 'spec_helper'
 
-describe "/admin/posts/edit.html.erb" do
-  include PostsHelper
+describe "/admin/posts/edit" do
 
-  before(:each) do
-    assigns[:post] = @post = Factory(:post)
-  end
+  let!(:post) { assign :post, Factory(:post) }
+  let!(:show) { assign :show, post.show }
 
   it "should render edit form" do
-    render "/admin/posts/edit.html.erb"
+    render
 
-    response.should have_tag("form[action=#{admin_show_post_path(@post.show, @post)}][method=post]") do
-      with_tag('input#post_title[name=?]', "post[title]")
-      with_tag('textarea#post_description[name=?]', "post[description]")
-    end
+    rendered.should have_selector("form", :action => admin_show_post_path(show, post))
+
+    rendered.should have_selector("form input#post_title", :name => "post[title]")
+    rendered.should_not have_selector("form input#post_slug", :name => "post[slug]")
+    rendered.should have_selector("form textarea#post_description", :name => "post[description]")
   end
 end

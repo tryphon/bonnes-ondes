@@ -1,0 +1,14 @@
+<%= simple_form_for [:admin, @show, @episode ] do |f| %>
+  <%= f.input :title %>
+  <%= f.input :slug if @episode.new_record? %>
+  <%= f.input :description, :as => :textile %>
+
+  <%= f.input :broadcasted_at, :end_year => Date.today.year + 1 %>
+  <%= f.input :order %>
+
+  <%= f.input :tag_list %>
+
+  <%= f.input :create_audiobank_document, :as => :boolean if @episode.audiobank_enabled? and @episode.new_record? %>
+
+  <%= f.button :submit, :cancel => :back %>
+<% end %>

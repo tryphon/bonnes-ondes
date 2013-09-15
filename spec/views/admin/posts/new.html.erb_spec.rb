@@ -1,19 +1,17 @@
 require 'spec_helper'
 
-describe "/admin/posts/new.html.erb" do
-  include PostsHelper
+describe "/admin/posts/new" do
 
-  before(:each) do
-    assigns[:post] = @post = Factory.build(:post)
-  end
+  let!(:post) { assign :post, show.posts.build }
+  let!(:show) { assign :show, Factory(:show) }
 
   it "should render new form" do
-    render "/admin/posts/new.html.erb"
+    render
 
-    response.should have_tag("form[action=?][method=post]", admin_show_posts_path(@post.show)) do
-      with_tag("input#post_title[name=?]", "post[title]")
-      with_tag("input#post_slug[name=?]", "post[slug]")
-      with_tag("textarea#post_description[name=?]", "post[description]")
-    end
+    rendered.should have_selector("form[method=post]", :action => admin_show_posts_path(show))
+
+    rendered.should have_selector("form input#post_title", :name => "post[title]")
+    rendered.should have_selector("form input#post_slug", :name => "post[slug]")
+    rendered.should have_selector("form textarea#post_description", :name => "post[description]")
   end
 end

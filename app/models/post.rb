@@ -1,5 +1,8 @@
-# -*- coding: undecided -*-
+# -*- coding: utf-8 -*-
 class Post < ActiveRecord::Base
+
+  attr_accessible :slug, :description, :title
+
   belongs_to :show
   validates_presence_of :show_id, :title, :slug, :description
 
@@ -14,7 +17,7 @@ class Post < ActiveRecord::Base
 
   liquid_methods :show, :title, :description, :created_at
 
-  named_scope :last_updated, :order => 'updated_at desc', :limit => 5
+  scope :last_updated, :order => 'updated_at desc', :limit => 5
 
   def to_param
     slug
@@ -22,6 +25,7 @@ class Post < ActiveRecord::Base
 end
 # TODO move this f... code anywhere else
 class Post::LiquidDropClass
+  include Liquid::ViewSupport
 
   def url_for
     view.post_url(@object)

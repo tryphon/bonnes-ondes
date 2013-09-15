@@ -1,0 +1,9 @@
+fr:
+  activerecord:
+    models:
+      page: Page
+    attributes:
+      page:
+        title: Titre
+        slug: Lien
+        content: Contenu

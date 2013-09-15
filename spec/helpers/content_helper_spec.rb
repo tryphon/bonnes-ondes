@@ -13,16 +13,14 @@ describe ContentHelper do
     end
 
     it "should return an div.ui360 tag" do
-      helper.audio_player(content).should have_tag("div[class=ui360]")
+      helper.audio_player(content).should have_selector("div[class=ui360]")
     end
 
     it "should include a link to mp3 content" do
-      helper.audio_player(content).should have_tag("div.ui360") do
-        with_tag("a[href=?]", content.content_url(:format => :mp3))
-      end
+      helper.audio_player(content).should have_selector("div.ui360 a", :href => content.content_url(:format => :mp3))
     end
 
   end
-  
+
 
 end

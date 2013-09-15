@@ -1,0 +1,10 @@
+fr:
+  activerecord:
+    models:
+      show: Émission
+    attributes:
+      show:
+        name: Nom
+        slug: Lien
+        template_id: Thème
+        audiobank_account: "Clé de l'API AudioBank"

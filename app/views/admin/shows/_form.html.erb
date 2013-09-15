@@ -1,0 +1,10 @@
+<%= simple_form_for [:admin, @show ] do |f| %>
+  <%= f.input :name %>
+  <%= f.input :slug if @show.new_record? %>
+  <%= f.input :description, :as => :textile %>
+
+  <%= f.input :template_id, :collection => @selectable_templates if @selectable_templates.present? %>
+  <%= f.input :audiobank_account %>
+
+  <%= f.button :submit, :cancel => admin_path %>
+<% end %>

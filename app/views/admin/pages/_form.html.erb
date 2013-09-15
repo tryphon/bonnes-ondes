@@ -1,0 +1,7 @@
+<%= simple_form_for [:admin, @show, @page] do |f| %>
+  <%= f.input :title %>
+  <%= f.input :slug if @page.new_record? %>
+  <%= f.input :content, :as => :textile %>
+
+  <%= f.button :submit, :cancel => admin_show_pages_path(@show) %>
+<% end %>

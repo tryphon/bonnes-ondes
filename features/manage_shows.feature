@@ -8,10 +8,10 @@ Feature: Manage shows
   And I am on the new show page
   And I fill in "show_name" with "Nom de mon émission"
   And I fill in "show_slug" with "test"
-  And I fill in "description" with "Description de mon émission"
+  And I fill in "show_description" with "Description de mon émission"
   When I press "Créer"
   Then I should be on the "test" show page
-  # And I should see "Votre émission est créée"
+  And I should see "Le/la Émission est maintenant créé(e)"
   And I should see "Nom de mon émission"
   And I should see "Description de mon émission"
 
@@ -47,7 +47,7 @@ Feature: Manage shows
   Then I should be on the "test" show page
   And I should see "Nouveau nom"
   And I should see "Nouvelle description"
-  # And I should see "Votre émission est modifiée"
+  And I should see "Le/la Émission a été modifié(e)"
 
   Scenario: Go to edit show logo page from show page
   Given I am logged in

@@ -44,7 +44,7 @@ module PrettyDateFilter
     if format.blank?
       if date.today?
         format = 'aujourd\'hui à %Hh%M'
-      elsif date.yesterday?
+      elsif date == Date.yesterday
         format = 'hier à %Hh%M'
       elsif (Date.today - date.to_date).abs < 4
         format = '%A à %Hh%M'
@@ -53,10 +53,7 @@ module PrettyDateFilter
       end
     end
 
-    # use a fixed strftime (with french month)
-    date.strftime_local(format.to_s)
-  rescue => e
-    input
+    I18n.localize date, :format => format.to_s
   end
 
 

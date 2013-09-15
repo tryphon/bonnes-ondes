@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class PublicController < ApplicationController
 
-  layout nil
+  layout false
 
   before_filter :check_current_site
   before_filter :push_host_google_analytics
@@ -15,10 +15,6 @@ class PublicController < ApplicationController
 
   def current_theme
     @theme ||= current_site.template
-  end
-
-  def view_context
-    @template
   end
 
   def render_template(template_name, assigns = {})
@@ -41,8 +37,12 @@ class PublicController < ApplicationController
     render_not_found unless current_site
   end
 
+  def check_current_show
+    render_not_found unless current_show
+  end
+
   def render_not_found
-    render :file => Rails.root + "public/404.html", :status => "404"
+    render :file => Rails.root + "public/404.html", :status => "404" # , :layout => false
   end
 
   def current_site

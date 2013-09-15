@@ -3,13 +3,13 @@
 <h2>Choisir l'image de l'épisode</h2>
 <p>Episode: <%= @episode.title %></p>
 
-<% form_tag(admin_show_episode_path(@show, @episode), :method => :put) do %>
+<%= form_tag(admin_show_episode_path(@show, @episode), :method => :put) do %>
 
   <ul class="images">
     <% for image in @episode.show.images %>
       <li>
         <%= radio_button_tag "episode[image_id]", image.id, @episode.image == image %>
-        <%= image_tag image.public_filename(:thumb) %>
+        <%= image_tag image.admin_thumb_url %>
         <%= h image.title %>
       </li>
     <% end %>

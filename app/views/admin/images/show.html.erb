@@ -1,8 +1,9 @@
 <h2>Image <%= @image.title %></h2>
 
-<%= image_tag @image.public_filename %>
+<div class="preview">
+  <%= image_tag @image.content.thumb("520x520>").url %>
+</div>
 
 <div class="actions">
   <%= link_to("Supprimer", admin_show_image_path(@image.show, @image), :method => "delete", :confirm => "Etes-vous sûr de vouloir définitivement supprimer cette image ?", :class => "destroy") %>
 </div>
-

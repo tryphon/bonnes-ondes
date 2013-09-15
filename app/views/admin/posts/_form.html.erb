@@ -1,0 +1,6 @@
+<%= simple_form_for [:admin, @show, @post] do |f| %>
+  <%= f.input :title %>
+  <%= f.input :slug if @post.new_record? %>
+  <%= f.input :description, :as => :textile %>
+  <%= f.button :submit, :cancel => :back %>
+<% end %>

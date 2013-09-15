@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-class TestContent < Content
-end
-
 describe Content do
 
   before do
-    @valid_attributes = { :name => "Test", :slug => "test", :episode_id => 0 }
-    @content = TestContent.new(@valid_attributes)
+    @content = Factory.create :content
   end
 
   it "should create a new instance given valid attributes" do
@@ -20,7 +16,7 @@ describe Content do
     before do
       @content.save!
     end
-    
+
     it "should be nil by default" do
       @content.available_end_at.should be_nil
     end
@@ -28,7 +24,7 @@ describe Content do
   end
 
   describe "available? " do
-    
+
     it "should be true if available_end_at is nil" do
       @content.available_end_at = nil
       @content.should be_available
@@ -50,12 +46,12 @@ describe Content do
 end
 
 describe Content::LiquidDropClass do
-  include ActionController::Assertions::SelectorAssertions
+  include ActionDispatch::Assertions::SelectorAssertions
 
   let(:content) { Content.new }
   subject { content.to_liquid }
 
-  class TestView 
+  class TestView
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::CaptureHelper
 
@@ -75,13 +71,13 @@ describe Content::LiquidDropClass do
     before(:each) do
       subject.view.stub :audio_player => audio_tag
     end
-    
+
     it "should use view audio_player method" do
       subject.view.should_receive(:audio_player).with(content)
       subject.audio_player.should == audio_tag
     end
 
   end
-  
+
 
 end

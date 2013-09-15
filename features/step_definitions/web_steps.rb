@@ -141,17 +141,13 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
-  if response.respond_to? :should
-    response.should contain(text)
-  else
-    assert_contain text
-  end
+  expect(page).to have_content text
 end
 
 Then /^(?:|I )should see "([^"]*)" within "([^"]*)"$/ do |text, selector|
   within(selector) do |content|
     if content.respond_to? :should
-      content.should contain(text)
+      content.should have_content(text)
     else
       hc = Webrat::Matchers::HasContent.new(text)
       assert hc.matches?(content), hc.failure_message
@@ -162,7 +158,7 @@ end
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   if response.respond_to? :should
-    response.should contain(regexp)
+    response.should have_content(regexp)
   else
     assert_match(regexp, response_body)
   end
@@ -172,7 +168,7 @@ Then /^(?:|I )should see \/([^\/]*)\/ within "([^"]*)"$/ do |regexp, selector|
   within(selector) do |content|
     regexp = Regexp.new(regexp)
     if content.respond_to? :should
-      content.should contain(regexp)
+      content.should have_content(regexp)
     else
       assert_match(regexp, content)
     end
@@ -181,16 +177,16 @@ end
 
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   if response.respond_to? :should_not
-    response.should_not contain(text)
+    response.should_not have_content(text)
   else
-    assert_not_contain(text)
+    assert_not_have_content(text)
   end
 end
 
 Then /^(?:|I )should not see "([^"]*)" within "([^"]*)"$/ do |text, selector|
   within(selector) do |content|
     if content.respond_to? :should_not
-      content.should_not contain(text)
+      content.should_not have_content(text)
     else
       hc = Webrat::Matchers::HasContent.new(text)
       assert !hc.matches?(content), hc.negative_failure_message
@@ -201,9 +197,9 @@ end
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   if response.respond_to? :should_not
-    response.should_not contain(regexp)
+    response.should_not have_content(regexp)
   else
-    assert_not_contain(regexp)
+    assert_not_have_content(regexp)
   end
 end
 
@@ -211,7 +207,7 @@ Then /^(?:|I )should not see \/([^\/]*)\/ within "([^"]*)"$/ do |regexp, selecto
   within(selector) do |content|
     regexp = Regexp.new(regexp)
     if content.respond_to? :should_not
-      content.should_not contain(regexp)
+      content.should_not have_content(regexp)
     else
       assert_no_match(regexp, content)
     end

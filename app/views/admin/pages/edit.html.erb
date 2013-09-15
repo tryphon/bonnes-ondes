@@ -1,23 +1,4 @@
 <h2>Modifier la page "<%= @page.title %>"</h2>
 <p>Emission: <%= @page.show.name %></p>
 
-<% form_for([:admin, @page.show, @page]) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :title, "Title" %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :slug, "Lien" %><br />
-    <%= f.text_field :slug %>
-  </p>
-  <p>
-    <%= f.label :content, "Texte" %><br />
-    <%= textile_area 'page', 'content', :disable => :image -%></p>
-  </p>
-  <p>
-    <%= f.submit "Modifier" %>
-    ou <%= link_to 'revenir', admin_show_page_path(@page.show, @page) %>
-  </p>
-<% end %>
+<%= render 'form' %>

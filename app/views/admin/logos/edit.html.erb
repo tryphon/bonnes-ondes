@@ -1,5 +1,3 @@
-<%= error_messages_for(:show) %>
-
 <h2>Choisir le logo de l'émission <%= @show.name %></h2>
 
 <p class="help">
@@ -10,13 +8,15 @@ Le logo est utilisé dans la partie publique du site pour identifier votre émis
 <p>
 Sélectionnez le parmi les images de votre émission :
 </p>
-<% form_tag admin_show_path(@show), :method => :put do %>
+<%= form_tag admin_show_path(@show), :method => :put do %>
   <ul class="images">
     <% for image in @show.images %>
       <li>
         <%= radio_button_tag "show[logo_id]", image.id, @show.logo == image %>
-        <%= image_tag image.public_filename(:thumb) %>
-        <%= h image.title %>
+        <%= image_tag image.admin_thumb_url %>
+        <div>
+          <%= image.title %>
+        </div>
       </li>
     <% end %>
   </ul>

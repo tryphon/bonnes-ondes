@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 class NetContent < Content
 
+  attr_accessible :url, :duration
+
   validates_presence_of :url, :message => "Pas d'adresse définie"
 
   def content_url(options = {})

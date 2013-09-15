@@ -9,46 +9,47 @@ Feature: Manage posts
   
   Scenario: Go to the new post page from show page
   Given I am on the "test" show page
-  When I follow "Ajouter une information"
+  When I follow "Ajouter une actualité"
   Then I should be on the new post page of "test" show
 
   Scenario: Create a new post
   Given I am on the new post page of "test" show
-  And I fill in "title" with "Titre de mon info"
-  And I fill in "slug" with "test"
-  And I fill in "description" with "Description de mon info"
-  When I press "Créer"
+  And I fill in "Titre" with "Titre de mon info"
+  And I fill in "Lien" with "test"
+  And I fill in "Description" with "Description de mon info"
+  When I press "Créer un(e) Actualité"
   Then I should be on the "test" post page of "test" show
-  And I should see "Votre information est ajoutée"
+  And I should see "Le/la Actualité est maintenant créé(e)"
   And I should see "Titre de mon info"
   And I should see "Description de mon info"
 
   Scenario: Edit a post
   Given a post "test" exists for "test" show
   And I am on the edit "test" post page of "test" show
-  And I fill in "title" with "Nouveau titre de mon info"
-  And I fill in "description" with "Nouvelle description de mon info"
-  When I press "Modifier"
+  And I fill in "Titre" with "Nouveau titre de mon info"
+  And I fill in "Description" with "Nouvelle description de mon info"
+  When I press "Modifier ce(tte) Actualité"
   Then I should be on the "test" post page of "test" show 
-  And I should see "Votre information a été modifiée"
+  And I should see "Le/la Actualité a été modifié(e)"
   And I should see "Nouveau titre de mon info"
   And I should see "Nouvelle description de mon info"
 
-  Scenario: Cancel post editing
-  Given a post "test" exists for "test" show
-  And I am on the edit "test" post page of "test" show
-  When I follow "revenir"
-  Then I should be on the "test" post page of "test" show 
+#  @wip
+#  Scenario: Cancel post editing
+#  Given a post "test" exists for "test" show
+#  And I am on the edit "test" post page of "test" show
+#  When I follow "revenir"
+#  Then I should be on the "test" post page of "test" show 
 
   Scenario: See the last posts in show page
   Given a post "test" with title "Last updated title" exists for "test" show
   And I am on the "test" show page
-  Then I should see "Informations"
+  Then I should see "Toutes les actualités"
   And I should see "Last updated title"
 
   Scenario: Go to posts page from show page
   Given I am on the "test" show page
-  When I follow "Tous les informations"
+  When I follow "Toutes les actualités"
   Then I should be on the posts page of "test" show
 
   Scenario: See the show posts

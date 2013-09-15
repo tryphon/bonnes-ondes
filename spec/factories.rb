@@ -87,7 +87,7 @@ end
 
 Factory.define :image do |u|
   u.title "name"
-  u.uploaded_data TestUploadedFile.new("#{File.dirname(__FILE__)}/fixtures/image.jpg", "image/jpeg")
+  u.content TestUploadedFile.new("#{File.dirname(__FILE__)}/fixtures/image.jpg", "image/jpeg")
   u.association :show
 end
 

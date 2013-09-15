@@ -1,0 +1,22 @@
+fr:
+  activerecord:
+    models:
+      content: Contenu
+      audiobank_content: Contenu AudioBank
+    attributes:
+      content:
+        name: Nom
+        slug: Lien
+        principal: Contenu principal
+        duration: Durée
+        url: Adresse
+      audiobank_content:
+        audiobank_id: Identifiant AudioBank
+        create_document: Créer le document dans AudioBank
+  simple_form:
+    hints:
+      net_content:
+        url: "Par exemple: http://monserveur.fr/emission-34.mp3"
+        duration: en minutes
+      audiobank_content:
+        audiobank_id: Disponible dans la section 'Partager' des documents

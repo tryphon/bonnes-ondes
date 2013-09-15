@@ -22,10 +22,19 @@ class ResourceLink
 
   attr_accessor :url_context
   def path_for(path_resources, options = {})
+    return '' if path_resources.empty?
+
     url_context.polymorphic_path [ :public, *path_resources ], options
   end
 
   attr_accessor :current_radio
+  def current_radio
+    context_radio or @current_radio
+  end
+
+  def context_radio
+    url_context.respond_to?(:current_radio) and url_context.current_radio
+  end
 
   def with(url_context)
     self.url_context = url_context
@@ -42,10 +51,12 @@ class ResourceLink
 
   def parent_resource(resource)
     case resource
-    when Content: resource.episode
-    when Page, Post, Episode: resource.show
-    when Radio: nil
-    when Show: nil
+    when Content
+      resource.episode
+    when Page, Post, Episode
+      resource.show
+    when Radio, Show
+      nil
     end
   end
 
@@ -77,6 +88,24 @@ class ResourceLink
       if host = Host.find_by_name(hostname)
         host.site
       end
+    end
+  end
+
+  class RadioHost
+    def self.matches?(request)
+      ResourceLink.host_resource(request.host).is_a?(Radio)
+    end
+  end
+
+  class ShowHost
+    def self.matches?(request)
+      ResourceLink.host_resource(request.host).is_a?(Show)
+    end
+  end
+
+  class AdminHost
+    def self.matches?(request)
+      request.host == ResourceLink.admin_domain
     end
   end
 

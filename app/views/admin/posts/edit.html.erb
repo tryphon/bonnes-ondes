@@ -1,19 +1,4 @@
 <h2>Modifier une actualité</h2>
 <p>Emission: <%= @post.show.name %></p>
 
-<% form_for([:admin, @post.show, @post]) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :title, "Titre" %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :description, "Contenu" %><br />
-    <%= textile_area 'post', 'description', :disable => :image -%></p>
-  </p>
-  <p>
-    <%= f.submit "Modifier" %>
-    ou <%= link_to 'revenir', admin_show_post_path(@post.show, @post) %>
-  </p>
-<% end %>
+<%= render 'form' %>

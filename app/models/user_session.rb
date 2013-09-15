@@ -1,16 +1,15 @@
-class UserSession
+class UserSession < UserInterface::UserSession
 
-  def initialize(session)
-    @session = session
+  def rated_episodes_ids
     @session[:rated_episodes_ids] ||= []
   end
 
   def rate_episode(episode)
-    @session[:rated_episodes_ids] << episode.id
+    rated_episodes_ids << episode.id
   end
 
   def can_rate_episode?(episode)
-    not @session[:rated_episodes_ids].include? episode.id
+    not rated_episodes_ids.include? episode.id
   end
 
 end

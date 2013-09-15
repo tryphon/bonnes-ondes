@@ -9,7 +9,7 @@ describe AudiobankProject do
   describe "#document" do
 
     let(:document) { Audiobank::Document.new }
-    
+
     it "should delegate to audiobank_account" do
       subject.audiobank_account.should_receive(:document).with(1).and_return(document)
       subject.document(1).should == document
@@ -18,9 +18,9 @@ describe AudiobankProject do
   end
 
   describe "exists?" do
-    
+
     it "should return true if document is not nil" do
-      subject.should_receive(:document).with(1).and_return(mock)
+      subject.should_receive(:document).with(1).and_return(double)
       subject.exists?(1).should be_true
     end
 

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 class AudiobankContent < Content
 
+  attr_accessible :audiobank_id, :create_document
+
   @@audiobank_base_url = "http://audiobank.tryphon.eu"
   cattr_accessor :audiobank_base_url
 
@@ -51,7 +53,7 @@ class AudiobankContent < Content
     [true, "1"].include?(create_document)
   end
 
-  before_validation_on_create :create_document!
+  before_validation :create_document!, :on => :create
 
   def create_document!
     return unless audiobank_id.nil? and create_document?
@@ -100,13 +102,13 @@ class AudiobankContent < Content
 
   end
 
-  validate_on_create :check_audiobank_document_exists
+  validate :check_audiobank_document_exists, :on => :create
 
   def check_audiobank_document_exists
     return unless audiobank_id
 
     unless audiobank_project
-      errors.add_to_base "Vous n'avez pas associé de compte AudioBank"
+      errors.add :base, "Vous n'avez pas associé de compte AudioBank"
     else
       unless audiobank_project.exists? audiobank_id
         errors.add :audiobank_id, "Le document AudioBank #{audiobank_id} n'a pu être trouvé"

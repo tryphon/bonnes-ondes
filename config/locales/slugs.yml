@@ -1,0 +1,5 @@
+fr:
+  simple_form:
+    hints:
+      defaults:
+        slug: "Utilisé dans les URLs. Avec des minuscules, des chiffres ou des tirets (-)"
