@@ -1,5 +1,3 @@
-require 'textile_toolbar/version'
-
 module TextileToolbar
   def textile_area(object_name, method, options={})
     disable = options.delete(:disable) || {}
