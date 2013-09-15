@@ -25,7 +25,6 @@ gem 'rails-i18n'
 
 gem 'acts-as-rated', :git => 'git://github.com/bteitelb/acts-as-rated.git'
 gem 'acts_as_taggable_on_steroids'
-gem 'textile_toolbar'
 
 gem 'json'
 
