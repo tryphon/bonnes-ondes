@@ -72,3 +72,4 @@ class Liquid::Drop
 end
 
 Liquid::Template.register_filter Liquid::ImageFilters
+Liquid::Template.register_filter Liquid::AudioPlayerFilters

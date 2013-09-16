@@ -4,10 +4,18 @@ module ContentHelper
   def audio_player(content, options = {})
     return "" unless content
 
-    additional_class = " ui360-vis" if options[:larg]
+    options[:size] = :larg if options.delete :larg
 
-    content_tag(:div, :class => "ui360#{additional_class}") do
-      content_tag :a, "#{content.name} <span class='duration'>(durée #{content.duration} min.)</span>", :title => "Ecouter #{content.name}", :href => content.content_url(:format => :mp3)
+    options = {
+      :size => :small
+    }.merge(options)
+
+
+    content_tag :div, :class => "player #{options[:size]}" do
+      link_to content.content_url(:format => :mp3) do
+        content_tag(:span, content.name, :class => "name") +
+          content_tag(:span, "durée #{content.duration} min.", :class => "duration")
+      end
     end
   end
 
