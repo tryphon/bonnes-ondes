@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.14'
+gem 'rails', '3.2.15'
 
 gem 'inherited_resources', '< 1.4'
 gem 'simple_form'
@@ -76,6 +76,6 @@ group :development, :test do
 end
 
 group :production do
-  gem 'SyslogLogger', :require => "syslog/logger" 
+  gem 'SyslogLogger', :require => "syslog/logger"
   gem 'mysql'
 end
