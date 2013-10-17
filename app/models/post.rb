@@ -20,7 +20,7 @@ class Post < ActiveRecord::Base
   scope :last_updated, :order => 'updated_at desc', :limit => 5
 
   def to_param
-    slug
+    slug or id
   end
 end
 # TODO move this f... code anywhere else
