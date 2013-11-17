@@ -72,7 +72,6 @@ BonnesOndes::Application.configure do
       :exception_recipients => %w{root@tryphon.eu}
     }
 
-
-  config.middleware.use Rack::GoogleAnalytics, :tracker => 'UA-1896598-5' #, :domain => 'bonnes-ondes.fr', :multiple => true
+  config.middleware.use Rack::Piwik, :piwik_url => 'http://analytics.tryphon.eu/pikik.php', :piwik_id => '8'
 
 end

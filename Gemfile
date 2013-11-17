@@ -20,7 +20,8 @@ gem 'rack-cache'
 
 gem 'dynamic_form'
 
-gem 'rack-google-analytics'
+gem 'rack-piwik', :require => 'rack/piwik'
+
 gem 'rails-i18n'
 
 gem 'acts-as-rated', :git => 'git://github.com/bteitelb/acts-as-rated.git'

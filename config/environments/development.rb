@@ -35,9 +35,9 @@ BonnesOndes::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = true
 
-  config.action_mailer.smtp_settings = { 
-    :address => "mail.tryphon.priv", 
-    :openssl_verify_mode => 'none' 
+  config.action_mailer.smtp_settings = {
+    :address => "mail.tryphon.priv",
+    :openssl_verify_mode => 'none'
   }
   config.action_mailer.default_url_options = { :host => 'bonnes-ondes.tryphon.local' }
 
@@ -47,4 +47,7 @@ BonnesOndes::Application.configure do
     ResourceLink.public_domain = "bonnes-ondes.local"
     ResourceLink.admin_domain = "bonnes-ondes.tryphon.local"
   end
+
+  # config.middleware.use Rack::Piwik, :piwik_url => 'analytics.tryphon.eu', :piwik_id => '8'
+
 end

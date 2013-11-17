@@ -23,12 +23,41 @@ class PublicController < ApplicationController
       cache_reference =  [:template, template_name, current_site, :path, request.path.gsub(%r{^/}, '') ]
       Rails.logger.info "Cache reference #{ActiveSupport::Cache.expand_cache_key(cache_reference)}"
       rendered_template = cache(cache_reference) do
-        theme_template.render(view_context, default_assigns.merge(assigns))
+        post_process theme_template.render(view_context, default_assigns.merge(assigns))
       end
 
       render :text => rendered_template
     else
       render_not_found
+    end
+  end
+
+  def post_process(content)
+    if current_host.try(:google_analytics_tracker_id)
+      html_document = Nokogiri::HTML::Document.parse content
+
+      google_html = <<-EOF
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', '#{current_host.google_analytics_tracker_id}']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+      EOF
+
+      head = html_document.at_css "head"
+      if head
+        head.add_child google_html
+      end
+
+      html_document.to_html
+    else
+      content
     end
   end
 
@@ -68,6 +97,10 @@ class PublicController < ApplicationController
   end
   helper_method :current_show
 
+  def current_host
+    @host ||= current_site.host
+  end
+
   def current_radio
     @radio ||= current_site if current_site.is_a?(Radio)
   end
@@ -82,6 +115,7 @@ class PublicController < ApplicationController
   def push_host_google_analytics
     # FIXME requires Rails 3.x
     # ga_push("_addItem", "ID", "SKU")
+    # _paq.push(['setDocumentTitle', document.domain + "/" + document.]);
   end
 
 end
