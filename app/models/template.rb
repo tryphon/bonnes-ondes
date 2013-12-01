@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 class Template < ActiveRecord::Base
 
-  attr_accessible :name, :slug, :scm_url
+  attr_accessible :name, :slug
 
-  # Used to prevent problems with old migrations
-  def self.supports_scm_url?
-    column_names.include? "scm_url"
-  end
   def self.supports_users?
     connection.table_exists? "templates_users"
   end
@@ -21,6 +17,8 @@ class Template < ActiveRecord::Base
   has_many :radios
   after_touch { |template| template.radios.each(&:touch) }
 
+  has_many :ftp_accounts, :dependent => :destroy
+
   liquid_methods :slug, :name
 
   validates_uniqueness_of :slug
@@ -28,10 +26,9 @@ class Template < ActiveRecord::Base
   validates_length_of :slug, :within => 3..20, :message => "Le lien doit contenir entre 3 et 20 lettres"
   validates_format_of :slug, :with => /^[a-z0-9-]*$/, :message => "Le lien ne peut contenir que des minuscules, des chiffres et des tirets"
 
-  validates_presence_of :scm_url, :message => "L'URL git doit être renseignée"
-
   attr_accessor :resources
-  before_save :install_resources
+
+  before_create :install_resources
   after_destroy :destroy_resources
 
   def used?
@@ -47,27 +44,7 @@ class Template < ActiveRecord::Base
   end
 
   def install_resources
-    return unless self.class.supports_scm_url?
-    return true unless self.scm_url.start_with?("git://")
-
-    update_success = false
-    if has_resources?
-      Dir.chdir(resources_dir) do
-        if File.exists?(".git")
-          logger.info "Update git template #{scm_url} in #{resources_dir}"
-          update_success = system "git pull origin master"
-        else
-          update_success = true
-        end
-      end
-    else
-      logger.info "Clone git template #{scm_url} in #{resources_dir}"
-      update_success = system "git clone #{scm_url} #{resources_dir}"
-    end
-
-    if update_success
-      true
-    end
+    FileUtils.mkdir resources_dir unless has_resources?
   end
 
   def destroy_resources
@@ -78,30 +55,6 @@ class Template < ActiveRecord::Base
     self.slug = slug.downcase if slug
     true
   end
-
-  # validate :check_resources, :if => :resources
-
-  # def install_resources
-  #   if check_resources
-  #     backup_resources
-  #     FileUtils.mkdir resources_dir
-  #     Dir.chdir(resources_dir) do
-  #       logger.debug "Install #{name} resources in #{resources_dir}"
-  #       system "unzip -qq #{resources}"
-  #     end
-  #   end
-  # end
-
-  # def check_resources
-  #   errors.add :resources, "Le fichier de resources ne peut être lu" unless system "unzip -qq -t #{resources}"
-  # end
-
-  # def backup_resources
-  #   return unless File.exists? resources_dir
-
-  #   FileUtils.rm_rf backup_resources_dir if File.exists?(backup_resources_dir)
-  #   FileUtils.mv resources_dir, backup_resources_dir
-  # end
 
   def resources_dir
     root + slug

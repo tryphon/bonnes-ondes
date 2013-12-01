@@ -3,6 +3,5 @@
 <%= simple_form_for [:admin, @user_template], :as => :user_template do |f| %>
   <%= f.input :name %>
   <%= f.input :slug if @user_template.new_record? %>
-  <%= f.input :scm_url %>
   <%= f.button :submit, :cancel => :back %>
 <% end %>

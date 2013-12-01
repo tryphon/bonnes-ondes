@@ -20,8 +20,10 @@ class User < ActiveRecord::Base
   before_create :make_activation_code
   before_destroy :delete_shows
 
-  has_and_belongs_to_many :shows
-  has_and_belongs_to_many :templates
+  has_and_belongs_to_many :shows, :uniq => true
+  has_and_belongs_to_many :templates, :uniq => true
+
+  has_many :ftp_accounts, :dependent => :destroy
 
   # doesn't work with has_and_belongs_to_many
   # has_many :episodes, :through => :shows

@@ -1,15 +1,16 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of Active Record to incrementally modify your database, and
-# then regenerate this schema definition.
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your database schema. If you need
-# to create the application database on another system, you should be using db:schema:load, not running
-# all the migrations from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130903122559) do
+ActiveRecord::Schema.define(:version => 20131130165443) do
 
   create_table "audiobank_projects", :force => true do |t|
     t.string   "token"
@@ -37,17 +38,30 @@ ActiveRecord::Schema.define(:version => 20130903122559) do
 
   create_table "episodes", :force => true do |t|
     t.integer  "order"
-    t.string   "title",                                                       :default => "", :null => false
-    t.string   "slug",                                                        :default => "", :null => false
+    t.string   "title",                                         :default => "", :null => false
+    t.string   "slug",                                          :default => "", :null => false
     t.text     "description"
-    t.integer  "show_id",                                                     :default => 0,  :null => false
+    t.integer  "show_id",                                       :default => 0,  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "image_id"
     t.datetime "broadcasted_at"
     t.integer  "rating_count"
-    t.integer  "rating_total",   :limit => 10, :precision => 10, :scale => 0
-    t.decimal  "rating_avg",                   :precision => 10, :scale => 2
+    t.decimal  "rating_total",   :precision => 10, :scale => 0
+    t.decimal  "rating_avg",     :precision => 10, :scale => 2
+  end
+
+  create_table "ftp_accounts", :force => true do |t|
+    t.string   "userid"
+    t.string   "passwd"
+    t.integer  "uid"
+    t.integer  "guid"
+    t.string   "homedir"
+    t.string   "shell"
+    t.integer  "template_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "hosts", :force => true do |t|
@@ -116,7 +130,7 @@ ActiveRecord::Schema.define(:version => 20130903122559) do
   create_table "ratings", :force => true do |t|
     t.integer "rated_id"
     t.string  "rated_type"
-    t.integer "rating",     :limit => 10, :precision => 10, :scale => 0
+    t.decimal "rating",     :precision => 10, :scale => 0
   end
 
   add_index "ratings", ["rated_type", "rated_id"], :name => "index_ratings_on_rated_type_and_rated_id"

@@ -2,7 +2,7 @@
 
 <%= simple_form_for [:admin, @user_template], :as => :user_template do |f| %>
   <p>
-    Utiliser la dernière version de <%= @user_template.scm_url %>
+    Utiliser la dernière version des fichiers du template <%= @user_template.slug %>
   </p>
   <%= f.button :submit, :cancel => :back %>
 <% end %>

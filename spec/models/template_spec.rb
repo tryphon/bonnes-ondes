@@ -11,12 +11,10 @@ describe Template do
   it { should allow_value("abcd", "abcd-ef-2010").for(:slug)  }
   it { should_not allow_value("../abcd", "abcd ef", "abcdé", "ABCD-EF").for(:slug) }
 
-  it { should validate_presence_of(:scm_url).with_message("L'URL git doit être renseignée") }
-
   it "should touch associated Shows" do
     show = Factory(:show, :template => subject)
     subject.reload
-    
+
     lambda {
       subject.touch
       show.reload

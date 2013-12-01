@@ -4,14 +4,14 @@
 <% if @user_template.used? %>
 
 <% if @user_template.shows.many? %>
-Ce template est utilisé par les émissions : 
+Ce template est utilisé par les émissions :
 <ul>
   <% for show in @user_template.shows %>
     <li><%= link_to_admin_show show %></li>
   <% end %>
 </ul>
 <% else %>
-  Ce template est utilisé par l'émission : 
+  Ce template est utilisé par l'émission :
   <%= link_to_admin_show @user_template.shows.first %>
 <% end %>
 <% else %>
@@ -21,8 +21,12 @@ Ce template n'est pas encore utilisé
 <p>
 Identifiant: <%= @user_template.slug %>
 <p>
+<h3>Accès FTP</h3>
 <p>
-Git URL: <%= @user_template.scm_url %>
+URL : <%= @ftp_account.url %>
+</p>
+<p>
+Mot de passe : <%= @ftp_account.password %>
 </p>
 </div>
 
