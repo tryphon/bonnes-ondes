@@ -55,14 +55,11 @@ describe FtpAccount do
   describe ".associated" do
 
     before(:each) do
-      user.stub :templates => [template]
+      user.templates << template
     end
 
     it "should use user email and template slug as userid" do
-      user.login = "demo"
-      template.slug = "template"
-
-      FtpAccount.associated(user).map(&:userid).should == ["demo+template"]
+      FtpAccount.associated(user).map { |a| [ a.user, a.template ] }.should == [[ user, template ]]
     end
 
   end
