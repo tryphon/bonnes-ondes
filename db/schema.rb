@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131130165443) do
+ActiveRecord::Schema.define(:version => 20131202095753) do
 
   create_table "audiobank_projects", :force => true do |t|
     t.string   "token"
@@ -62,6 +62,12 @@ ActiveRecord::Schema.define(:version => 20131130165443) do
     t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "ftp_groups", :force => true do |t|
+    t.string  "groupname"
+    t.integer "gid"
+    t.string  "members"
   end
 
   create_table "hosts", :force => true do |t|
