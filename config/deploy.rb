@@ -13,8 +13,9 @@ set :rake, "bundle exec rake"
 
 server "bonnesondes.dbx1.tryphon.priv", :app, :web, :db, :primary => true
 
-after "deploy:update_code", "deploy:symlink_shared", "deploy:gems"
+after "deploy:update_code", "deploy:symlink_shared"
 
+require "bundler/capistrano"
 load "deploy/assets"
 
 namespace :deploy do
@@ -25,12 +26,6 @@ namespace :deploy do
     run "mkdir -p #{dirs.join(' ')} && (chmod g+w #{dirs.join(' ')} || true)"
   end
 
-  desc "Install gems"
-  task :gems, :roles => :app do
-    run "mkdir -p #{shared_path}/bundle"
-    run "cd #{release_path} && bundle install --deployment --path=#{shared_path}/bundle --without=test development cucumber"
-  end
-
   desc "Symlinks shared configs and folders on each release"
   task :symlink_shared, :except => { :no_release => true }  do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/"
@@ -39,7 +34,7 @@ namespace :deploy do
     storage_shared_dir = File.join(shared_path, "storage")
     storage_local_dir = File.join(release_path, "storage")
     run "ln -nfs #{storage_shared_dir} #{storage_local_dir}"
-    
+
     # REMOVEME with direct access to /templates
     templates_local_dir = File.join(release_path, "templates")
 
