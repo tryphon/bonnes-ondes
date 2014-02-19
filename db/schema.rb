@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -14,16 +15,16 @@ ActiveRecord::Schema.define(:version => 20131202095753) do
 
   create_table "audiobank_projects", :force => true do |t|
     t.string   "token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "contents", :force => true do |t|
-    t.string   "type",             :default => "", :null => false
-    t.string   "name",             :default => "", :null => false
-    t.string   "slug",             :default => "", :null => false
+    t.string   "type",             :null => false
+    t.string   "name",             :null => false
+    t.string   "slug",             :null => false
     t.integer  "duration"
-    t.integer  "episode_id",       :default => 0,  :null => false
+    t.integer  "episode_id",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "audiobank_cast"
@@ -38,17 +39,17 @@ ActiveRecord::Schema.define(:version => 20131202095753) do
 
   create_table "episodes", :force => true do |t|
     t.integer  "order"
-    t.string   "title",                                         :default => "", :null => false
-    t.string   "slug",                                          :default => "", :null => false
-    t.text     "description"
-    t.integer  "show_id",                                       :default => 0,  :null => false
+    t.string   "title",                                                             :null => false
+    t.string   "slug",                                                              :null => false
+    t.text     "description",    :limit => 16777215
+    t.integer  "show_id",                                                           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "image_id"
     t.datetime "broadcasted_at"
     t.integer  "rating_count"
-    t.decimal  "rating_total",   :precision => 10, :scale => 0
-    t.decimal  "rating_avg",     :precision => 10, :scale => 2
+    t.decimal  "rating_total",                       :precision => 10, :scale => 0
+    t.decimal  "rating_avg",                         :precision => 10, :scale => 2
   end
 
   create_table "ftp_accounts", :force => true do |t|
@@ -73,8 +74,8 @@ ActiveRecord::Schema.define(:version => 20131202095753) do
   create_table "hosts", :force => true do |t|
     t.string   "name"
     t.integer  "site_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.string   "google_analytics_tracker_id"
     t.string   "site_type"
   end
@@ -101,8 +102,8 @@ ActiveRecord::Schema.define(:version => 20131202095753) do
     t.integer  "position"
     t.integer  "show_id"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "posts", :force => true do |t|
@@ -110,8 +111,8 @@ ActiveRecord::Schema.define(:version => 20131202095753) do
     t.string   "title"
     t.string   "slug"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "radios", :force => true do |t|
@@ -119,8 +120,8 @@ ActiveRecord::Schema.define(:version => 20131202095753) do
     t.string   "slug"
     t.text     "description"
     t.integer  "template_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "radios_shows", :id => false, :force => true do |t|
@@ -152,20 +153,20 @@ ActiveRecord::Schema.define(:version => 20131202095753) do
 
   create_table "shows", :force => true do |t|
     t.string   "name"
-    t.text     "description"
-    t.string   "slug",                 :default => "", :null => false
+    t.text     "description",          :limit => 16777215
+    t.string   "slug",                                     :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "logo_id"
-    t.integer  "visit_count",          :default => 0,  :null => false
+    t.integer  "visit_count",                              :default => 0,  :null => false
     t.string   "podcast_comment"
     t.integer  "template_id"
     t.integer  "audiobank_project_id"
   end
 
   create_table "shows_users", :id => false, :force => true do |t|
-    t.integer "show_id", :default => 0, :null => false
-    t.integer "user_id", :default => 0, :null => false
+    t.integer "show_id", :null => false
+    t.integer "user_id", :null => false
   end
 
   create_table "taggings", :force => true do |t|
@@ -185,8 +186,8 @@ ActiveRecord::Schema.define(:version => 20131202095753) do
   create_table "templates", :force => true do |t|
     t.string   "name"
     t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "scm_url"
   end
 
