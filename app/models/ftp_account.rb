@@ -36,14 +36,20 @@ class FtpAccount < ActiveRecord::Base
     if user_or_template.respond_to?(:templates)
       users = [user_or_template]
       templates = user_or_template.templates
-    else
-      templates = [user_or_template]
+    elsif user_or_template.respond_to?(:users)
       users =  user_or_template.users
+      templates = [user_or_template]
+    else
+      return []
     end
 
     users.product(templates).collect do |user, template|
       where(:user_id => user, :template_id => template).first_or_initialize
     end
+  end
+
+  def self.exists?
+    connection.table_exists?("ftp_accounts")
   end
 
 end

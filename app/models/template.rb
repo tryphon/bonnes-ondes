@@ -17,7 +17,7 @@ class Template < ActiveRecord::Base
   has_many :radios
   after_touch { |template| template.radios.each(&:touch) }
 
-  has_many :ftp_accounts, :dependent => :destroy
+  has_many :ftp_accounts, :dependent => :destroy if FtpAccount.exists?
 
   liquid_methods :slug, :name
 
