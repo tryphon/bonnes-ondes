@@ -4,7 +4,7 @@ class SitemapsController < ApplicationController
 
   def show
     @radio = Radio.find_by_slug(params[:id])
-    @shows = @radio ? @radio.shows : [ Show.find_by_slug params[:id] ].compact
+    @shows = @radio ? @radio.shows : [ Show.find_by_slug(params[:id]) ].compact
 
     raise ActiveRecord::RecordNotFound if [@radio, @shows].all?(&:blank?)
     render :layout => false
