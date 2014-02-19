@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.16'
+gem 'rails', '3.2.17'
 
 gem 'inherited_resources', '< 1.4'
 gem 'simple_form'
