@@ -76,6 +76,8 @@ group :development, :test do
   end
 
   gem "brakeman", :require => false
+  gem 'simplecov'
+  gem 'simplecov-rcov'
 end
 
 group :production do
