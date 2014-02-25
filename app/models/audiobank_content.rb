@@ -96,7 +96,6 @@ class AudiobankContent < Content
 
     def create
       attributes = { :title => title, :description => description }
-      puts self.inspect
       audiobank_project.documents.create(attributes).id
     end
 
