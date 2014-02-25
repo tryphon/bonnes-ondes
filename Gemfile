@@ -74,6 +74,8 @@ group :development, :test do
     gem 'rb-inotify'
     gem 'libnotify'
   end
+
+  gem "brakeman", :require => false
 end
 
 group :production do
