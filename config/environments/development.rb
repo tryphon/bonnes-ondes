@@ -44,8 +44,8 @@ BonnesOndes::Application.configure do
   config.to_prepare do
     # AudiobankContent.audiobank_base_url = "http://audiobank.local"
     # Audiobank::Account.base_uri "http://audiobank.local"
-    ResourceLink.public_domain = "bonnes-ondes.local"
-    ResourceLink.admin_domain = "bonnes-ondes.tryphon.local"
+    ResourceLink.public_domain = "bonnes-ondes.dev"
+    ResourceLink.admin_domain = "bonnes-ondes.tryphon.dev"
   end
 
   # config.middleware.use Rack::Piwik, :piwik_url => 'analytics.tryphon.eu', :piwik_id => '8'
