@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class AudiobankContent < Content
 
-  attr_accessible :audiobank_id, :create_document
+  attr_accessible :audiobank_id, :create_document, :episode
 
   @@audiobank_base_url = "http://audiobank.tryphon.eu"
   cattr_accessor :audiobank_base_url
