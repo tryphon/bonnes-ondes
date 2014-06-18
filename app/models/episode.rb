@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# encoding: utf-8
 class Episode < ActiveRecord::Base
 
   attr_accessible :order, :broadcasted_at, :title, :create_audiobank_document, :description, :tag_list, :slug, :image_id
