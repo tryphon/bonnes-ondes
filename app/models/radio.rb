@@ -1,4 +1,7 @@
 class Radio < ActiveRecord::Base
+
+  attr_accessible :name, :description, :slug
+
   has_one :host, :dependent => :destroy, :as => :site
   belongs_to :template
 
