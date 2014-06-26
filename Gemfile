@@ -82,5 +82,5 @@ end
 
 group :production do
   gem 'SyslogLogger', :require => "syslog/logger"
-  gem 'mysql'
+  gem 'mysql2'
 end
