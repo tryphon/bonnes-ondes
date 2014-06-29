@@ -32,7 +32,8 @@ class Show < ActiveRecord::Base
   has_many :posts, :dependent => :destroy, :order => "`created_at` desc"
   has_many :pages, :dependent => :destroy, :order => "position"
 
-  has_and_belongs_to_many :radios
+  has_many :radio_shows
+  has_many :radios, :through => :radio_shows
   after_touch { |show| show.radios.each(&:touch) }
 
   belongs_to :audiobank_project

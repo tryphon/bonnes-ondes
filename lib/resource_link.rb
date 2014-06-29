@@ -8,8 +8,9 @@ class ResourceLink
   @@admin_domain = "bonnes-ondes.tryphon.eu"
   cattr_accessor :admin_domain
 
-  def initialize(resource)
+  def initialize(resource, options = {})
     @resource = resource
+    options.each { |k,v| send "#{k}=", v }
   end
 
   def url(options = {})
@@ -20,10 +21,30 @@ class ResourceLink
     path_for path_resources, options
   end
 
+  class FakeShow
+
+    attr_accessor :slug
+    def initialize(slug)
+      @slug = slug
+    end
+
+    def self.model_name
+      ActiveModel::Name.new(Show)
+    end
+
+    def to_param
+      slug
+    end
+
+  end
+
   attr_accessor :url_context
   def path_for(path_resources, options = {})
     return '' if path_resources.empty?
 
+    path_resources.map! do |resource|
+      resource.is_a?(RadioShow) ? FakeShow.new(resource.slug) : resource
+    end
     url_context.polymorphic_path [ :public, *path_resources ], options
   end
 
@@ -49,19 +70,33 @@ class ResourceLink
     "#{host_resource.slug}.#{public_domain}"
   end
 
+  def radio_show(show)
+    current_radio.radio_shows.find_by_show_id(show) if current_radio
+  end
+
+  def show_or_radio_show(resource)
+    resource.is_a?(Show) && current_radio ? radio_show(resource) : resource
+  end
+
   def parent_resource(resource)
     case resource
     when Content
       resource.episode
     when Page, Post, Episode
-      resource.show
-    when Radio, Show
+      show_or_radio_show resource.show
+    when Show
+      if associated_radio_show = radio_show(resource)
+        parent_resource associated_radio_show
+      end
+    when RadioShow
+      resource.radio
+    when Radio
       nil
     end
   end
 
   def url_resources
-    [ resource ].tap do |resources|
+    [ show_or_radio_show(resource) ].tap do |resources|
       while parent = parent_resource(resources.first)
         resources.unshift parent
       end

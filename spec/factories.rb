@@ -27,6 +27,12 @@ Factory.define :radio do |f|
   f.sequence(:slug) { |n| "slug-#{n}" }
 end
 
+Factory.define :radio_show do |f|
+  f.sequence(:slug) { |n| "slug-#{n}" }
+  f.association :radio
+  f.association :show
+end
+
 Factory.define :episode do |f|
   f.association :show
 

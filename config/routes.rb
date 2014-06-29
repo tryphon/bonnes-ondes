@@ -37,7 +37,7 @@ BonnesOndes::Application.routes.draw do
             collection do
               post 'slug'
             end
-          end 
+          end
         end
         resources :posts do
           collection do

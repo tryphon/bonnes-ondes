@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131202095753) do
+ActiveRecord::Schema.define(:version => 20140629074145) do
 
   create_table "audiobank_projects", :force => true do |t|
     t.string   "token"
@@ -113,6 +113,14 @@ ActiveRecord::Schema.define(:version => 20131202095753) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "radio_shows", :force => true do |t|
+    t.string   "slug"
+    t.integer  "radio_id"
+    t.integer  "show_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "radios", :force => true do |t|

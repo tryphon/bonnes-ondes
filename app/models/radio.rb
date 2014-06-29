@@ -5,10 +5,17 @@ class Radio < ActiveRecord::Base
   has_one :host, :dependent => :destroy, :as => :site
   belongs_to :template
 
-  liquid_methods :name, :description, :shows
+  liquid_methods :name, :description, :shows, :posts, :episodes
 
   has_and_belongs_to_many :users
-  has_and_belongs_to_many :shows
+  has_many :radio_shows, :order => "`slug` desc"
+  has_many :shows, :through => :radio_shows, :order => "radio_shows.slug" do
+    def find_by_slug(slug)
+      proxy_association.owner.radio_shows.includes(:show).find_by_slug(slug).try(:show)
+    end
+  end
+  has_many :posts, :through => :shows, :order => "`created_at` desc"
+  has_many :episodes, :through => :shows, :order => "`broadcasted_at` desc"
 
   def parent
     nil
@@ -27,6 +34,13 @@ class Radio::LiquidDropClass
     @radio_shows ||= RadioShows.new(@object)
   end
 
+  def not_broadcasted_episodes
+    Episode.sort(@object.episodes.not_broadcasted).reverse
+  end
+
+  def url_for
+    view.radio_url(@object)
+  end
 end
 
 class RadioShows < Liquid::Drop

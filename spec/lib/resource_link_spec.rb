@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe ResourceLink do
 
-  def link(resource)
-    ResourceLink.new(resource)
+  def link(resource, options = {})
+    ResourceLink.new(resource, options)
   end
 
   subject { link(Show.new(:slug => "dummy")) }
@@ -56,30 +56,45 @@ describe ResourceLink do
     end
 
     context "when resource is a Show" do
-      let(:show) { Factory(:show) }
 
       context "without current_radio" do
+        let(:show) { Factory :show }
+
         it "should be [ show ]" do
           link(show).url_resources.should == [ show ]
         end
       end
 
       context "with current_radio" do
-        it "should be [ show ]" do
-          link = link(show)
-          link.current_radio = Radio.new
+        let(:radio_show) { Factory :radio_show }
+        let(:show) { radio_show.show }
+        let(:radio) { radio_show.radio }
 
-          link.url_resources.should == [ link.current_radio, show ]
+        it "should be [ radio, radio_show ]" do
+          link(show, :current_radio => radio).url_resources.should == [ radio, radio_show ]
         end
       end
 
     end
 
     context "when resource is an Episode" do
-      let(:episode) { Factory(:episode) }
+      context "without current_radio" do
+        let(:episode) { Factory(:episode) }
 
-      it "should be [ show, episode ] " do
-        link(episode).url_resources.should == [ episode.show, episode ]
+        it "should be [ show, episode ] " do
+          link(episode).url_resources.should == [ episode.show, episode ]
+        end
+      end
+
+      context "with current_radio" do
+        let(:radio_show) { Factory :radio_show }
+        let(:show) { radio_show.show }
+        let(:radio) { radio_show.radio }
+        let(:episode) { Factory :episode, :show => show }
+
+        it "should be [ radio, radio_show, episode ]" do
+          link(episode, :current_radio => radio).url_resources.should == [ radio, radio_show, episode ]
+        end
       end
     end
 
@@ -113,9 +128,18 @@ describe ResourceLink do
 
     it "should use url_resources without host_resource" do
       subject.stub :url_resources => [ Radio.new, "dummy" ]
-      subject.path_resources.should == subject.url_resources[1..-1]
+      subject.path_resources.should == [ "dummy" ]
     end
 
+  end
+
+  class TestUrlContext
+     include ActionDispatch::Routing::UrlFor
+     #include ActionController::UrlFor  #requires a request object
+     # include ActionController::PolymorphicRoutes
+     include Rails.application.routes.url_helpers
+
+     default_url_options[:host] = 'www.example.com'
   end
 
   describe "#path" do
@@ -124,6 +148,22 @@ describe ResourceLink do
       subject.stub :path_resources => [ "dummy" ]
       subject.should_receive(:path_for).with(subject.path_resources, {}).and_return("/path/to/resource")
       subject.path.should == "/path/to/resource"
+    end
+
+    let(:url_context) { TestUrlContext.new }
+
+    it "should return an empty path for a Radio" do
+      ResourceLink.new(Factory(:radio)).path.should == ""
+    end
+
+    it "should return /e/<Show#slug> when a Show is associated to a Radio without a specified slug" do
+      radio_show = Factory(:radio_show, :slug => nil)
+      ResourceLink.new(radio_show.show, :current_radio => radio_show.radio, :url_context => url_context).path.should == "/e/#{radio_show.show.slug}"
+    end
+
+    it "should return /e/<RadioShow#slug> when a Show is associated to a Radio with a specified slug" do
+      radio_show = Factory(:radio_show, :slug => "dummy")
+      ResourceLink.new(radio_show.show, :current_radio => radio_show.radio, :url_context => url_context).path.should == "/e/dummy"
     end
 
   end
