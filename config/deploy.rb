@@ -1,7 +1,7 @@
 set :application, "bonnes-ondes"
 set :scm, "git"
-
 set :repository, "git://projects.tryphon.priv/bonnes-ondes"
+
 set :deploy_to, "/var/www/bonnes-ondes"
 
 set :keep_releases, 5
@@ -9,11 +9,13 @@ after "deploy:update", "deploy:cleanup"
 set :use_sudo, false
 default_run_options[:pty] = true
 
-set :rake, "bundle exec rake"
+set :bundle_cmd, "/var/lib/gems/1.9.1/bin/bundle"
+set :rake, "#{bundle_cmd} exec rake"
 
+# server "sandbox", :app, :web, :db, :primary => true
 server "bonnesondes.dbx1.tryphon.priv", :app, :web, :db, :primary => true
 
-after "deploy:update_code", "deploy:symlink_shared"
+after "deploy:update_code", "deploy:symlink_shared", "deploy:bundle_link"
 
 require "bundler/capistrano"
 load "deploy/assets"
@@ -45,6 +47,10 @@ namespace :deploy do
 
     cache_local_dir = File.join(release_path, "tmp", "cache")
     run "ln -nfs #{storage_local_dir}/cache #{cache_local_dir}"
+  end
+
+  task :bundle_link do
+    run "ln -fs #{bundle_cmd} #{release_path}/script/bundle"
   end
 end
 
