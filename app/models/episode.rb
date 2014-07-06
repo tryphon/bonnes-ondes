@@ -6,8 +6,8 @@ class Episode < ActiveRecord::Base
   acts_as_taggable
   acts_as_rated
 
-  scope :broadcasted, lambda { {:conditions => ["broadcasted_at < ?", Time.now] } }
-  scope :not_broadcasted, lambda { {:conditions => ["broadcasted_at > ?", Time.now] } }
+  scope :broadcasted, lambda { {:conditions => ["broadcasted_at < ?", Time.zone.now] } }
+  scope :not_broadcasted, lambda { {:conditions => ["broadcasted_at > ?", Time.zone.now] } }
 
   liquid_methods :show, :slug, :title, :description, :image, :broadcasted_at, :tags, :rating_count, :rating_total, :rating_avg
 
@@ -60,7 +60,7 @@ class Episode < ActiveRecord::Base
 
   def broadcasted?
     if broadcasted_at
-      broadcasted_at < Time.now
+      broadcasted_at < Time.zone.now
     else
       true
     end
@@ -117,7 +117,7 @@ class Episode::LiquidDropClass
   end
 
   def broadcast_distance
-    ((@object.broadcasted_at - Time.now) / 1.minute).to_i
+    ((@object.broadcasted_at - Time.zone.now) / 1.minute).to_i
   end
 
   def broadcasted

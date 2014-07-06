@@ -8,7 +8,7 @@ Factory.define :user do |u|
   u.password password
   u.password_confirmation password
 
-  u.activated_at Time.now
+  u.activated_at Time.zone.now
 end
 
 Factory.define :show do |f|

@@ -7,7 +7,7 @@ class Content < ActiveRecord::Base
 
   scope :principal, :conditions => { :principal => true }
   scope :for_feed, lambda { |show| {
-      :conditions => [ "shows.id = ? and episodes.broadcasted_at < ? ", show.id, Time.now ],
+      :conditions => [ "shows.id = ? and episodes.broadcasted_at < ? ", show.id, Time.zone.now ],
       :include => { :episode => [:tags, :show, :contents] },
       :order => "episodes.broadcasted_at desc"
     }

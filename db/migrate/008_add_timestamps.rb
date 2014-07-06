@@ -9,8 +9,8 @@ class AddTimestamps < ActiveRecord::Migration
 
       c.reset_column_information
 
-      c.update_all(["created_at = ?", Time.now])
-      c.update_all(["updated_at = ?", Time.now])
+      c.update_all(["created_at = ?", Time.zone.now])
+      c.update_all(["updated_at = ?", Time.zone.now])
     end
   end
 

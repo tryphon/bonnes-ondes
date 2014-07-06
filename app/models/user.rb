@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
   end
 
   def remember_token?
-    remember_token_expires_at && Time.now.utc < remember_token_expires_at
+    remember_token_expires_at && Time.zone.now < remember_token_expires_at
   end
 
   # These create and unset the fields required for remembering users between browser closes
@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
   # Activates the user in the database.
   def activate
     @activated = true
-    update_attributes(:activated_at => Time.now.utc, :activation_code => nil)
+    update_attributes(:activated_at => Time.zone.now, :activation_code => nil)
   end
 
   # Returns true if the user has just been activated.
@@ -143,7 +143,7 @@ class User < ActiveRecord::Base
     end
 
     def random_digest
-     Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+     Digest::SHA1.hexdigest( Time.zone.now.to_s.split(//).sort_by {rand}.join )
     end
 
     def password_required?
