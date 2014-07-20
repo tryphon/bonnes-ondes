@@ -30,54 +30,49 @@ module Liquid
 
       cols = context[@attributes['cols'.freeze]].to_i
 
-      row = 1
-      col = 0
+      Rails.logger.debug [length, cols].inspect
 
-      grid = [[]]
+      slice_width = (length / cols.to_f).ceil
+      grid = collection.each_slice(slice_width).to_a
+
+      # row = 1
+      # col = 0
+
+      # grid = [[]]
+      index = 0
+      result = ""
 
       context.stack do
+        grid.each_with_index do |column, col|
+          result << '<div class="column">'
 
-        collection.each_with_index do |item, index|
-          context[@variable_name] = item
-          context['gridloop'.freeze] = {
-            'length'.freeze    => length,
-            'index'.freeze     => index + 1,
-            'index0'.freeze    => index,
-            'col'.freeze       => col + 1,
-            'col0'.freeze      => col,
-            'index0'.freeze    => index,
-            'rindex'.freeze    => length - index,
-            'rindex0'.freeze   => length - index - 1,
-            'first'.freeze     => (index == 0),
-            'last'.freeze      => (index == length - 1),
-            'col_first'.freeze => (col == 0),
-            'col_last'.freeze  => (col == cols - 1)
-          }
+          column.each_with_index do |item, row|
+            context[@variable_name] = item
+            context['gridloop'.freeze] = {
+              'length'.freeze    => length,
+              'index'.freeze     => index + 1,
+              'index0'.freeze    => index,
+              'col'.freeze       => col + 1,
+              'col0'.freeze      => col,
+              'index0'.freeze    => index,
+              'rindex'.freeze    => length - index,
+              'rindex0'.freeze   => length - index - 1,
+              'first'.freeze     => (index == 0),
+              'last'.freeze      => (index == length - 1),
+              'col_first'.freeze => (col == 0),
+              'col_last'.freeze  => (col == cols - 1)
+            }
 
+            result << render_all(@nodelist, context)
 
-          col += 1
-
-          grid[row-1] << render_all(@nodelist, context)
-
-          if col == cols and (index != length - 1)
-            col  = 0
-            row += 1
-            grid << []
+            index += 1
           end
 
+          result << "</div>"
         end
       end
 
-      # direction = @attributes['direction'] ? context[@attributes['direction']] : 'vertical'
-
-      # if direction == 'vertical'
-        (cols - col).times { grid[row-1] << "" }
-        grid.transpose
-      # end
-
-      grid.map do |items|
-        %Q{<div class="column">#{items.join("\n")}</div>}
-      end.join("\n")
+      result
     end
   end
 
