@@ -13,7 +13,7 @@ class Content < ActiveRecord::Base
     }
   }
 
-  liquid_methods :name, :episode, :duration, :has_duration?, :id, :available?, :principal
+  liquid_methods :name, :episode, :slug, :duration, :has_duration?, :id, :available?, :principal
 
   validates_presence_of :name, :message => "Pas de nom défini"
   validates_length_of :name, :within => 3..40, :too_short => "Le nom est trop court", :too_long => "Le nom est trop long"
