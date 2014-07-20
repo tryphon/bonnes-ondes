@@ -10,7 +10,7 @@ gem 'user_interface', :git => 'git://projects.tryphon.priv/user-interface', :bra
 gem 'RedCloth'
 gem 'red_cloth_formatters_plain'
 gem 'will_paginate'
-gem 'liquid'
+gem 'liquid', :git => 'git://github.com/Shopify/liquid.git'
 gem 'exception_notification'
 gem 'acts-as-list'
 gem 'audiobank-client', '~> 0.0.2'
