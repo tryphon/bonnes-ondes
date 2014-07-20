@@ -31,4 +31,12 @@ class Post::LiquidDropClass
     view.post_url(@object)
   end
 
+  def publication_distance
+    ((@object.created_at - Time.zone.now) / 1.minute).to_i
+  end
+
+  def publication_days
+    ((@object.created_at - Time.zone.now) / 1.day).to_i
+  end
+
 end
