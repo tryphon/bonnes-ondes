@@ -131,4 +131,16 @@ class AudiobankContent < Content
     self
   end
 
+  def to_liquid
+    AudiobankContent::LiquidDropClass.new self
+  end
+
+end
+
+class AudiobankContent::LiquidDropClass < Content::LiquidDropClass
+
+  def audiobank_cast
+    @object.audiobank_cast
+  end
+
 end
