@@ -73,3 +73,4 @@ end
 
 Liquid::Template.register_filter Liquid::ImageFilters
 Liquid::Template.register_filter Liquid::AudioPlayerFilters
+Liquid::Template.register_tag('grid'.freeze, Liquid::Grid)
