@@ -41,6 +41,11 @@ class Radio::LiquidDropClass
   def url_for
     view.radio_url(@object)
   end
+
+  def tag
+    @radio_tags ||= RadioTags.new(@object)
+  end
+
 end
 
 class RadioShows < Liquid::Drop
@@ -51,6 +56,18 @@ class RadioShows < Liquid::Drop
 
   def [](key)
     @radio.shows.find_by_slug(key)
+  end
+
+end
+
+class RadioTags < Liquid::Drop
+
+  def initialize(radio)
+    @radio = radio
+  end
+
+  def [](key)
+    Episode.sort @radio.episodes.find_tagged_with(key)
   end
 
 end
