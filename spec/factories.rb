@@ -11,13 +11,15 @@ Factory.define :user do |u|
   u.activated_at Time.zone.now
 end
 
-Factory.define :show do |f|
+Factory.define :show_without_episode, class: Show do |f|
   f.sequence(:slug) { |n| "slug-#{n}" }
   f.name "name"
   f.description "description"
   f.users { |users| [users.association(:user)] }
   f.association :template
+end
 
+Factory.define :show, parent: :show_without_episode do |f|
   f.after_build do |show|
     2.times { show.episodes << Factory.build(:episode, :show => show) }
   end
