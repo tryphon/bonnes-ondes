@@ -10,7 +10,9 @@
 <%= link_to("Voir", show_url(@show), :class => "view", :target => :blank) %>
 <%= link_to("Modifier", edit_admin_show_path(@show), :class => "edit") %>
 <%= link_to("Logo", edit_admin_show_logo_path(@show), :class => "edit_show_logo") %>
+<% if @show.destroyable? %>
 <%= link_to("Supprimer", admin_show_path(@show), :method => :delete, :confirm => "Etes-vous sûr de vouloir définitivement supprimer cette émission ?", :class => "destroy") %>
+<% end %>
 </div>
 
 <h3>Episodes</h3>

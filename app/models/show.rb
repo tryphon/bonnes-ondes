@@ -106,6 +106,10 @@ class Show < ActiveRecord::Base
     slug
   end
 
+  def destroyable?
+    episodes.empty?
+  end
+
 end
 
 # TODO move this f... code anywhere else
