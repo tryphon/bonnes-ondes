@@ -4,7 +4,6 @@ class Admin::ImagesController < AdminController
   protected
 
   def collection
-    @images = end_of_association_chain.paginate(:page => params[:page])
+    @images ||= end_of_association_chain.paginate(:page => params[:page]).order("created_at desc")
   end
-
 end
