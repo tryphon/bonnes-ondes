@@ -10,7 +10,7 @@ class Image < ActiveRecord::Base
 
   validates_presence_of :content
   validates_size_of :content, :maximum => 5.megabytes
-  validates_property :format, :of => :content, :in => [:jpg, :png, :gif]
+  validates_property :format, of: :content, in: [:jpg, :png, :gif], case_sensitive: false
 
   @@default_geometry = "200x200>"
   cattr_accessor :default_geometry
